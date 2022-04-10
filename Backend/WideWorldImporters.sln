@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ODataSample.Backend", "WideWorldImporters.Api\WideWorldImporters.Api.csproj", "{F824EC08-E827-4EC6-93E6-C9FC74741782}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODataSample.Database", "WideWorldImporters.Database\WideWorldImporters.Database.csproj", "{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C77A9A3-BFAB-42F1-B465-8C48CFCC8740}
+	EndGlobalSection
+EndGlobal
