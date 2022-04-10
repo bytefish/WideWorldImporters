@@ -1,0 +1,91 @@
+<clr-datagrid  (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+    <!-- Columns -->
+    <clr-dg-column [clrDgField]="'customerId'">
+        <clr-dg-filter>
+            <app-string-filter field="customerId"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.customerId }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'customerName'">
+        <clr-dg-filter>
+            <app-string-filter field="customerName"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.customerName }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'postalAddressLine1'">
+        <clr-dg-filter>
+            <app-string-filter field="postalAddressLine1"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.postalAddressLine1 }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'postalAddressLine2'">
+        <clr-dg-filter>
+            <app-string-filter field="postalAddressLine2"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.postalAddressLine2 }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'postalPostalCode'">
+        <clr-dg-filter>
+            <app-string-filter field="postalPostalCode"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.postalPostalCode }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'deliveryAddressLine1'">
+        <clr-dg-filter>
+            <app-string-filter field="deliveryAddressLine1"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.deliveryAddressLine1 }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'deliveryAddressLine2'">
+        <clr-dg-filter>
+            <app-string-filter field="deliveryAddressLine2"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.deliveryAddressLine2 }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'deliveryPostalCode'">
+        <clr-dg-filter>
+            <app-string-filter field="deliveryPostalCode"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.deliveryPostalCode }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'phoneNumber'">
+        <clr-dg-filter>
+            <app-string-filter field="phoneNumber"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.phoneNumber }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'faxNumber'">
+        <clr-dg-filter>
+            <app-string-filter field="faxNumber"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.customers.faxNumber }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'lastEditedBy'">
+        <clr-dg-filter>
+            <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.lastEditedBy}}
+    </clr-dg-column>
+    <!-- Row Binding -->
+    <clr-dg-row *ngFor="let country of tableData?.entities">
+        <clr-dg-cell>{{country.customerId}}</clr-dg-cell>
+        <clr-dg-cell>{{country.customerName}}</clr-dg-cell>
+        <clr-dg-cell>{{country.postalAddressLine1}}</clr-dg-cell>
+        <clr-dg-cell>{{country.postalAddressLine2}}</clr-dg-cell>
+        <clr-dg-cell>{{country.postalPostalCode}}</clr-dg-cell>
+        <clr-dg-cell>{{country.deliveryAddressLine1}}</clr-dg-cell>
+        <clr-dg-cell>{{country.deliveryAddressLine2}}</clr-dg-cell>
+        <clr-dg-cell>{{country.deliveryPostalCode}}</clr-dg-cell>
+        <clr-dg-cell>{{country.phoneNumber}}</clr-dg-cell>
+        <clr-dg-cell>{{country.faxNumber}}</clr-dg-cell>
+        <clr-dg-cell>{{country.lastEditedByNavigation?.fullName}}</clr-dg-cell>
+    </clr-dg-row>
+    <!-- Footer -->
+    <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"
+            [clrDgTotalItems]="tableData?.metadata?.get('count')">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{ translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{ translations.keys.core.datagrid.pagination.of }} {{pagination.totalItems}}  {{ translations.keys.core.datagrid.pagination.items }}
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

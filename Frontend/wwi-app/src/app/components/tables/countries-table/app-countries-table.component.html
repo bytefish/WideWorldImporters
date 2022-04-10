@@ -1,0 +1,91 @@
+<clr-datagrid  (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+    <!-- Columns -->
+    <clr-dg-column [clrDgField]="'countryId'">
+        <clr-dg-filter>
+            <app-string-filter field="countryId"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.countryId }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'countryName'">
+        <clr-dg-filter>
+            <app-string-filter field="countryName"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.countryName }}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'formalName'">
+        <clr-dg-filter>
+            <app-string-filter field="formalName"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.formalName}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'isoAlpha3Code'">
+        <clr-dg-filter>
+            <app-string-filter field="isoAlpha3Code"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.isoAlpha3Code}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'isoNumericCode'">
+        <clr-dg-filter>
+            <app-string-filter field="isoNumericCode"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.isoNumericCode}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'countryType'">
+        <clr-dg-filter>
+            <app-string-filter field="countryType"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.countryType}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'latestRecordedPopulation'">
+        <clr-dg-filter>
+            <app-string-filter field="latestRecordedPopulation"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.latestRecordedPopulation}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'continent'">
+        <clr-dg-filter>
+            <app-string-filter field="continent"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.continent}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'region'">
+        <clr-dg-filter>
+            <app-string-filter field="region"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.region}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'subregion'">
+        <clr-dg-filter>
+            <app-string-filter field="subregion"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.subregion}}
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'lastEditedBy'">
+        <clr-dg-filter>
+            <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
+        </clr-dg-filter>
+        {{ translations.keys.tables.countries.lastEditedBy}}
+    </clr-dg-column>
+    <!-- Row Binding -->
+    <clr-dg-row *ngFor="let country of tableData?.entities">
+        <clr-dg-cell>{{country.countryId}}</clr-dg-cell>
+        <clr-dg-cell>{{country.countryName}}</clr-dg-cell>
+        <clr-dg-cell>{{country.formalName}}</clr-dg-cell>
+        <clr-dg-cell>{{country.isoAlpha3Code}}</clr-dg-cell>
+        <clr-dg-cell>{{country.isoNumericCode}}</clr-dg-cell>
+        <clr-dg-cell>{{country.countryType}}</clr-dg-cell>
+        <clr-dg-cell>{{country.latestRecordedPopulation}}</clr-dg-cell>
+        <clr-dg-cell>{{country.continent}}</clr-dg-cell>
+        <clr-dg-cell>{{country.region}}</clr-dg-cell>
+        <clr-dg-cell>{{country.subregion}}</clr-dg-cell>
+        <clr-dg-cell>{{country.lastEditedByNavigation?.fullName}}</clr-dg-cell>
+    </clr-dg-row>
+    <!-- Footer -->
+    <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10"
+            [clrDgTotalItems]="tableData?.metadata?.get('count')">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{ translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{ translations.keys.core.datagrid.pagination.of }} {{pagination.totalItems}}  {{ translations.keys.core.datagrid.pagination.items }}
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>
