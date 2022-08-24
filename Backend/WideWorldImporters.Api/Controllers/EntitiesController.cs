@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using WideWorldImporters.Api.Services;
 using Microsoft.OpenApi.OData;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi;
+using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 using WideWorldImporters.Database.Models;
 
@@ -31,10 +31,10 @@ namespace WideWorldImporters.Api.Controllers
 
         #region Swagger Endpoint
         
-        [HttpGet("odata/$swagger")]
-        public IActionResult GetSwaggerDocument([FromServices] IEdmService edmService)
+        [HttpGet("odata/swagger.json")]
+        public IActionResult GetSwaggerDocument()
         {
-            var edmModel = edmService.GetEdmModel();
+            var edmModel = ApplicationEdmModel.GetEdmModel();
 
             // Convert to OpenApi:
             var openApiSettings = new OpenApiConvertSettings
@@ -44,10 +44,11 @@ namespace WideWorldImporters.Api.Controllers
                 EnableKeyAsSegment = true,
             };
 
-            var openApiDocument = edmModel.ConvertToOpenApi(openApiSettings);
-            var openApiDocumentAsJson = openApiDocument.SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
+            var openApiDocument = edmModel
+                .ConvertToOpenApi(openApiSettings)
+                .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
 
-            return Content(openApiDocumentAsJson, "application/json");
+            return Content(openApiDocument, "application/json");
         }
 
         #endregion Swagger Endpoint

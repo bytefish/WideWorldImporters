@@ -108,5 +108,7 @@
       }
     }
   },
-  "defaultProject": "clarity-app"
+  "cli": {
+    "analytics": false
+  }
 }

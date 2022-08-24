@@ -7,11 +7,11 @@ namespace WideWorldImporters.Database.Models
 {
     public partial class SystemParameter
     {
-        public Geography? EdmDeliveryLocation
+        public GeographyPoint? EdmDeliveryLocation
         {
             get
             {
-                return GeographyConverter.ConvertTo(DeliveryLocation);
+                return GeographyConverter.ConvertTo<GeographyPoint>(DeliveryLocation);
             }
 
             set

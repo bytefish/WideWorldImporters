@@ -5,18 +5,11 @@ using Microsoft.OData.ModelBuilder;
 using Microsoft.Spatial;
 using WideWorldImporters.Database.Models;
 
-namespace WideWorldImporters.Api.Services
+namespace WideWorldImporters.Api.Models
 {
-    /// <summary>
-    /// Uses an <see cref="ODataConventionModelBuilder"/> to build an <see cref="IEdmModel" />.
-    /// </summary>
-    public class EdmService : IEdmService
+    public static class ApplicationEdmModel
     {
-        /// <summary>
-        /// Builds a <see cref="IEdmModel" />.
-        /// </summary>
-        /// <returns>The <see cref="IEdmModel"/> for the application</returns>
-        public IEdmModel GetEdmModel()
+        public static IEdmModel GetEdmModel()
         {
             var modelBuilder = new ODataConventionModelBuilder();
 
@@ -43,7 +36,7 @@ namespace WideWorldImporters.Api.Services
             modelBuilder.EntitySet<StockGroup>("StockGroups");
             modelBuilder.EntitySet<StockItem>("StockItems");
             modelBuilder.EntitySet<StockItemHolding>("StockItemHoldings");
-            modelBuilder.EntitySet<StockItemStockGroup>("StockItemStockGroup");
+            modelBuilder.EntitySet<StockItemStockGroup>("StockItemStockGroups");
             modelBuilder.EntitySet<StockItemTransaction>("StockItemTransactions");
             modelBuilder.EntitySet<Supplier>("Suppliers");
             modelBuilder.EntitySet<SupplierCategory>("SupplierCategories");
@@ -66,6 +59,15 @@ namespace WideWorldImporters.Api.Services
             return modelBuilder.GetEdmModel();
         }
 
+        /// <summary>
+        /// EF Core Scaffolding generates NetTopologySuite types for SQL Server 
+        /// Spatial types. There are incompatible with OData, which only supports 
+        /// Microsoft.Spatial types. 
+        /// 
+        /// So we rewrite the convention-based EDM model here to ignore the NetTopology 
+        /// Suite properties and use our custom properties instead.
+        /// </summary>
+        /// <param name="modelBuilder">ModelBuilder to configure the EDM model</param>
         private static void BuildGeometryTypes(ODataConventionModelBuilder modelBuilder)
         {
             modelBuilder.ComplexType<Geography>();

@@ -17,10 +17,10 @@ export class CitiesTableComponent {
 
   loading: boolean = true;
   filterOpen: boolean = false;
-  tableData!: ODataEntitiesResponse<City>;
+  tableData: ODataEntitiesResponse<City> | null;
 
   constructor(public odataService: ODataService, public translations: TranslationService) {
-
+    this.tableData = null;
   }
 
   refresh(state: ClrDatagridStateInterface) {

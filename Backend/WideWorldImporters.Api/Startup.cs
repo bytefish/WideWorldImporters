@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Query.Expressions;
 using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Api.Infrastructure.Spatial.Binder;
-using WideWorldImporters.Api.Services;
+using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 
 namespace WideWorldImporters.Api
@@ -21,9 +21,6 @@ namespace WideWorldImporters.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Register Application Services:
-            services.AddSingleton<IEdmService, EdmService>();
-
             // Register DbContexts:
             services.AddDbContext<WideWorldImportersContext>(options =>
             {
@@ -48,18 +45,14 @@ namespace WideWorldImporters.Api
                     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
                 })
                 // Register OData Routes:
-                .AddOData((opt, services) =>
+                .AddOData((opt) =>
                 {
-                    var edmService = services.GetRequiredService<IEdmService>();
-
-                    opt.AddRouteComponents("odata", edmService.GetEdmModel(), svcs =>
+                    opt.AddRouteComponents("odata", ApplicationEdmModel.GetEdmModel(), svcs =>
                     {
-                              svcs.AddSingleton<IFilterBinder, GeoDistanceFilterBinder>();
+                        svcs.AddSingleton<IFilterBinder, GeoDistanceFilterBinder>();
                     })
                     .EnableQueryFeatures().Select().Expand().OrderBy().Filter().Count(); 
                 });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +64,7 @@ namespace WideWorldImporters.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/odata/$swagger", "OData Swagger API");
+                    options.SwaggerEndpoint("/odata/swagger.json", "WideWorldImporters OData API");
                 });
             }
             else

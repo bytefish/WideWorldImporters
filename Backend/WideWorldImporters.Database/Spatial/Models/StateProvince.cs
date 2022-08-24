@@ -11,7 +11,7 @@ namespace WideWorldImporters.Database.Models
         {
             get
             {
-                return GeographyConverter.ConvertTo(Border);
+                return GeographyConverter.ConvertTo<Geography>(Border);
             }
 
             set

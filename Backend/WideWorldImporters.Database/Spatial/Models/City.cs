@@ -7,7 +7,7 @@ namespace WideWorldImporters.Database.Models
 {
     public partial class City
     {
-        public Geography? EdmLocation 
+        public GeographyPoint? EdmLocation 
         { 
             get 
             {
@@ -16,7 +16,7 @@ namespace WideWorldImporters.Database.Models
                     return default;
                 }
 
-                return GeographyConverter.ConvertTo(Location);
+                return GeographyConverter.ConvertTo<GeographyPoint>(Location);
             }
 
             set

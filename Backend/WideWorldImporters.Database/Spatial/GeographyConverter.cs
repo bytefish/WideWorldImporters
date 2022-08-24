@@ -6,7 +6,8 @@ namespace WideWorldImporters.Database.Spatial
     {
         private static readonly Microsoft.Spatial.WellKnownTextSqlFormatter _wellKnownTextFormatter = Microsoft.Spatial.WellKnownTextSqlFormatter.Create();
 
-        public static Microsoft.Spatial.Geography? ConvertTo(NetTopologySuite.Geometries.Geometry? dbGeometry)
+        public static TSpatialType? ConvertTo<TSpatialType>(NetTopologySuite.Geometries.Geometry? dbGeometry)
+            where TSpatialType : Microsoft.Spatial.Geography
         {
             if(dbGeometry == null)
             {
@@ -20,24 +21,20 @@ namespace WideWorldImporters.Database.Spatial
             switch (dbGeometry)
             {
                 case NetTopologySuite.Geometries.Point _:
-                    return ConvertTo<Microsoft.Spatial.GeographyPoint>(wellKnownText);
                 case NetTopologySuite.Geometries.MultiPoint _:
-                    return ConvertTo<Microsoft.Spatial.GeographyMultiPoint>(wellKnownText);
                 case NetTopologySuite.Geometries.Polygon _:
-                    return ConvertTo<Microsoft.Spatial.GeographyPolygon>(wellKnownText);
                 case NetTopologySuite.Geometries.MultiPolygon _:
-                    return ConvertTo<Microsoft.Spatial.GeographyMultiPolygon>(wellKnownText);
+                    return ConvertTo(wellKnownText);
                 default:
                     throw new ArgumentException($"Conversion for Type '{dbGeometry.GeometryType}' not supported");
             };
-        }
 
-        private static Microsoft.Spatial.Geography ConvertTo<TResult>(string wellKnownText)
-            where TResult : Microsoft.Spatial.Geography
-        {
-            using(var textReader = new StringReader(wellKnownText))
+            TSpatialType ConvertTo(string wellKnownText)
             {
-                    return _wellKnownTextFormatter.Read<TResult>(textReader);
+                using (var textReader = new StringReader(wellKnownText))
+                {
+                    return _wellKnownTextFormatter.Read<TSpatialType>(textReader);
+                }
             }
         }
 
