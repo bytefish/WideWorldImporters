@@ -1,8 +1,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { AppIcons } from "./icons";
-
-// A Menu Item:
+/**
+ * A menu item in the application, which can be an item in the side-menu, an 
+ * item in the header or an item in drop-down.
+ */
 export interface MenuItem {
     
     /**
@@ -16,10 +17,9 @@ export interface MenuItem {
     active?: boolean;
 
     /**
-     * An Icon, that needs to be part of the ``AppIcons`` enum, 
-     * so we can guarantee it's available.
+     * An Icon.
      */
-    icon?: AppIcons;
+    icon?: string | null;
 
     /**
      * The Name.

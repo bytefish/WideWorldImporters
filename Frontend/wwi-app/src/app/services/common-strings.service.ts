@@ -20,8 +20,8 @@ export class CommonStringsService {
      * The available Clarity component translations.
      */
     translations: Map<string, ClrCommonStrings> = new Map([
-        [ 'en', commonStringsDefault ],
-        [ 'de', germanLocale ],
+        ['en', commonStringsDefault],
+        ['de', germanLocale],
     ]);
 
     /**
@@ -40,7 +40,7 @@ export class CommonStringsService {
      * @param locale - Application locale
      */
     public set(locale: string) {
-        this.clrCommonStringsService.localize(this.get(locale));    
+        this.clrCommonStringsService.localize(this.get(locale));
     }
 
     /**
@@ -49,7 +49,7 @@ export class CommonStringsService {
      * @param locale - Application Locale
      * @returns The ``ClrCommonStrings`` for a given locale
      */
-    private get(locale: string) : ClrCommonStrings {
+    private get(locale: string): ClrCommonStrings {
         return this.translations.has(locale) ? this.translations.get(locale)! : commonStringsDefault;
     }
-  }
+}

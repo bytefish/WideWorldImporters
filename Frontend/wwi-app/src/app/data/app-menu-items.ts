@@ -1,6 +1,5 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { AppIcons } from "../models/icons";
 import { MenuItem } from "../models/menu-item";
 import { TranslationService } from "../services/translation.service";
 
@@ -53,7 +52,7 @@ export function sidebarMenuItems(translations: TranslationService): Array<MenuIt
             name: translations.keys.sidemenu.home,
             description: translations.keys.sidemenu.home,
             ariaLabel: translations.keys.sidemenu.home,
-            icon: AppIcons.Home,
+            icon: "home",
             url: "/home"
         },
         {
@@ -61,14 +60,13 @@ export function sidebarMenuItems(translations: TranslationService): Array<MenuIt
             name: translations.keys.sidemenu.tables,
             description: translations.keys.sidemenu.tables,
             ariaLabel: translations.keys.sidemenu.tables,
-            icon: AppIcons.Cloud,
+            icon: "world",
             children: [
                 {
                     id: "cities",
                     name: translations.keys.sidemenu.cities,
                     description: translations.keys.sidemenu.cities,
                     ariaLabel: translations.keys.sidemenu.cities,
-                    icon: AppIcons.Language,
                     url: "/tables/cities"
                 },
                 {
@@ -76,7 +74,6 @@ export function sidebarMenuItems(translations: TranslationService): Array<MenuIt
                     name: translations.keys.sidemenu.countries,
                     description: translations.keys.sidemenu.countries,
                     ariaLabel: translations.keys.sidemenu.countries,
-                    icon: AppIcons.Language,
                     url: "/tables/countries"
                 },
                 {
@@ -84,7 +81,6 @@ export function sidebarMenuItems(translations: TranslationService): Array<MenuIt
                     name: translations.keys.sidemenu.customers,
                     description: translations.keys.sidemenu.customers,
                     ariaLabel: translations.keys.sidemenu.customers,
-                    icon: AppIcons.Language,
                     url: "/tables/customers"
                 },
             ]

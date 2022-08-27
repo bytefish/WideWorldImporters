@@ -2,7 +2,9 @@
 
 import { Temporal } from "@js-temporal/polyfill";
 
-// Each Filter has a Type:
+/**
+ * Each Filter has a Type.
+ */
 export enum FilterType {
     NumericFilter = "numericFilter",
     StringFilter = "stringFilter",
@@ -10,7 +12,9 @@ export enum FilterType {
     BooleanFilter = "booleanFilter",
 };
 
-// All Filters share a common set of FilterOperators, such as "Greater Than"...
+/**
+ * All Filters share a common set of FilterOperators, such as "Greater Than"...
+ */
 export enum FilterOperator {
     None = "none",
     Before = "before",
@@ -36,52 +40,97 @@ export enum FilterOperator {
     All = "all"
 };
 
-// We need a way to return a Filter for each column:
+/**
+ * A Column Filter is applied to a field and knows 
+ */
 export interface ColumnFilter {
 
-    // Field.
+    /**
+     * Field to apply the Filter on.
+     */
     field: string;
 
-    // FilterOperator.
+    /**
+     * Filter operator, such as "IsNull", "StartsWith", ...
+     */
     filterOperator: FilterOperator;
 
-    // Applies a Filter
+    /**
+     * Applies the Filter.
+     */
     applyFilter(): void;
 
-    // Resets a Filter
+    /**
+     * Resets the Filter.
+     */
     resetFilter(): void;
 
-    // Returns a Filter
+    /**
+     * Returns the OData Filter.
+     */
     toODataFilter(): ODataFilter;
 }
 
-// Every OData Filter is applied to a specific field and provides a way to 
-// serialize itself into the OData Format:
+
+/**
+ * Every OData Filter is applied to a field and provides a way to serialize itself into the OData Format.
+ */
 export interface ODataFilter {
 
-    // Field to Filter.
+    /**
+     * Field to apply the Filter on.
+     */
     field: string;
 
-    // Operator.
+    /**
+     * The Filter operator, such as "IsNull", "StartsWith", ...
+     */
     operator: FilterOperator;
 
-    // Serializes the OData Filter.
+    /**
+     * Serializes the ODataFilter as a string.
+     */
     toODataString(): string | null;
 };
 
-// A Filter on Strings:
+/**
+ * OData Filter on a String field.
+ */
 export class ODataStringFilter implements ODataFilter {
 
+    /**
+     * Field to apply the Filter on.
+     */
     field: string;
+    
+    /**
+     * Operator to filter for.
+     */
     operator: FilterOperator;
+
+    /**
+     * The Value to filter.
+     */
     value: string | null;
 
+    /**
+     * Constructs a new ``StringFilter``.
+     * 
+     * @param field - Field to apply the Filter on.
+     * @param operator - Operator to filter for, such as "IsNull", "StartsWith", ...
+     * @param value - The Value to filter for.
+     */
     constructor(field: string, operator: FilterOperator, value: string | null) {
         this.field = field;
         this.operator = operator;
         this.value = value;
     }
 
+    /**
+     * Converts this Filter to an OData string.
+     * 
+     * @returns OData filter string for the field.
+     */
     toODataString(): string | null {
 
         if (this.operator == FilterOperator.None) {
@@ -115,14 +164,39 @@ export class ODataStringFilter implements ODataFilter {
     }
 }
 
-// A Filter on Dates and Date Ranges:
+/**
+ * A Filter for dates and date range queries.
+ */
 export class ODataDateFilter implements ODataFilter {
 
+    /**
+     * The field to apply the filter on.
+     */
     readonly field: string;
+
+    /**
+     * The filter operator to apply, such as "IsNull", "StartsWith", ...
+     */
     readonly operator: FilterOperator;
+
+    /**
+     * The start date for a range query.
+     */
     readonly startDate: Temporal.ZonedDateTime | null;
+
+    /**
+     * The end date for a range query.
+     */
     readonly endDate: Temporal.ZonedDateTime | null;
 
+    /**
+     * Builds a new Date Filter.
+     * 
+     * @param field - The field to apply the filter on. 
+     * @param operator - The filter operator to apply, such as "IsNull", "StartsWith", ...
+     * @param startDate - The start date for a range query.
+     * @param endDate - The end date for a range query.
+     */
     constructor(field: string, operator: FilterOperator, startDate: Temporal.ZonedDateTime | null, endDate: Temporal.ZonedDateTime | null) {
         this.field = field;
         this.operator = operator;
@@ -130,6 +204,11 @@ export class ODataDateFilter implements ODataFilter {
         this.endDate = endDate;
     }
 
+    /**
+     * Converts this Filter to an OData string.
+     * 
+     * @returns OData filter string for the field.
+     */
     toODataString(): string | null {
 
         if (this.operator == FilterOperator.None) {
@@ -167,6 +246,13 @@ export class ODataDateFilter implements ODataFilter {
         }
     }
 
+    /**
+     * Converts the ``ZonedDateTime`` into an OData-compatible string. OData needs 
+     * Dates to be formatted in UTC (Zulu) ISO format.
+     * 
+     * @param zonedDateTime - The ``ZonedDateTime`` to filter for.
+     * @returns OData representation for the ``ZonedDateTime``
+     */
     toODataDateTime(zonedDateTime: Temporal.ZonedDateTime | null): string | null {
         if(zonedDateTime == null) {
             return null;
@@ -180,17 +266,36 @@ export class ODataDateFilter implements ODataFilter {
     }
 };
 
-// A Filter on Boolean Values:
+/**
+ * A Filter for for boolean values.
+ */
 export class ODataBooleanFilter implements ODataFilter {
 
+    /**
+     * The field to apply the filter on.
+     */
     readonly field: string;
+
+    /**
+     * The filter operator to apply, such as "Yes", "No", ...
+     */
     readonly operator: FilterOperator;
 
+    /**
+     * 
+     * @param field - The field to apply the filter on.
+     * @param operator - The filter operator to apply, such as "Yes", "No", ...
+     */
     constructor(field: string, operator: FilterOperator) {
         this.field = field;
         this.operator = operator;
     }
 
+    /**
+     * Converts this Filter to an OData string.
+     * 
+     * @returns OData filter string for the field.
+     */
     toODataString(): string | null {
         
         if (this.operator == FilterOperator.None) {
@@ -212,14 +317,38 @@ export class ODataBooleanFilter implements ODataFilter {
     }
 }
 
-// A Filter on Numeric Values:
+/**
+ *  A Filter for numeric values and range queries.
+ */
 export class ODataNumericFilter implements ODataFilter {
 
+    /**
+     * The field to apply the filter on. 
+     */
     readonly field: string;
+
+    /**
+     * The filter operator to apply, such as "IsNull", "LessThan", ...
+     */
     readonly operator: FilterOperator;
+
+    /**
+     * Lower Bound for range queries.
+     */
     readonly low: number | null;
+
+    /**
+     * Upper Bound for Range Queries.
+     */
     readonly high: number | null;
 
+    /**
+     * 
+     * @param field - The field to apply the filter on. 
+     * @param operator - The filter operator to apply, such as "IsNull", "LessThan", ...
+     * @param low - Lower Bound for range queries.
+     * @param high - Upper Bound for Range Queries.
+     */
     constructor(field: string, operator: FilterOperator, low: number | null, high: number | null) {
         this.field = field;
         this.operator = operator;
@@ -227,6 +356,11 @@ export class ODataNumericFilter implements ODataFilter {
         this.high = high;
     }
 
+    /**
+     * Converts this Filter to an OData string.
+     * 
+     * @returns OData filter string for the field.
+     */
     toODataString(): string | null {
 
         if (this.operator == FilterOperator.None) {

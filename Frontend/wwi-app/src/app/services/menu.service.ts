@@ -15,7 +15,7 @@ import { TranslationService } from "./translation.service";
 export class MenuService {
 
     /**
-     * CTOR
+     * Builds a new ``MenuService``.
      * 
      * @param translationService - Translations to apply.
      */
