@@ -1,8 +1,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DropdownItem } from './models/dropdown-item';
+import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { MenuItem } from './models/menu-item';
 import { MenuService } from './services/menu.service';
 import { TranslationService } from './services/translation.service';
@@ -14,12 +13,11 @@ import { TranslationService } from './services/translation.service';
 })
 export class AppComponent implements OnInit {
 
-  sidenavMenu$!: Observable<MenuItem[]>;
-  headerMenu$!: Observable<MenuItem[]>;
-  dropdownMenu$!: Observable<MenuItem[]>;
+  sidenavMenu$: Observable<MenuItem[]> = of([]);
+  headerMenu$: Observable<MenuItem[] >= of([]);
+  dropdownMenu$: Observable<MenuItem[]> = of([]);
 
   constructor(public menuItemService: MenuService, public translations: TranslationService) {
-
   }
 
   ngOnInit(): void {
@@ -31,5 +29,4 @@ export class AppComponent implements OnInit {
   getChildren(menuItem: MenuItem): MenuItem[] | undefined {
     return menuItem.children;
   }
-
 }
