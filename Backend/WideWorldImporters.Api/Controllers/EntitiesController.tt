@@ -102,7 +102,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
+        [HttpGet("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
         public IActionResult Get<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>)
         {
             var entity = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
@@ -116,7 +116,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/<#= entitySet.EntitySetName #>")]
-        public IActionResult Post<#= entitySet.EntitySetName #>([FromBody]<#= entitySet.EntityName #> entity, CancellationToken token)
+        public IActionResult Post<#= entitySet.EntityName #>([FromBody]<#= entitySet.EntityName #> entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -125,7 +125,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
-        public IActionResult Put<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, [FromBody] Delta<<#= entitySet.EntityName #>> delta)
+        public IActionResult Put<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, [FromBody] Delta<<#= entitySet.EntityName #>> delta)
         {
             var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
             if (original == null)
@@ -138,8 +138,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
-        public IActionResult Patch<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, Delta<<#= entitySet.EntityName #> > delta)
+        [HttpPatch("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
+        public IActionResult Patch<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, Delta<<#= entitySet.EntityName #> > delta)
         {
             var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
 
@@ -155,8 +155,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
-        public IActionResult Delete<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>)
+        [HttpDelete("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
+        public IActionResult Delete<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>)
         {
             var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
 

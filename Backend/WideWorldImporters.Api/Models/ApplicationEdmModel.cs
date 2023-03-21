@@ -13,6 +13,8 @@ namespace WideWorldImporters.Api.Models
         {
             var modelBuilder = new ODataConventionModelBuilder();
 
+            modelBuilder.Namespace = "WideWorldImportersService";
+
             modelBuilder.EntitySet<BuyingGroup>("BuyingGroups");
             modelBuilder.EntitySet<City>("Cities");
             modelBuilder.EntitySet<ColdRoomTemperature>("ColdRoomTemperatures");

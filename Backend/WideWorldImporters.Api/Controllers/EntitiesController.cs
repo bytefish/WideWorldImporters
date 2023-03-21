@@ -63,7 +63,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/BuyingGroups/{buyingGroupsId:int}")]
+        [HttpGet("odata/BuyingGroups({buyingGroupsId:int})")]
         public IActionResult GetBuyingGroups(int buyingGroupsId)
         {
             var entity = _context.BuyingGroups.Find(buyingGroupsId);
@@ -77,7 +77,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/BuyingGroups")]
-        public IActionResult PostBuyingGroups([FromBody]BuyingGroup entity, CancellationToken token)
+        public IActionResult PostBuyingGroup([FromBody]BuyingGroup entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -86,7 +86,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/BuyingGroups/{buyingGroupsId:int}")]
-        public IActionResult PutBuyingGroups(int buyingGroupsId, [FromBody] Delta<BuyingGroup> delta)
+        public IActionResult PutBuyingGroup(int buyingGroupsId, [FromBody] Delta<BuyingGroup> delta)
         {
             var original = _context.BuyingGroups.Find(buyingGroupsId);
             if (original == null)
@@ -99,8 +99,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/BuyingGroups/{buyingGroupsId:int}")]
-        public IActionResult PatchBuyingGroups(int buyingGroupsId, Delta<BuyingGroup > delta)
+        [HttpPatch("odata/BuyingGroups({buyingGroupsId:int})")]
+        public IActionResult PatchBuyingGroup(int buyingGroupsId, Delta<BuyingGroup > delta)
         {
             var original = _context.BuyingGroups.Find(buyingGroupsId);
 
@@ -116,8 +116,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/BuyingGroups/{buyingGroupsId:int}")]
-        public IActionResult DeleteBuyingGroups(int buyingGroupsId)
+        [HttpDelete("odata/BuyingGroups({buyingGroupsId:int})")]
+        public IActionResult DeleteBuyingGroup(int buyingGroupsId)
         {
             var original = _context.BuyingGroups.Find(buyingGroupsId);
 
@@ -144,7 +144,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Cities/{cityId:int}")]
+        [HttpGet("odata/Cities({cityId:int})")]
         public IActionResult GetCities(int cityId)
         {
             var entity = _context.Cities.Find(cityId);
@@ -158,7 +158,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Cities")]
-        public IActionResult PostCities([FromBody]City entity, CancellationToken token)
+        public IActionResult PostCity([FromBody]City entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -167,7 +167,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Cities/{cityId:int}")]
-        public IActionResult PutCities(int cityId, [FromBody] Delta<City> delta)
+        public IActionResult PutCity(int cityId, [FromBody] Delta<City> delta)
         {
             var original = _context.Cities.Find(cityId);
             if (original == null)
@@ -180,8 +180,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Cities/{cityId:int}")]
-        public IActionResult PatchCities(int cityId, Delta<City > delta)
+        [HttpPatch("odata/Cities({cityId:int})")]
+        public IActionResult PatchCity(int cityId, Delta<City > delta)
         {
             var original = _context.Cities.Find(cityId);
 
@@ -197,8 +197,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Cities/{cityId:int}")]
-        public IActionResult DeleteCities(int cityId)
+        [HttpDelete("odata/Cities({cityId:int})")]
+        public IActionResult DeleteCity(int cityId)
         {
             var original = _context.Cities.Find(cityId);
 
@@ -225,7 +225,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
+        [HttpGet("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
         public IActionResult GetColdRoomTemperatures(long coldRoomTemperatureId)
         {
             var entity = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
@@ -239,7 +239,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/ColdRoomTemperatures")]
-        public IActionResult PostColdRoomTemperatures([FromBody]ColdRoomTemperature entity, CancellationToken token)
+        public IActionResult PostColdRoomTemperature([FromBody]ColdRoomTemperature entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -248,7 +248,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
-        public IActionResult PutColdRoomTemperatures(long coldRoomTemperatureId, [FromBody] Delta<ColdRoomTemperature> delta)
+        public IActionResult PutColdRoomTemperature(long coldRoomTemperatureId, [FromBody] Delta<ColdRoomTemperature> delta)
         {
             var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
             if (original == null)
@@ -261,8 +261,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
-        public IActionResult PatchColdRoomTemperatures(long coldRoomTemperatureId, Delta<ColdRoomTemperature > delta)
+        [HttpPatch("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
+        public IActionResult PatchColdRoomTemperature(long coldRoomTemperatureId, Delta<ColdRoomTemperature > delta)
         {
             var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
 
@@ -278,8 +278,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
-        public IActionResult DeleteColdRoomTemperatures(long coldRoomTemperatureId)
+        [HttpDelete("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
+        public IActionResult DeleteColdRoomTemperature(long coldRoomTemperatureId)
         {
             var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
 
@@ -306,7 +306,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Colors/{colorId:int}")]
+        [HttpGet("odata/Colors({colorId:int})")]
         public IActionResult GetColors(int colorId)
         {
             var entity = _context.Colors.Find(colorId);
@@ -320,7 +320,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Colors")]
-        public IActionResult PostColors([FromBody]Color entity, CancellationToken token)
+        public IActionResult PostColor([FromBody]Color entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -329,7 +329,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Colors/{colorId:int}")]
-        public IActionResult PutColors(int colorId, [FromBody] Delta<Color> delta)
+        public IActionResult PutColor(int colorId, [FromBody] Delta<Color> delta)
         {
             var original = _context.Colors.Find(colorId);
             if (original == null)
@@ -342,8 +342,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Colors/{colorId:int}")]
-        public IActionResult PatchColors(int colorId, Delta<Color > delta)
+        [HttpPatch("odata/Colors({colorId:int})")]
+        public IActionResult PatchColor(int colorId, Delta<Color > delta)
         {
             var original = _context.Colors.Find(colorId);
 
@@ -359,8 +359,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Colors/{colorId:int}")]
-        public IActionResult DeleteColors(int colorId)
+        [HttpDelete("odata/Colors({colorId:int})")]
+        public IActionResult DeleteColor(int colorId)
         {
             var original = _context.Colors.Find(colorId);
 
@@ -387,7 +387,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Countries/{countryId:int}")]
+        [HttpGet("odata/Countries({countryId:int})")]
         public IActionResult GetCountries(int countryId)
         {
             var entity = _context.Countries.Find(countryId);
@@ -401,7 +401,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Countries")]
-        public IActionResult PostCountries([FromBody]Country entity, CancellationToken token)
+        public IActionResult PostCountry([FromBody]Country entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -410,7 +410,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Countries/{countryId:int}")]
-        public IActionResult PutCountries(int countryId, [FromBody] Delta<Country> delta)
+        public IActionResult PutCountry(int countryId, [FromBody] Delta<Country> delta)
         {
             var original = _context.Countries.Find(countryId);
             if (original == null)
@@ -423,8 +423,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Countries/{countryId:int}")]
-        public IActionResult PatchCountries(int countryId, Delta<Country > delta)
+        [HttpPatch("odata/Countries({countryId:int})")]
+        public IActionResult PatchCountry(int countryId, Delta<Country > delta)
         {
             var original = _context.Countries.Find(countryId);
 
@@ -440,8 +440,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Countries/{countryId:int}")]
-        public IActionResult DeleteCountries(int countryId)
+        [HttpDelete("odata/Countries({countryId:int})")]
+        public IActionResult DeleteCountry(int countryId)
         {
             var original = _context.Countries.Find(countryId);
 
@@ -468,7 +468,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Customers/{customerId:int}")]
+        [HttpGet("odata/Customers({customerId:int})")]
         public IActionResult GetCustomers(int customerId)
         {
             var entity = _context.Customers.Find(customerId);
@@ -482,7 +482,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Customers")]
-        public IActionResult PostCustomers([FromBody]Customer entity, CancellationToken token)
+        public IActionResult PostCustomer([FromBody]Customer entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -491,7 +491,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Customers/{customerId:int}")]
-        public IActionResult PutCustomers(int customerId, [FromBody] Delta<Customer> delta)
+        public IActionResult PutCustomer(int customerId, [FromBody] Delta<Customer> delta)
         {
             var original = _context.Customers.Find(customerId);
             if (original == null)
@@ -504,8 +504,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Customers/{customerId:int}")]
-        public IActionResult PatchCustomers(int customerId, Delta<Customer > delta)
+        [HttpPatch("odata/Customers({customerId:int})")]
+        public IActionResult PatchCustomer(int customerId, Delta<Customer > delta)
         {
             var original = _context.Customers.Find(customerId);
 
@@ -521,8 +521,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Customers/{customerId:int}")]
-        public IActionResult DeleteCustomers(int customerId)
+        [HttpDelete("odata/Customers({customerId:int})")]
+        public IActionResult DeleteCustomer(int customerId)
         {
             var original = _context.Customers.Find(customerId);
 
@@ -549,7 +549,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/CustomerCategories/{customerCategoryId:int}")]
+        [HttpGet("odata/CustomerCategories({customerCategoryId:int})")]
         public IActionResult GetCustomerCategories(int customerCategoryId)
         {
             var entity = _context.CustomerCategories.Find(customerCategoryId);
@@ -563,7 +563,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/CustomerCategories")]
-        public IActionResult PostCustomerCategories([FromBody]CustomerCategory entity, CancellationToken token)
+        public IActionResult PostCustomerCategory([FromBody]CustomerCategory entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -572,7 +572,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/CustomerCategories/{customerCategoryId:int}")]
-        public IActionResult PutCustomerCategories(int customerCategoryId, [FromBody] Delta<CustomerCategory> delta)
+        public IActionResult PutCustomerCategory(int customerCategoryId, [FromBody] Delta<CustomerCategory> delta)
         {
             var original = _context.CustomerCategories.Find(customerCategoryId);
             if (original == null)
@@ -585,8 +585,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/CustomerCategories/{customerCategoryId:int}")]
-        public IActionResult PatchCustomerCategories(int customerCategoryId, Delta<CustomerCategory > delta)
+        [HttpPatch("odata/CustomerCategories({customerCategoryId:int})")]
+        public IActionResult PatchCustomerCategory(int customerCategoryId, Delta<CustomerCategory > delta)
         {
             var original = _context.CustomerCategories.Find(customerCategoryId);
 
@@ -602,8 +602,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/CustomerCategories/{customerCategoryId:int}")]
-        public IActionResult DeleteCustomerCategories(int customerCategoryId)
+        [HttpDelete("odata/CustomerCategories({customerCategoryId:int})")]
+        public IActionResult DeleteCustomerCategory(int customerCategoryId)
         {
             var original = _context.CustomerCategories.Find(customerCategoryId);
 
@@ -630,7 +630,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/CustomerTransactions/{customerTransactionId:int}")]
+        [HttpGet("odata/CustomerTransactions({customerTransactionId:int})")]
         public IActionResult GetCustomerTransactions(int customerTransactionId)
         {
             var entity = _context.CustomerTransactions.Find(customerTransactionId);
@@ -644,7 +644,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/CustomerTransactions")]
-        public IActionResult PostCustomerTransactions([FromBody]CustomerTransaction entity, CancellationToken token)
+        public IActionResult PostCustomerTransaction([FromBody]CustomerTransaction entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -653,7 +653,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/CustomerTransactions/{customerTransactionId:int}")]
-        public IActionResult PutCustomerTransactions(int customerTransactionId, [FromBody] Delta<CustomerTransaction> delta)
+        public IActionResult PutCustomerTransaction(int customerTransactionId, [FromBody] Delta<CustomerTransaction> delta)
         {
             var original = _context.CustomerTransactions.Find(customerTransactionId);
             if (original == null)
@@ -666,8 +666,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/CustomerTransactions/{customerTransactionId:int}")]
-        public IActionResult PatchCustomerTransactions(int customerTransactionId, Delta<CustomerTransaction > delta)
+        [HttpPatch("odata/CustomerTransactions({customerTransactionId:int})")]
+        public IActionResult PatchCustomerTransaction(int customerTransactionId, Delta<CustomerTransaction > delta)
         {
             var original = _context.CustomerTransactions.Find(customerTransactionId);
 
@@ -683,8 +683,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/CustomerTransactions/{customerTransactionId:int}")]
-        public IActionResult DeleteCustomerTransactions(int customerTransactionId)
+        [HttpDelete("odata/CustomerTransactions({customerTransactionId:int})")]
+        public IActionResult DeleteCustomerTransaction(int customerTransactionId)
         {
             var original = _context.CustomerTransactions.Find(customerTransactionId);
 
@@ -711,7 +711,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/DeliveryMethods/{deliveryMethodId:int}")]
+        [HttpGet("odata/DeliveryMethods({deliveryMethodId:int})")]
         public IActionResult GetDeliveryMethods(int deliveryMethodId)
         {
             var entity = _context.DeliveryMethods.Find(deliveryMethodId);
@@ -725,7 +725,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/DeliveryMethods")]
-        public IActionResult PostDeliveryMethods([FromBody]DeliveryMethod entity, CancellationToken token)
+        public IActionResult PostDeliveryMethod([FromBody]DeliveryMethod entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -734,7 +734,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/DeliveryMethods/{deliveryMethodId:int}")]
-        public IActionResult PutDeliveryMethods(int deliveryMethodId, [FromBody] Delta<DeliveryMethod> delta)
+        public IActionResult PutDeliveryMethod(int deliveryMethodId, [FromBody] Delta<DeliveryMethod> delta)
         {
             var original = _context.DeliveryMethods.Find(deliveryMethodId);
             if (original == null)
@@ -747,8 +747,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/DeliveryMethods/{deliveryMethodId:int}")]
-        public IActionResult PatchDeliveryMethods(int deliveryMethodId, Delta<DeliveryMethod > delta)
+        [HttpPatch("odata/DeliveryMethods({deliveryMethodId:int})")]
+        public IActionResult PatchDeliveryMethod(int deliveryMethodId, Delta<DeliveryMethod > delta)
         {
             var original = _context.DeliveryMethods.Find(deliveryMethodId);
 
@@ -764,8 +764,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/DeliveryMethods/{deliveryMethodId:int}")]
-        public IActionResult DeleteDeliveryMethods(int deliveryMethodId)
+        [HttpDelete("odata/DeliveryMethods({deliveryMethodId:int})")]
+        public IActionResult DeleteDeliveryMethod(int deliveryMethodId)
         {
             var original = _context.DeliveryMethods.Find(deliveryMethodId);
 
@@ -792,7 +792,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Invoices/{invoiceId:int}")]
+        [HttpGet("odata/Invoices({invoiceId:int})")]
         public IActionResult GetInvoices(int invoiceId)
         {
             var entity = _context.Invoices.Find(invoiceId);
@@ -806,7 +806,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Invoices")]
-        public IActionResult PostInvoices([FromBody]Invoice entity, CancellationToken token)
+        public IActionResult PostInvoice([FromBody]Invoice entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -815,7 +815,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Invoices/{invoiceId:int}")]
-        public IActionResult PutInvoices(int invoiceId, [FromBody] Delta<Invoice> delta)
+        public IActionResult PutInvoice(int invoiceId, [FromBody] Delta<Invoice> delta)
         {
             var original = _context.Invoices.Find(invoiceId);
             if (original == null)
@@ -828,8 +828,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Invoices/{invoiceId:int}")]
-        public IActionResult PatchInvoices(int invoiceId, Delta<Invoice > delta)
+        [HttpPatch("odata/Invoices({invoiceId:int})")]
+        public IActionResult PatchInvoice(int invoiceId, Delta<Invoice > delta)
         {
             var original = _context.Invoices.Find(invoiceId);
 
@@ -845,8 +845,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Invoices/{invoiceId:int}")]
-        public IActionResult DeleteInvoices(int invoiceId)
+        [HttpDelete("odata/Invoices({invoiceId:int})")]
+        public IActionResult DeleteInvoice(int invoiceId)
         {
             var original = _context.Invoices.Find(invoiceId);
 
@@ -873,7 +873,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/InvoiceLines/{invoiceLineId:int}")]
+        [HttpGet("odata/InvoiceLines({invoiceLineId:int})")]
         public IActionResult GetInvoiceLines(int invoiceLineId)
         {
             var entity = _context.InvoiceLines.Find(invoiceLineId);
@@ -887,7 +887,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/InvoiceLines")]
-        public IActionResult PostInvoiceLines([FromBody]InvoiceLine entity, CancellationToken token)
+        public IActionResult PostInvoiceLine([FromBody]InvoiceLine entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -896,7 +896,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/InvoiceLines/{invoiceLineId:int}")]
-        public IActionResult PutInvoiceLines(int invoiceLineId, [FromBody] Delta<InvoiceLine> delta)
+        public IActionResult PutInvoiceLine(int invoiceLineId, [FromBody] Delta<InvoiceLine> delta)
         {
             var original = _context.InvoiceLines.Find(invoiceLineId);
             if (original == null)
@@ -909,8 +909,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/InvoiceLines/{invoiceLineId:int}")]
-        public IActionResult PatchInvoiceLines(int invoiceLineId, Delta<InvoiceLine > delta)
+        [HttpPatch("odata/InvoiceLines({invoiceLineId:int})")]
+        public IActionResult PatchInvoiceLine(int invoiceLineId, Delta<InvoiceLine > delta)
         {
             var original = _context.InvoiceLines.Find(invoiceLineId);
 
@@ -926,8 +926,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/InvoiceLines/{invoiceLineId:int}")]
-        public IActionResult DeleteInvoiceLines(int invoiceLineId)
+        [HttpDelete("odata/InvoiceLines({invoiceLineId:int})")]
+        public IActionResult DeleteInvoiceLine(int invoiceLineId)
         {
             var original = _context.InvoiceLines.Find(invoiceLineId);
 
@@ -954,7 +954,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Orders/{orderId:int}")]
+        [HttpGet("odata/Orders({orderId:int})")]
         public IActionResult GetOrders(int orderId)
         {
             var entity = _context.Orders.Find(orderId);
@@ -968,7 +968,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Orders")]
-        public IActionResult PostOrders([FromBody]Order entity, CancellationToken token)
+        public IActionResult PostOrder([FromBody]Order entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -977,7 +977,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Orders/{orderId:int}")]
-        public IActionResult PutOrders(int orderId, [FromBody] Delta<Order> delta)
+        public IActionResult PutOrder(int orderId, [FromBody] Delta<Order> delta)
         {
             var original = _context.Orders.Find(orderId);
             if (original == null)
@@ -990,8 +990,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Orders/{orderId:int}")]
-        public IActionResult PatchOrders(int orderId, Delta<Order > delta)
+        [HttpPatch("odata/Orders({orderId:int})")]
+        public IActionResult PatchOrder(int orderId, Delta<Order > delta)
         {
             var original = _context.Orders.Find(orderId);
 
@@ -1007,8 +1007,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Orders/{orderId:int}")]
-        public IActionResult DeleteOrders(int orderId)
+        [HttpDelete("odata/Orders({orderId:int})")]
+        public IActionResult DeleteOrder(int orderId)
         {
             var original = _context.Orders.Find(orderId);
 
@@ -1035,7 +1035,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/OrderLines/{orderLineId:int}")]
+        [HttpGet("odata/OrderLines({orderLineId:int})")]
         public IActionResult GetOrderLines(int orderLineId)
         {
             var entity = _context.OrderLines.Find(orderLineId);
@@ -1049,7 +1049,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/OrderLines")]
-        public IActionResult PostOrderLines([FromBody]OrderLine entity, CancellationToken token)
+        public IActionResult PostOrderLine([FromBody]OrderLine entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1058,7 +1058,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/OrderLines/{orderLineId:int}")]
-        public IActionResult PutOrderLines(int orderLineId, [FromBody] Delta<OrderLine> delta)
+        public IActionResult PutOrderLine(int orderLineId, [FromBody] Delta<OrderLine> delta)
         {
             var original = _context.OrderLines.Find(orderLineId);
             if (original == null)
@@ -1071,8 +1071,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/OrderLines/{orderLineId:int}")]
-        public IActionResult PatchOrderLines(int orderLineId, Delta<OrderLine > delta)
+        [HttpPatch("odata/OrderLines({orderLineId:int})")]
+        public IActionResult PatchOrderLine(int orderLineId, Delta<OrderLine > delta)
         {
             var original = _context.OrderLines.Find(orderLineId);
 
@@ -1088,8 +1088,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/OrderLines/{orderLineId:int}")]
-        public IActionResult DeleteOrderLines(int orderLineId)
+        [HttpDelete("odata/OrderLines({orderLineId:int})")]
+        public IActionResult DeleteOrderLine(int orderLineId)
         {
             var original = _context.OrderLines.Find(orderLineId);
 
@@ -1116,7 +1116,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PackageTypes/{packageTypeId:int}")]
+        [HttpGet("odata/PackageTypes({packageTypeId:int})")]
         public IActionResult GetPackageTypes(int packageTypeId)
         {
             var entity = _context.PackageTypes.Find(packageTypeId);
@@ -1130,7 +1130,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/PackageTypes")]
-        public IActionResult PostPackageTypes([FromBody]PackageType entity, CancellationToken token)
+        public IActionResult PostPackageType([FromBody]PackageType entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1139,7 +1139,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PackageTypes/{packageTypeId:int}")]
-        public IActionResult PutPackageTypes(int packageTypeId, [FromBody] Delta<PackageType> delta)
+        public IActionResult PutPackageType(int packageTypeId, [FromBody] Delta<PackageType> delta)
         {
             var original = _context.PackageTypes.Find(packageTypeId);
             if (original == null)
@@ -1152,8 +1152,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/PackageTypes/{packageTypeId:int}")]
-        public IActionResult PatchPackageTypes(int packageTypeId, Delta<PackageType > delta)
+        [HttpPatch("odata/PackageTypes({packageTypeId:int})")]
+        public IActionResult PatchPackageType(int packageTypeId, Delta<PackageType > delta)
         {
             var original = _context.PackageTypes.Find(packageTypeId);
 
@@ -1169,8 +1169,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PackageTypes/{packageTypeId:int}")]
-        public IActionResult DeletePackageTypes(int packageTypeId)
+        [HttpDelete("odata/PackageTypes({packageTypeId:int})")]
+        public IActionResult DeletePackageType(int packageTypeId)
         {
             var original = _context.PackageTypes.Find(packageTypeId);
 
@@ -1197,7 +1197,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PaymentMethods/{paymentMethodId:int}")]
+        [HttpGet("odata/PaymentMethods({paymentMethodId:int})")]
         public IActionResult GetPaymentMethods(int paymentMethodId)
         {
             var entity = _context.PaymentMethods.Find(paymentMethodId);
@@ -1211,7 +1211,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/PaymentMethods")]
-        public IActionResult PostPaymentMethods([FromBody]PaymentMethod entity, CancellationToken token)
+        public IActionResult PostPaymentMethod([FromBody]PaymentMethod entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1220,7 +1220,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PaymentMethods/{paymentMethodId:int}")]
-        public IActionResult PutPaymentMethods(int paymentMethodId, [FromBody] Delta<PaymentMethod> delta)
+        public IActionResult PutPaymentMethod(int paymentMethodId, [FromBody] Delta<PaymentMethod> delta)
         {
             var original = _context.PaymentMethods.Find(paymentMethodId);
             if (original == null)
@@ -1233,8 +1233,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/PaymentMethods/{paymentMethodId:int}")]
-        public IActionResult PatchPaymentMethods(int paymentMethodId, Delta<PaymentMethod > delta)
+        [HttpPatch("odata/PaymentMethods({paymentMethodId:int})")]
+        public IActionResult PatchPaymentMethod(int paymentMethodId, Delta<PaymentMethod > delta)
         {
             var original = _context.PaymentMethods.Find(paymentMethodId);
 
@@ -1250,8 +1250,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PaymentMethods/{paymentMethodId:int}")]
-        public IActionResult DeletePaymentMethods(int paymentMethodId)
+        [HttpDelete("odata/PaymentMethods({paymentMethodId:int})")]
+        public IActionResult DeletePaymentMethod(int paymentMethodId)
         {
             var original = _context.PaymentMethods.Find(paymentMethodId);
 
@@ -1278,7 +1278,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/People/{personId:int}")]
+        [HttpGet("odata/People({personId:int})")]
         public IActionResult GetPeople(int personId)
         {
             var entity = _context.People.Find(personId);
@@ -1292,7 +1292,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/People")]
-        public IActionResult PostPeople([FromBody]Person entity, CancellationToken token)
+        public IActionResult PostPerson([FromBody]Person entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1301,7 +1301,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/People/{personId:int}")]
-        public IActionResult PutPeople(int personId, [FromBody] Delta<Person> delta)
+        public IActionResult PutPerson(int personId, [FromBody] Delta<Person> delta)
         {
             var original = _context.People.Find(personId);
             if (original == null)
@@ -1314,8 +1314,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/People/{personId:int}")]
-        public IActionResult PatchPeople(int personId, Delta<Person > delta)
+        [HttpPatch("odata/People({personId:int})")]
+        public IActionResult PatchPerson(int personId, Delta<Person > delta)
         {
             var original = _context.People.Find(personId);
 
@@ -1331,8 +1331,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/People/{personId:int}")]
-        public IActionResult DeletePeople(int personId)
+        [HttpDelete("odata/People({personId:int})")]
+        public IActionResult DeletePerson(int personId)
         {
             var original = _context.People.Find(personId);
 
@@ -1359,7 +1359,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PurchaseOrders/{purchaseOrderId:int}")]
+        [HttpGet("odata/PurchaseOrders({purchaseOrderId:int})")]
         public IActionResult GetPurchaseOrders(int purchaseOrderId)
         {
             var entity = _context.PurchaseOrders.Find(purchaseOrderId);
@@ -1373,7 +1373,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/PurchaseOrders")]
-        public IActionResult PostPurchaseOrders([FromBody]PurchaseOrder entity, CancellationToken token)
+        public IActionResult PostPurchaseOrder([FromBody]PurchaseOrder entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1382,7 +1382,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PurchaseOrders/{purchaseOrderId:int}")]
-        public IActionResult PutPurchaseOrders(int purchaseOrderId, [FromBody] Delta<PurchaseOrder> delta)
+        public IActionResult PutPurchaseOrder(int purchaseOrderId, [FromBody] Delta<PurchaseOrder> delta)
         {
             var original = _context.PurchaseOrders.Find(purchaseOrderId);
             if (original == null)
@@ -1395,8 +1395,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/PurchaseOrders/{purchaseOrderId:int}")]
-        public IActionResult PatchPurchaseOrders(int purchaseOrderId, Delta<PurchaseOrder > delta)
+        [HttpPatch("odata/PurchaseOrders({purchaseOrderId:int})")]
+        public IActionResult PatchPurchaseOrder(int purchaseOrderId, Delta<PurchaseOrder > delta)
         {
             var original = _context.PurchaseOrders.Find(purchaseOrderId);
 
@@ -1412,8 +1412,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PurchaseOrders/{purchaseOrderId:int}")]
-        public IActionResult DeletePurchaseOrders(int purchaseOrderId)
+        [HttpDelete("odata/PurchaseOrders({purchaseOrderId:int})")]
+        public IActionResult DeletePurchaseOrder(int purchaseOrderId)
         {
             var original = _context.PurchaseOrders.Find(purchaseOrderId);
 
@@ -1440,7 +1440,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
+        [HttpGet("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
         public IActionResult GetPurchaseOrderLines(int purchaseOrderLineId)
         {
             var entity = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
@@ -1454,7 +1454,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/PurchaseOrderLines")]
-        public IActionResult PostPurchaseOrderLines([FromBody]PurchaseOrderLine entity, CancellationToken token)
+        public IActionResult PostPurchaseOrderLine([FromBody]PurchaseOrderLine entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1463,7 +1463,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
-        public IActionResult PutPurchaseOrderLines(int purchaseOrderLineId, [FromBody] Delta<PurchaseOrderLine> delta)
+        public IActionResult PutPurchaseOrderLine(int purchaseOrderLineId, [FromBody] Delta<PurchaseOrderLine> delta)
         {
             var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
             if (original == null)
@@ -1476,8 +1476,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
-        public IActionResult PatchPurchaseOrderLines(int purchaseOrderLineId, Delta<PurchaseOrderLine > delta)
+        [HttpPatch("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
+        public IActionResult PatchPurchaseOrderLine(int purchaseOrderLineId, Delta<PurchaseOrderLine > delta)
         {
             var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
 
@@ -1493,8 +1493,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
-        public IActionResult DeletePurchaseOrderLines(int purchaseOrderLineId)
+        [HttpDelete("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
+        public IActionResult DeletePurchaseOrderLine(int purchaseOrderLineId)
         {
             var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
 
@@ -1521,7 +1521,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SpecialDeals/{specialDealId:int}")]
+        [HttpGet("odata/SpecialDeals({specialDealId:int})")]
         public IActionResult GetSpecialDeals(int specialDealId)
         {
             var entity = _context.SpecialDeals.Find(specialDealId);
@@ -1535,7 +1535,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/SpecialDeals")]
-        public IActionResult PostSpecialDeals([FromBody]SpecialDeal entity, CancellationToken token)
+        public IActionResult PostSpecialDeal([FromBody]SpecialDeal entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1544,7 +1544,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SpecialDeals/{specialDealId:int}")]
-        public IActionResult PutSpecialDeals(int specialDealId, [FromBody] Delta<SpecialDeal> delta)
+        public IActionResult PutSpecialDeal(int specialDealId, [FromBody] Delta<SpecialDeal> delta)
         {
             var original = _context.SpecialDeals.Find(specialDealId);
             if (original == null)
@@ -1557,8 +1557,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/SpecialDeals/{specialDealId:int}")]
-        public IActionResult PatchSpecialDeals(int specialDealId, Delta<SpecialDeal > delta)
+        [HttpPatch("odata/SpecialDeals({specialDealId:int})")]
+        public IActionResult PatchSpecialDeal(int specialDealId, Delta<SpecialDeal > delta)
         {
             var original = _context.SpecialDeals.Find(specialDealId);
 
@@ -1574,8 +1574,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SpecialDeals/{specialDealId:int}")]
-        public IActionResult DeleteSpecialDeals(int specialDealId)
+        [HttpDelete("odata/SpecialDeals({specialDealId:int})")]
+        public IActionResult DeleteSpecialDeal(int specialDealId)
         {
             var original = _context.SpecialDeals.Find(specialDealId);
 
@@ -1602,7 +1602,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StateProvinces/{stateProvinceId:int}")]
+        [HttpGet("odata/StateProvinces({stateProvinceId:int})")]
         public IActionResult GetStateProvinces(int stateProvinceId)
         {
             var entity = _context.StateProvinces.Find(stateProvinceId);
@@ -1616,7 +1616,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StateProvinces")]
-        public IActionResult PostStateProvinces([FromBody]StateProvince entity, CancellationToken token)
+        public IActionResult PostStateProvince([FromBody]StateProvince entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1625,7 +1625,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StateProvinces/{stateProvinceId:int}")]
-        public IActionResult PutStateProvinces(int stateProvinceId, [FromBody] Delta<StateProvince> delta)
+        public IActionResult PutStateProvince(int stateProvinceId, [FromBody] Delta<StateProvince> delta)
         {
             var original = _context.StateProvinces.Find(stateProvinceId);
             if (original == null)
@@ -1638,8 +1638,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StateProvinces/{stateProvinceId:int}")]
-        public IActionResult PatchStateProvinces(int stateProvinceId, Delta<StateProvince > delta)
+        [HttpPatch("odata/StateProvinces({stateProvinceId:int})")]
+        public IActionResult PatchStateProvince(int stateProvinceId, Delta<StateProvince > delta)
         {
             var original = _context.StateProvinces.Find(stateProvinceId);
 
@@ -1655,8 +1655,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StateProvinces/{stateProvinceId:int}")]
-        public IActionResult DeleteStateProvinces(int stateProvinceId)
+        [HttpDelete("odata/StateProvinces({stateProvinceId:int})")]
+        public IActionResult DeleteStateProvince(int stateProvinceId)
         {
             var original = _context.StateProvinces.Find(stateProvinceId);
 
@@ -1683,7 +1683,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockGroups/{stockGroupId:int}")]
+        [HttpGet("odata/StockGroups({stockGroupId:int})")]
         public IActionResult GetStockGroups(int stockGroupId)
         {
             var entity = _context.StockGroups.Find(stockGroupId);
@@ -1697,7 +1697,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StockGroups")]
-        public IActionResult PostStockGroups([FromBody]StockGroup entity, CancellationToken token)
+        public IActionResult PostStockGroup([FromBody]StockGroup entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1706,7 +1706,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockGroups/{stockGroupId:int}")]
-        public IActionResult PutStockGroups(int stockGroupId, [FromBody] Delta<StockGroup> delta)
+        public IActionResult PutStockGroup(int stockGroupId, [FromBody] Delta<StockGroup> delta)
         {
             var original = _context.StockGroups.Find(stockGroupId);
             if (original == null)
@@ -1719,8 +1719,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StockGroups/{stockGroupId:int}")]
-        public IActionResult PatchStockGroups(int stockGroupId, Delta<StockGroup > delta)
+        [HttpPatch("odata/StockGroups({stockGroupId:int})")]
+        public IActionResult PatchStockGroup(int stockGroupId, Delta<StockGroup > delta)
         {
             var original = _context.StockGroups.Find(stockGroupId);
 
@@ -1736,8 +1736,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockGroups/{stockGroupId:int}")]
-        public IActionResult DeleteStockGroups(int stockGroupId)
+        [HttpDelete("odata/StockGroups({stockGroupId:int})")]
+        public IActionResult DeleteStockGroup(int stockGroupId)
         {
             var original = _context.StockGroups.Find(stockGroupId);
 
@@ -1764,7 +1764,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItems/{stockItemId:int}")]
+        [HttpGet("odata/StockItems({stockItemId:int})")]
         public IActionResult GetStockItems(int stockItemId)
         {
             var entity = _context.StockItems.Find(stockItemId);
@@ -1778,7 +1778,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StockItems")]
-        public IActionResult PostStockItems([FromBody]StockItem entity, CancellationToken token)
+        public IActionResult PostStockItem([FromBody]StockItem entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1787,7 +1787,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItems/{stockItemId:int}")]
-        public IActionResult PutStockItems(int stockItemId, [FromBody] Delta<StockItem> delta)
+        public IActionResult PutStockItem(int stockItemId, [FromBody] Delta<StockItem> delta)
         {
             var original = _context.StockItems.Find(stockItemId);
             if (original == null)
@@ -1800,8 +1800,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StockItems/{stockItemId:int}")]
-        public IActionResult PatchStockItems(int stockItemId, Delta<StockItem > delta)
+        [HttpPatch("odata/StockItems({stockItemId:int})")]
+        public IActionResult PatchStockItem(int stockItemId, Delta<StockItem > delta)
         {
             var original = _context.StockItems.Find(stockItemId);
 
@@ -1817,8 +1817,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItems/{stockItemId:int}")]
-        public IActionResult DeleteStockItems(int stockItemId)
+        [HttpDelete("odata/StockItems({stockItemId:int})")]
+        public IActionResult DeleteStockItem(int stockItemId)
         {
             var original = _context.StockItems.Find(stockItemId);
 
@@ -1845,7 +1845,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItemHoldings/{stockItemId:int}")]
+        [HttpGet("odata/StockItemHoldings({stockItemId:int})")]
         public IActionResult GetStockItemHoldings(int stockItemId)
         {
             var entity = _context.StockItemHoldings.Find(stockItemId);
@@ -1859,7 +1859,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StockItemHoldings")]
-        public IActionResult PostStockItemHoldings([FromBody]StockItemHolding entity, CancellationToken token)
+        public IActionResult PostStockItemHolding([FromBody]StockItemHolding entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1868,7 +1868,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemHoldings/{stockItemId:int}")]
-        public IActionResult PutStockItemHoldings(int stockItemId, [FromBody] Delta<StockItemHolding> delta)
+        public IActionResult PutStockItemHolding(int stockItemId, [FromBody] Delta<StockItemHolding> delta)
         {
             var original = _context.StockItemHoldings.Find(stockItemId);
             if (original == null)
@@ -1881,8 +1881,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StockItemHoldings/{stockItemId:int}")]
-        public IActionResult PatchStockItemHoldings(int stockItemId, Delta<StockItemHolding > delta)
+        [HttpPatch("odata/StockItemHoldings({stockItemId:int})")]
+        public IActionResult PatchStockItemHolding(int stockItemId, Delta<StockItemHolding > delta)
         {
             var original = _context.StockItemHoldings.Find(stockItemId);
 
@@ -1898,8 +1898,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItemHoldings/{stockItemId:int}")]
-        public IActionResult DeleteStockItemHoldings(int stockItemId)
+        [HttpDelete("odata/StockItemHoldings({stockItemId:int})")]
+        public IActionResult DeleteStockItemHolding(int stockItemId)
         {
             var original = _context.StockItemHoldings.Find(stockItemId);
 
@@ -1926,7 +1926,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
+        [HttpGet("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
         public IActionResult GetStockItemStockGroups(int stockItemStockGroupId)
         {
             var entity = _context.StockItemStockGroups.Find(stockItemStockGroupId);
@@ -1940,7 +1940,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StockItemStockGroups")]
-        public IActionResult PostStockItemStockGroups([FromBody]StockItemStockGroup entity, CancellationToken token)
+        public IActionResult PostStockItemStockGroup([FromBody]StockItemStockGroup entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -1949,7 +1949,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
-        public IActionResult PutStockItemStockGroups(int stockItemStockGroupId, [FromBody] Delta<StockItemStockGroup> delta)
+        public IActionResult PutStockItemStockGroup(int stockItemStockGroupId, [FromBody] Delta<StockItemStockGroup> delta)
         {
             var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
             if (original == null)
@@ -1962,8 +1962,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
-        public IActionResult PatchStockItemStockGroups(int stockItemStockGroupId, Delta<StockItemStockGroup > delta)
+        [HttpPatch("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
+        public IActionResult PatchStockItemStockGroup(int stockItemStockGroupId, Delta<StockItemStockGroup > delta)
         {
             var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
 
@@ -1979,8 +1979,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
-        public IActionResult DeleteStockItemStockGroups(int stockItemStockGroupId)
+        [HttpDelete("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
+        public IActionResult DeleteStockItemStockGroup(int stockItemStockGroupId)
         {
             var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
 
@@ -2007,7 +2007,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItemTransactions/{stockItemTransactionId:int}")]
+        [HttpGet("odata/StockItemTransactions({stockItemTransactionId:int})")]
         public IActionResult GetStockItemTransactions(int stockItemTransactionId)
         {
             var entity = _context.StockItemTransactions.Find(stockItemTransactionId);
@@ -2021,7 +2021,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/StockItemTransactions")]
-        public IActionResult PostStockItemTransactions([FromBody]StockItemTransaction entity, CancellationToken token)
+        public IActionResult PostStockItemTransaction([FromBody]StockItemTransaction entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2030,7 +2030,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemTransactions/{stockItemTransactionId:int}")]
-        public IActionResult PutStockItemTransactions(int stockItemTransactionId, [FromBody] Delta<StockItemTransaction> delta)
+        public IActionResult PutStockItemTransaction(int stockItemTransactionId, [FromBody] Delta<StockItemTransaction> delta)
         {
             var original = _context.StockItemTransactions.Find(stockItemTransactionId);
             if (original == null)
@@ -2043,8 +2043,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/StockItemTransactions/{stockItemTransactionId:int}")]
-        public IActionResult PatchStockItemTransactions(int stockItemTransactionId, Delta<StockItemTransaction > delta)
+        [HttpPatch("odata/StockItemTransactions({stockItemTransactionId:int})")]
+        public IActionResult PatchStockItemTransaction(int stockItemTransactionId, Delta<StockItemTransaction > delta)
         {
             var original = _context.StockItemTransactions.Find(stockItemTransactionId);
 
@@ -2060,8 +2060,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItemTransactions/{stockItemTransactionId:int}")]
-        public IActionResult DeleteStockItemTransactions(int stockItemTransactionId)
+        [HttpDelete("odata/StockItemTransactions({stockItemTransactionId:int})")]
+        public IActionResult DeleteStockItemTransaction(int stockItemTransactionId)
         {
             var original = _context.StockItemTransactions.Find(stockItemTransactionId);
 
@@ -2088,7 +2088,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Suppliers/{supplierId:int}")]
+        [HttpGet("odata/Suppliers({supplierId:int})")]
         public IActionResult GetSuppliers(int supplierId)
         {
             var entity = _context.Suppliers.Find(supplierId);
@@ -2102,7 +2102,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/Suppliers")]
-        public IActionResult PostSuppliers([FromBody]Supplier entity, CancellationToken token)
+        public IActionResult PostSupplier([FromBody]Supplier entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2111,7 +2111,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Suppliers/{supplierId:int}")]
-        public IActionResult PutSuppliers(int supplierId, [FromBody] Delta<Supplier> delta)
+        public IActionResult PutSupplier(int supplierId, [FromBody] Delta<Supplier> delta)
         {
             var original = _context.Suppliers.Find(supplierId);
             if (original == null)
@@ -2124,8 +2124,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/Suppliers/{supplierId:int}")]
-        public IActionResult PatchSuppliers(int supplierId, Delta<Supplier > delta)
+        [HttpPatch("odata/Suppliers({supplierId:int})")]
+        public IActionResult PatchSupplier(int supplierId, Delta<Supplier > delta)
         {
             var original = _context.Suppliers.Find(supplierId);
 
@@ -2141,8 +2141,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Suppliers/{supplierId:int}")]
-        public IActionResult DeleteSuppliers(int supplierId)
+        [HttpDelete("odata/Suppliers({supplierId:int})")]
+        public IActionResult DeleteSupplier(int supplierId)
         {
             var original = _context.Suppliers.Find(supplierId);
 
@@ -2169,7 +2169,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SupplierCategories/{supplierCategoryId:int}")]
+        [HttpGet("odata/SupplierCategories({supplierCategoryId:int})")]
         public IActionResult GetSupplierCategories(int supplierCategoryId)
         {
             var entity = _context.SupplierCategories.Find(supplierCategoryId);
@@ -2183,7 +2183,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/SupplierCategories")]
-        public IActionResult PostSupplierCategories([FromBody]SupplierCategory entity, CancellationToken token)
+        public IActionResult PostSupplierCategory([FromBody]SupplierCategory entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2192,7 +2192,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SupplierCategories/{supplierCategoryId:int}")]
-        public IActionResult PutSupplierCategories(int supplierCategoryId, [FromBody] Delta<SupplierCategory> delta)
+        public IActionResult PutSupplierCategory(int supplierCategoryId, [FromBody] Delta<SupplierCategory> delta)
         {
             var original = _context.SupplierCategories.Find(supplierCategoryId);
             if (original == null)
@@ -2205,8 +2205,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/SupplierCategories/{supplierCategoryId:int}")]
-        public IActionResult PatchSupplierCategories(int supplierCategoryId, Delta<SupplierCategory > delta)
+        [HttpPatch("odata/SupplierCategories({supplierCategoryId:int})")]
+        public IActionResult PatchSupplierCategory(int supplierCategoryId, Delta<SupplierCategory > delta)
         {
             var original = _context.SupplierCategories.Find(supplierCategoryId);
 
@@ -2222,8 +2222,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SupplierCategories/{supplierCategoryId:int}")]
-        public IActionResult DeleteSupplierCategories(int supplierCategoryId)
+        [HttpDelete("odata/SupplierCategories({supplierCategoryId:int})")]
+        public IActionResult DeleteSupplierCategory(int supplierCategoryId)
         {
             var original = _context.SupplierCategories.Find(supplierCategoryId);
 
@@ -2250,7 +2250,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SupplierTransactions/{supplierTransactionId:int}")]
+        [HttpGet("odata/SupplierTransactions({supplierTransactionId:int})")]
         public IActionResult GetSupplierTransactions(int supplierTransactionId)
         {
             var entity = _context.SupplierTransactions.Find(supplierTransactionId);
@@ -2264,7 +2264,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/SupplierTransactions")]
-        public IActionResult PostSupplierTransactions([FromBody]SupplierTransaction entity, CancellationToken token)
+        public IActionResult PostSupplierTransaction([FromBody]SupplierTransaction entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2273,7 +2273,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SupplierTransactions/{supplierTransactionId:int}")]
-        public IActionResult PutSupplierTransactions(int supplierTransactionId, [FromBody] Delta<SupplierTransaction> delta)
+        public IActionResult PutSupplierTransaction(int supplierTransactionId, [FromBody] Delta<SupplierTransaction> delta)
         {
             var original = _context.SupplierTransactions.Find(supplierTransactionId);
             if (original == null)
@@ -2286,8 +2286,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/SupplierTransactions/{supplierTransactionId:int}")]
-        public IActionResult PatchSupplierTransactions(int supplierTransactionId, Delta<SupplierTransaction > delta)
+        [HttpPatch("odata/SupplierTransactions({supplierTransactionId:int})")]
+        public IActionResult PatchSupplierTransaction(int supplierTransactionId, Delta<SupplierTransaction > delta)
         {
             var original = _context.SupplierTransactions.Find(supplierTransactionId);
 
@@ -2303,8 +2303,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SupplierTransactions/{supplierTransactionId:int}")]
-        public IActionResult DeleteSupplierTransactions(int supplierTransactionId)
+        [HttpDelete("odata/SupplierTransactions({supplierTransactionId:int})")]
+        public IActionResult DeleteSupplierTransaction(int supplierTransactionId)
         {
             var original = _context.SupplierTransactions.Find(supplierTransactionId);
 
@@ -2331,7 +2331,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SystemParameters/{systemParameterId:int}")]
+        [HttpGet("odata/SystemParameters({systemParameterId:int})")]
         public IActionResult GetSystemParameters(int systemParameterId)
         {
             var entity = _context.SystemParameters.Find(systemParameterId);
@@ -2345,7 +2345,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/SystemParameters")]
-        public IActionResult PostSystemParameters([FromBody]SystemParameter entity, CancellationToken token)
+        public IActionResult PostSystemParameter([FromBody]SystemParameter entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2354,7 +2354,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SystemParameters/{systemParameterId:int}")]
-        public IActionResult PutSystemParameters(int systemParameterId, [FromBody] Delta<SystemParameter> delta)
+        public IActionResult PutSystemParameter(int systemParameterId, [FromBody] Delta<SystemParameter> delta)
         {
             var original = _context.SystemParameters.Find(systemParameterId);
             if (original == null)
@@ -2367,8 +2367,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/SystemParameters/{systemParameterId:int}")]
-        public IActionResult PatchSystemParameters(int systemParameterId, Delta<SystemParameter > delta)
+        [HttpPatch("odata/SystemParameters({systemParameterId:int})")]
+        public IActionResult PatchSystemParameter(int systemParameterId, Delta<SystemParameter > delta)
         {
             var original = _context.SystemParameters.Find(systemParameterId);
 
@@ -2384,8 +2384,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SystemParameters/{systemParameterId:int}")]
-        public IActionResult DeleteSystemParameters(int systemParameterId)
+        [HttpDelete("odata/SystemParameters({systemParameterId:int})")]
+        public IActionResult DeleteSystemParameter(int systemParameterId)
         {
             var original = _context.SystemParameters.Find(systemParameterId);
 
@@ -2412,7 +2412,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/TransactionTypes/{transactionTypeId:int}")]
+        [HttpGet("odata/TransactionTypes({transactionTypeId:int})")]
         public IActionResult GetTransactionTypes(int transactionTypeId)
         {
             var entity = _context.TransactionTypes.Find(transactionTypeId);
@@ -2426,7 +2426,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/TransactionTypes")]
-        public IActionResult PostTransactionTypes([FromBody]TransactionType entity, CancellationToken token)
+        public IActionResult PostTransactionType([FromBody]TransactionType entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2435,7 +2435,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/TransactionTypes/{transactionTypeId:int}")]
-        public IActionResult PutTransactionTypes(int transactionTypeId, [FromBody] Delta<TransactionType> delta)
+        public IActionResult PutTransactionType(int transactionTypeId, [FromBody] Delta<TransactionType> delta)
         {
             var original = _context.TransactionTypes.Find(transactionTypeId);
             if (original == null)
@@ -2448,8 +2448,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/TransactionTypes/{transactionTypeId:int}")]
-        public IActionResult PatchTransactionTypes(int transactionTypeId, Delta<TransactionType > delta)
+        [HttpPatch("odata/TransactionTypes({transactionTypeId:int})")]
+        public IActionResult PatchTransactionType(int transactionTypeId, Delta<TransactionType > delta)
         {
             var original = _context.TransactionTypes.Find(transactionTypeId);
 
@@ -2465,8 +2465,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/TransactionTypes/{transactionTypeId:int}")]
-        public IActionResult DeleteTransactionTypes(int transactionTypeId)
+        [HttpDelete("odata/TransactionTypes({transactionTypeId:int})")]
+        public IActionResult DeleteTransactionType(int transactionTypeId)
         {
             var original = _context.TransactionTypes.Find(transactionTypeId);
 
@@ -2493,7 +2493,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
+        [HttpGet("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
         public IActionResult GetVehicleTemperatures(int vehicleTemperatureId)
         {
             var entity = _context.VehicleTemperatures.Find(vehicleTemperatureId);
@@ -2507,7 +2507,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPost("odata/VehicleTemperatures")]
-        public IActionResult PostVehicleTemperatures([FromBody]VehicleTemperature entity, CancellationToken token)
+        public IActionResult PostVehicleTemperature([FromBody]VehicleTemperature entity, CancellationToken token)
         {
             _context.Add(entity);
             _context.SaveChanges();
@@ -2516,7 +2516,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
-        public IActionResult PutVehicleTemperatures(int vehicleTemperatureId, [FromBody] Delta<VehicleTemperature> delta)
+        public IActionResult PutVehicleTemperature(int vehicleTemperatureId, [FromBody] Delta<VehicleTemperature> delta)
         {
             var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
             if (original == null)
@@ -2529,8 +2529,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpPatch("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
-        public IActionResult PatchVehicleTemperatures(int vehicleTemperatureId, Delta<VehicleTemperature > delta)
+        [HttpPatch("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
+        public IActionResult PatchVehicleTemperature(int vehicleTemperatureId, Delta<VehicleTemperature > delta)
         {
             var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
 
@@ -2546,8 +2546,8 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
-        public IActionResult DeleteVehicleTemperatures(int vehicleTemperatureId)
+        [HttpDelete("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
+        public IActionResult DeleteVehicleTemperature(int vehicleTemperatureId)
         {
             var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
 
