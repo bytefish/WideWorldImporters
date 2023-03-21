@@ -40,7 +40,9 @@ export const germanLocale: ClrCommonStrings = {
   allColumnsSelected: 'Alle Spalten ausgewählt',
   signpostToggle: 'Signpost Schalter',
   signpostClose: 'Signpost Schließen',
+  selectedRows: 'Ausgewählte Zeilen',
   loading: 'Lädt',
+
   // Datagrid
   detailPaneStart: 'Start von Zeilendetails',
   detailPaneEnd: 'Ende von Zeilendetails',
@@ -50,11 +52,12 @@ export const germanLocale: ClrCommonStrings = {
   datagridFilterAriaLabel: 'Filter ein- oder ausblenden',
   columnSeparatorAriaLabel: 'Button muss nicht benutzt werden',
   datagridFilterDialogAriaLabel: 'Filter für Spalte ein- oder ausblenden',
-  columnSeparatorDescription: 'Button muss nicht benutzt werden',
+  columnSeparatorDescription: 'Links oder Rechts-Taste benutzen für Änderung der Spaltenbreite',
+  
   // Alert
   alertCloseButtonAriaLabel: 'Warnung schließen',
   // Date Picker
-  datepickerToggle: 'Datenpicker einblenden oder ausblenden',
+  datepickerToggleChooseDateLabel: 'Datenpicker einblenden oder ausblenden',
   datepickerPreviousMonth: 'Letzter Monat',
   datepickerCurrentMonth: 'Aktueller Monat',
   datepickerNextMonth: 'Nächster Monat',
@@ -66,7 +69,7 @@ export const germanLocale: ClrCommonStrings = {
   // Stack View
   stackViewChanged: 'Wert geändert.',
   //Vertical Nav
-  verticalNavGroupToggle: 'Vertikale Navigation ein- oder ausblenden',
+  responsiveNavToggleOpen: 'Navigation ein- oder ausblenden',
   verticalNavToggle: 'Navigation ein- oder ausblenden',
   // Timeline steps
   timelineStepNotStarted: 'Noch nicht gestartet',
@@ -82,9 +85,21 @@ export const germanLocale: ClrCommonStrings = {
   comboboxNoResults: 'Keine Ergebnisse',
   comboboxOpen: 'Optionen anzeigen',
   // Datagrid expandable rows
-  dategridExpandableBeginningOf: 'Beginn von',
-  dategridExpandableEndOf: 'Ende von',
-  dategridExpandableRowContent: 'Erweiterbarer Zelleninhalt',
-  dategridExpandableRowsHelperText: `Screen reader Tabellen-Kommandos funktionieren möglicherweise nicht für Erweiterte Inhalte, bitte nutzen Sie der Browse mode ihres Screenreader um den Inhalt anzuzeigen bei Betätigung der Schaltfläche`,
-  filterItems: 'Elemente filtern'
+  datagridExpandableBeginningOf: 'Beginn von',
+  datagridExpandableEndOf: 'Ende von',
+  datagridExpandableRowContent: 'Erweiterbarer Zelleninhalt',
+  datagridExpandableRowsHelperText: `Screen reader Tabellen-Kommandos funktionieren möglicherweise nicht für Erweiterte Inhalte, bitte nutzen Sie der Browse mode ihres Screenreader um den Inhalt anzuzeigen bei Betätigung der Schaltfläche`,
+  filterItems: 'Elemente filtern',
+  selection: 'Auswahl',
+  datepickerDialogLabel: 'Datum auswählen',
+  datepickerSelectedLabel: 'Ausgewähltes Datum',
+  passwordHide: 'Passwort ausblenden',
+  passwordShow: 'Passwort einblenden',
+  responsiveNavOverflowClose: 'Navigation schließen',
+  responsiveNavOverflowOpen: 'Navigation öffnen',
+  responsiveNavToggleClose: 'Navigation ein- oder ausblenden',
+  wizardStepError: 'Fehler',
+  wizardStepSuccess: 'Erfolgreich',
+  datepickerToggleChangeDateLabel: 'Datum ändern, {SELECTED_DATE}',
+  delete: 'Löschen'
 };

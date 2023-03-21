@@ -27,7 +27,7 @@
           </div>
     </header>
     <div class="content-container">
-        <nav class="sidenav m-2">
+        <nav class="clr-vertical-nav">
             <section *ngIf="sidenavMenu$ | async as sidenavMenuItems" class="sidenav-content">
               <clr-tree>
                 <clr-tree-node [clrExpanded]="true" *clrRecursiveFor="let sidenavMenuItem of sidenavMenuItems;getChildren: getChildren">

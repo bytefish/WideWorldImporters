@@ -1,70 +1,92 @@
-<clr-datagrid  (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
     <!-- Columns -->
     <clr-dg-column [clrDgField]="'customerId'">
-        <clr-dg-filter>
-            <app-string-filter field="customerId"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.customerId }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="customerId"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.customerId }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'customerName'">
-        <clr-dg-filter>
-            <app-string-filter field="customerName"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.customerName }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="customerName"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.customerName }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'postalAddressLine1'">
-        <clr-dg-filter>
-            <app-string-filter field="postalAddressLine1"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.postalAddressLine1 }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="postalAddressLine1"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.postalAddressLine1 }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'postalAddressLine2'">
-        <clr-dg-filter>
-            <app-string-filter field="postalAddressLine2"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.postalAddressLine2 }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="postalAddressLine2"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.postalAddressLine2 }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'postalPostalCode'">
-        <clr-dg-filter>
-            <app-string-filter field="postalPostalCode"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.postalPostalCode }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="postalPostalCode"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.postalPostalCode }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'deliveryAddressLine1'">
-        <clr-dg-filter>
-            <app-string-filter field="deliveryAddressLine1"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.deliveryAddressLine1 }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="deliveryAddressLine1"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.deliveryAddressLine1 }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'deliveryAddressLine2'">
-        <clr-dg-filter>
-            <app-string-filter field="deliveryAddressLine2"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.deliveryAddressLine2 }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="deliveryAddressLine2"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.deliveryAddressLine2 }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'deliveryPostalCode'">
-        <clr-dg-filter>
-            <app-string-filter field="deliveryPostalCode"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.deliveryPostalCode }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="deliveryPostalCode"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.deliveryPostalCode }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'phoneNumber'">
-        <clr-dg-filter>
-            <app-string-filter field="phoneNumber"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.phoneNumber }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="phoneNumber"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.phoneNumber }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'faxNumber'">
-        <clr-dg-filter>
-            <app-string-filter field="faxNumber"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.customers.faxNumber }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="faxNumber"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.customers.faxNumber }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'lastEditedBy'">
-        <clr-dg-filter>
-            <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.countries.lastEditedBy}}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.countries.lastEditedBy}}
+        </ng-container>
     </clr-dg-column>
     <!-- Row Binding -->
     <clr-dg-row *ngFor="let country of tableData?.entities">
@@ -82,10 +104,12 @@
     </clr-dg-row>
     <!-- Footer -->
     <clr-dg-footer>
-        <clr-dg-pagination #pagination [clrDgPageSize]="10"
-            [clrDgTotalItems]="tableData?.metadata?.get('count')">
-            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{ translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
-            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{ translations.keys.core.datagrid.pagination.of }} {{pagination.totalItems}}  {{ translations.keys.core.datagrid.pagination.items }}
+        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="tableData?.metadata?.get('count')">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{
+                translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{
+            translations.keys.core.datagrid.pagination.of
+            }} {{pagination.totalItems}} {{ translations.keys.core.datagrid.pagination.items }}
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>

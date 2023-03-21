@@ -1,33 +1,43 @@
-<clr-datagrid  (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
     <clr-dg-column [clrDgField]="'cityId'">
-        <clr-dg-filter>
-            <app-string-filter field="cityId"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.cities.cityId }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="cityId"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.cities.cityId }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'cityName'">
-        <clr-dg-filter>
-            <app-string-filter field="cityName"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.cities.cityName }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="cityName"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.cities.cityName }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'stateProvince'">
-        <clr-dg-filter>
-            <app-string-filter field="stateProvince/stateProvinceName"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.cities.stateProvince }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="stateProvince/stateProvinceName"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.cities.stateProvince }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'latestRecordedPopulation'">
-        <clr-dg-filter>
-            <app-numeric-filter field="latestRecordedPopulation"></app-numeric-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.cities.latestRecordedPopulation }}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-numeric-filter field="latestRecordedPopulation"></app-numeric-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.cities.latestRecordedPopulation }}
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column [clrDgField]="'lastEditedBy'">
-        <clr-dg-filter>
-            <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
-        </clr-dg-filter>
-        {{ translations.keys.tables.countries.lastEditedBy}}
+        <ng-container *clrDgHideableColumn="{hidden: false}">
+            <clr-dg-filter>
+                <app-string-filter field="lastEditedByNavigation/fullName"></app-string-filter>
+            </clr-dg-filter>
+            {{ translations.keys.tables.countries.lastEditedBy}}
+        </ng-container>
     </clr-dg-column>
     <!-- Row Binding -->
     <clr-dg-row *ngFor="let city of tableData?.entities">
@@ -39,10 +49,12 @@
     </clr-dg-row>
     <!-- Footer -->
     <clr-dg-footer>
-        <clr-dg-pagination #pagination [clrDgPageSize]="10"
-            [clrDgTotalItems]="tableData?.metadata?.get('count')">
-            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{ translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
-            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{ translations.keys.core.datagrid.pagination.of }} {{pagination.totalItems}}  {{ translations.keys.core.datagrid.pagination.items }}
+        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="tableData?.metadata?.get('count')">
+            <clr-dg-page-size [clrPageSizeOptions]="[10,20,50,100]">{{
+                translations.keys.core.datagrid.pagination.items_per_page }}</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} {{
+            translations.keys.core.datagrid.pagination.of }} {{pagination.totalItems}} {{
+            translations.keys.core.datagrid.pagination.items }}
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
