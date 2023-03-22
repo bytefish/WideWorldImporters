@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 import { ClrDatagridStateInterface } from '@clr/angular';
-import { ODataEntitiesResponse } from 'src/app/models/odata-response';
+import { IODataEntitiesResponse } from 'src/app/models/odata-response';
 import { Customer } from 'src/app/models/entities';
 import { ODataService } from 'src/app/services/odata-service';
 import { TranslationService } from 'src/app/services/translation.service';
@@ -17,7 +17,7 @@ export class CustomersTableComponent {
 
   loading: boolean = true;
   filterOpen: boolean = false;
-  tableData: ODataEntitiesResponse<Customer> | null;
+  tableData: IODataEntitiesResponse<Customer> | null;
 
   constructor(public odataService: ODataService, public translations: TranslationService) {
     this.tableData = null;

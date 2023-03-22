@@ -1,10 +1,10 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { ODataBatchRequest } from "../models/odata-batch";
-import { ODataEntitiesResponse, ODataEntityResponse } from "../models/odata-response";
+import { IODataBatchResponse, IODataEntitiesResponse, IODataEntityResponse, ODataBatchResponse, ODataEntitiesResponse, ODataEntityResponse } from "../models/odata-response";
 
 /**
  * The ``ODataService`` provides functionality to query an OData-enabled 
@@ -31,7 +31,7 @@ export class ODataService {
      * @param url - URL for an OData-enabled enpoint
      * @returns Response containing metadata and entity
      */
-    getEntity<T>(url: string): Observable<ODataEntityResponse<T>> {
+    getEntity<T>(url: string): Observable<IODataEntityResponse<T>> {
         return this.httpClient
             .get<any>(url, { observe: 'response' })
             .pipe(map(response => new ODataEntityResponse<T>(response)));
@@ -45,23 +45,50 @@ export class ODataService {
      * @param url - URL for an OData-enabled enpoint
      * @returns Response containing metadata and entities
      */
-    getEntities<T>(url: string): Observable<ODataEntitiesResponse<T>> {
+    getEntities<T>(url: string): Observable<IODataEntitiesResponse<T>> {
         return this.httpClient
             .get<any>(url, { observe: 'response' })
             .pipe(map(response => new ODataEntitiesResponse<T>(response)));
     }
 
     /**
-     * Sends Batch requests to an OData-enabled $batch enpoint.
+     * Invokes the PATCH Endpoint to update an entity. We are setting the 
+     * Prefer Header to "return=representation", so we get the full updated 
+     * object in return.
      *
      * @typeParam T - Type of the entity
      * @param url - URL for an OData-enabled enpoint
      * @returns Response containing metadata and entities
      */
-            getBatch(url: string, requests: ODataBatchRequest[]): Observable<any> {
-                return this.httpClient
-                    .post<any>(url, {
-                        "requests" : requests
-                    }, { observe: 'response' });
-            }
+    executeUpdate<T>(url: string, entity: T): Observable<IODataEntityResponse<T>> {
+        
+        let headers = new HttpHeaders({
+            "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;",
+            "Prefer": "return=representation"
+        });
+
+        return this.httpClient
+            .patch<any>(url, JSON.stringify(entity), {
+                headers: headers,
+                observe: 'response' })
+            .pipe(map(response => new ODataEntityResponse<T>(response)));
+    }
+
+    /**
+     * Executes a Batch request to an OData-enabled $batch enpoint.
+     *
+     * @param url - Batch URL, which usually ends with $batch
+     * @returns Response containing the results of all batched requests.
+     */
+    executeBatch(url: string, requests: ODataBatchRequest[]): Observable<ODataBatchResponse> {
+        
+        let headers = new HttpHeaders({
+            "Content-Type": "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false;",
+            "Prefer": "return=representation"
+        });
+
+        return this.httpClient
+            .post<any>(url, { "requests" : requests }, { headers: headers, observe: 'response' })
+            .pipe(map(response => new ODataBatchResponse(response)));
+    }
 }

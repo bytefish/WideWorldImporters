@@ -1,6 +1,6 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import { ODataEntitiesResponse } from "./odata-response";
+export type ODataBatchMethod = "GET" | "PATCH" | "POST" | "PUT" | "DELETE";
 
 export interface ODataBatchRequest {
 
@@ -12,33 +12,25 @@ export interface ODataBatchRequest {
     /**
      * HTTP method to use.
      */
-    method: "GET" | "PATCH" | "POST" | "PUT" | "DELETE";
+    method: ODataBatchMethod;
 
     /**
      * OData URL.
      */
     url: string;
-}
-
-export interface ODataBatchResponse {
 
     /**
-     * Correlation ID.
+     * Optional Body to send for POST / PUT / PATCH.
      */
-    id: string;
+    body?: any;
 
     /**
-     * HTTP Status.
+     * Optional atomicity group name.
      */
-    status: number;
+    atomicityGroup?: string;
 
     /**
-     * Headers.
+     *  
      */
-    headers: Array<[string, string | null]>;
-
-    /**
-     * Headers.
-     */
-    body: any;
+    dependsOn?: string[];
 }
