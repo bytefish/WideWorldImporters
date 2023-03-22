@@ -86,7 +86,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/BuyingGroups/{buyingGroupsId:int}")]
-        public IActionResult PutBuyingGroup(int buyingGroupsId, [FromBody] Delta<BuyingGroup> delta)
+        public IActionResult PutBuyingGroup(int buyingGroupsId, [FromBody] BuyingGroup entity)
         {
             var original = _context.BuyingGroups.Find(buyingGroupsId);
             if (original == null)
@@ -94,9 +94,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found BuyingGroup with buyingGroupsId = {buyingGroupsId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/BuyingGroups({buyingGroupsId:int})")]
@@ -167,7 +168,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Cities/{cityId:int}")]
-        public IActionResult PutCity(int cityId, [FromBody] Delta<City> delta)
+        public IActionResult PutCity(int cityId, [FromBody] City entity)
         {
             var original = _context.Cities.Find(cityId);
             if (original == null)
@@ -175,9 +176,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found City with cityId = {cityId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Cities({cityId:int})")]
@@ -248,7 +250,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
-        public IActionResult PutColdRoomTemperature(long coldRoomTemperatureId, [FromBody] Delta<ColdRoomTemperature> delta)
+        public IActionResult PutColdRoomTemperature(long coldRoomTemperatureId, [FromBody] ColdRoomTemperature entity)
         {
             var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
             if (original == null)
@@ -256,9 +258,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found ColdRoomTemperature with coldRoomTemperatureId = {coldRoomTemperatureId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
@@ -329,7 +332,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Colors/{colorId:int}")]
-        public IActionResult PutColor(int colorId, [FromBody] Delta<Color> delta)
+        public IActionResult PutColor(int colorId, [FromBody] Color entity)
         {
             var original = _context.Colors.Find(colorId);
             if (original == null)
@@ -337,9 +340,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Color with colorId = {colorId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Colors({colorId:int})")]
@@ -410,7 +414,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Countries/{countryId:int}")]
-        public IActionResult PutCountry(int countryId, [FromBody] Delta<Country> delta)
+        public IActionResult PutCountry(int countryId, [FromBody] Country entity)
         {
             var original = _context.Countries.Find(countryId);
             if (original == null)
@@ -418,9 +422,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Country with countryId = {countryId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Countries({countryId:int})")]
@@ -491,7 +496,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Customers/{customerId:int}")]
-        public IActionResult PutCustomer(int customerId, [FromBody] Delta<Customer> delta)
+        public IActionResult PutCustomer(int customerId, [FromBody] Customer entity)
         {
             var original = _context.Customers.Find(customerId);
             if (original == null)
@@ -499,9 +504,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Customer with customerId = {customerId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Customers({customerId:int})")]
@@ -572,7 +578,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/CustomerCategories/{customerCategoryId:int}")]
-        public IActionResult PutCustomerCategory(int customerCategoryId, [FromBody] Delta<CustomerCategory> delta)
+        public IActionResult PutCustomerCategory(int customerCategoryId, [FromBody] CustomerCategory entity)
         {
             var original = _context.CustomerCategories.Find(customerCategoryId);
             if (original == null)
@@ -580,9 +586,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found CustomerCategory with customerCategoryId = {customerCategoryId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/CustomerCategories({customerCategoryId:int})")]
@@ -653,7 +660,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/CustomerTransactions/{customerTransactionId:int}")]
-        public IActionResult PutCustomerTransaction(int customerTransactionId, [FromBody] Delta<CustomerTransaction> delta)
+        public IActionResult PutCustomerTransaction(int customerTransactionId, [FromBody] CustomerTransaction entity)
         {
             var original = _context.CustomerTransactions.Find(customerTransactionId);
             if (original == null)
@@ -661,9 +668,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found CustomerTransaction with customerTransactionId = {customerTransactionId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/CustomerTransactions({customerTransactionId:int})")]
@@ -734,7 +742,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/DeliveryMethods/{deliveryMethodId:int}")]
-        public IActionResult PutDeliveryMethod(int deliveryMethodId, [FromBody] Delta<DeliveryMethod> delta)
+        public IActionResult PutDeliveryMethod(int deliveryMethodId, [FromBody] DeliveryMethod entity)
         {
             var original = _context.DeliveryMethods.Find(deliveryMethodId);
             if (original == null)
@@ -742,9 +750,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found DeliveryMethod with deliveryMethodId = {deliveryMethodId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/DeliveryMethods({deliveryMethodId:int})")]
@@ -815,7 +824,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Invoices/{invoiceId:int}")]
-        public IActionResult PutInvoice(int invoiceId, [FromBody] Delta<Invoice> delta)
+        public IActionResult PutInvoice(int invoiceId, [FromBody] Invoice entity)
         {
             var original = _context.Invoices.Find(invoiceId);
             if (original == null)
@@ -823,9 +832,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Invoice with invoiceId = {invoiceId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Invoices({invoiceId:int})")]
@@ -896,7 +906,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/InvoiceLines/{invoiceLineId:int}")]
-        public IActionResult PutInvoiceLine(int invoiceLineId, [FromBody] Delta<InvoiceLine> delta)
+        public IActionResult PutInvoiceLine(int invoiceLineId, [FromBody] InvoiceLine entity)
         {
             var original = _context.InvoiceLines.Find(invoiceLineId);
             if (original == null)
@@ -904,9 +914,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found InvoiceLine with invoiceLineId = {invoiceLineId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/InvoiceLines({invoiceLineId:int})")]
@@ -977,7 +988,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Orders/{orderId:int}")]
-        public IActionResult PutOrder(int orderId, [FromBody] Delta<Order> delta)
+        public IActionResult PutOrder(int orderId, [FromBody] Order entity)
         {
             var original = _context.Orders.Find(orderId);
             if (original == null)
@@ -985,9 +996,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Order with orderId = {orderId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Orders({orderId:int})")]
@@ -1058,7 +1070,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/OrderLines/{orderLineId:int}")]
-        public IActionResult PutOrderLine(int orderLineId, [FromBody] Delta<OrderLine> delta)
+        public IActionResult PutOrderLine(int orderLineId, [FromBody] OrderLine entity)
         {
             var original = _context.OrderLines.Find(orderLineId);
             if (original == null)
@@ -1066,9 +1078,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found OrderLine with orderLineId = {orderLineId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/OrderLines({orderLineId:int})")]
@@ -1139,7 +1152,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PackageTypes/{packageTypeId:int}")]
-        public IActionResult PutPackageType(int packageTypeId, [FromBody] Delta<PackageType> delta)
+        public IActionResult PutPackageType(int packageTypeId, [FromBody] PackageType entity)
         {
             var original = _context.PackageTypes.Find(packageTypeId);
             if (original == null)
@@ -1147,9 +1160,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found PackageType with packageTypeId = {packageTypeId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/PackageTypes({packageTypeId:int})")]
@@ -1220,7 +1234,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PaymentMethods/{paymentMethodId:int}")]
-        public IActionResult PutPaymentMethod(int paymentMethodId, [FromBody] Delta<PaymentMethod> delta)
+        public IActionResult PutPaymentMethod(int paymentMethodId, [FromBody] PaymentMethod entity)
         {
             var original = _context.PaymentMethods.Find(paymentMethodId);
             if (original == null)
@@ -1228,9 +1242,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found PaymentMethod with paymentMethodId = {paymentMethodId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/PaymentMethods({paymentMethodId:int})")]
@@ -1301,7 +1316,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/People/{personId:int}")]
-        public IActionResult PutPerson(int personId, [FromBody] Delta<Person> delta)
+        public IActionResult PutPerson(int personId, [FromBody] Person entity)
         {
             var original = _context.People.Find(personId);
             if (original == null)
@@ -1309,9 +1324,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Person with personId = {personId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/People({personId:int})")]
@@ -1382,7 +1398,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PurchaseOrders/{purchaseOrderId:int}")]
-        public IActionResult PutPurchaseOrder(int purchaseOrderId, [FromBody] Delta<PurchaseOrder> delta)
+        public IActionResult PutPurchaseOrder(int purchaseOrderId, [FromBody] PurchaseOrder entity)
         {
             var original = _context.PurchaseOrders.Find(purchaseOrderId);
             if (original == null)
@@ -1390,9 +1406,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found PurchaseOrder with purchaseOrderId = {purchaseOrderId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/PurchaseOrders({purchaseOrderId:int})")]
@@ -1463,7 +1480,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
-        public IActionResult PutPurchaseOrderLine(int purchaseOrderLineId, [FromBody] Delta<PurchaseOrderLine> delta)
+        public IActionResult PutPurchaseOrderLine(int purchaseOrderLineId, [FromBody] PurchaseOrderLine entity)
         {
             var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
             if (original == null)
@@ -1471,9 +1488,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found PurchaseOrderLine with purchaseOrderLineId = {purchaseOrderLineId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
@@ -1544,7 +1562,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SpecialDeals/{specialDealId:int}")]
-        public IActionResult PutSpecialDeal(int specialDealId, [FromBody] Delta<SpecialDeal> delta)
+        public IActionResult PutSpecialDeal(int specialDealId, [FromBody] SpecialDeal entity)
         {
             var original = _context.SpecialDeals.Find(specialDealId);
             if (original == null)
@@ -1552,9 +1570,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found SpecialDeal with specialDealId = {specialDealId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/SpecialDeals({specialDealId:int})")]
@@ -1625,7 +1644,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StateProvinces/{stateProvinceId:int}")]
-        public IActionResult PutStateProvince(int stateProvinceId, [FromBody] Delta<StateProvince> delta)
+        public IActionResult PutStateProvince(int stateProvinceId, [FromBody] StateProvince entity)
         {
             var original = _context.StateProvinces.Find(stateProvinceId);
             if (original == null)
@@ -1633,9 +1652,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StateProvince with stateProvinceId = {stateProvinceId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StateProvinces({stateProvinceId:int})")]
@@ -1706,7 +1726,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockGroups/{stockGroupId:int}")]
-        public IActionResult PutStockGroup(int stockGroupId, [FromBody] Delta<StockGroup> delta)
+        public IActionResult PutStockGroup(int stockGroupId, [FromBody] StockGroup entity)
         {
             var original = _context.StockGroups.Find(stockGroupId);
             if (original == null)
@@ -1714,9 +1734,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StockGroup with stockGroupId = {stockGroupId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StockGroups({stockGroupId:int})")]
@@ -1787,7 +1808,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItems/{stockItemId:int}")]
-        public IActionResult PutStockItem(int stockItemId, [FromBody] Delta<StockItem> delta)
+        public IActionResult PutStockItem(int stockItemId, [FromBody] StockItem entity)
         {
             var original = _context.StockItems.Find(stockItemId);
             if (original == null)
@@ -1795,9 +1816,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StockItem with stockItemId = {stockItemId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StockItems({stockItemId:int})")]
@@ -1868,7 +1890,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemHoldings/{stockItemId:int}")]
-        public IActionResult PutStockItemHolding(int stockItemId, [FromBody] Delta<StockItemHolding> delta)
+        public IActionResult PutStockItemHolding(int stockItemId, [FromBody] StockItemHolding entity)
         {
             var original = _context.StockItemHoldings.Find(stockItemId);
             if (original == null)
@@ -1876,9 +1898,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StockItemHolding with stockItemId = {stockItemId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StockItemHoldings({stockItemId:int})")]
@@ -1949,7 +1972,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
-        public IActionResult PutStockItemStockGroup(int stockItemStockGroupId, [FromBody] Delta<StockItemStockGroup> delta)
+        public IActionResult PutStockItemStockGroup(int stockItemStockGroupId, [FromBody] StockItemStockGroup entity)
         {
             var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
             if (original == null)
@@ -1957,9 +1980,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StockItemStockGroup with stockItemStockGroupId = {stockItemStockGroupId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
@@ -2030,7 +2054,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/StockItemTransactions/{stockItemTransactionId:int}")]
-        public IActionResult PutStockItemTransaction(int stockItemTransactionId, [FromBody] Delta<StockItemTransaction> delta)
+        public IActionResult PutStockItemTransaction(int stockItemTransactionId, [FromBody] StockItemTransaction entity)
         {
             var original = _context.StockItemTransactions.Find(stockItemTransactionId);
             if (original == null)
@@ -2038,9 +2062,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found StockItemTransaction with stockItemTransactionId = {stockItemTransactionId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/StockItemTransactions({stockItemTransactionId:int})")]
@@ -2111,7 +2136,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/Suppliers/{supplierId:int}")]
-        public IActionResult PutSupplier(int supplierId, [FromBody] Delta<Supplier> delta)
+        public IActionResult PutSupplier(int supplierId, [FromBody] Supplier entity)
         {
             var original = _context.Suppliers.Find(supplierId);
             if (original == null)
@@ -2119,9 +2144,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found Supplier with supplierId = {supplierId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/Suppliers({supplierId:int})")]
@@ -2192,7 +2218,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SupplierCategories/{supplierCategoryId:int}")]
-        public IActionResult PutSupplierCategory(int supplierCategoryId, [FromBody] Delta<SupplierCategory> delta)
+        public IActionResult PutSupplierCategory(int supplierCategoryId, [FromBody] SupplierCategory entity)
         {
             var original = _context.SupplierCategories.Find(supplierCategoryId);
             if (original == null)
@@ -2200,9 +2226,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found SupplierCategory with supplierCategoryId = {supplierCategoryId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/SupplierCategories({supplierCategoryId:int})")]
@@ -2273,7 +2300,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SupplierTransactions/{supplierTransactionId:int}")]
-        public IActionResult PutSupplierTransaction(int supplierTransactionId, [FromBody] Delta<SupplierTransaction> delta)
+        public IActionResult PutSupplierTransaction(int supplierTransactionId, [FromBody] SupplierTransaction entity)
         {
             var original = _context.SupplierTransactions.Find(supplierTransactionId);
             if (original == null)
@@ -2281,9 +2308,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found SupplierTransaction with supplierTransactionId = {supplierTransactionId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/SupplierTransactions({supplierTransactionId:int})")]
@@ -2354,7 +2382,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/SystemParameters/{systemParameterId:int}")]
-        public IActionResult PutSystemParameter(int systemParameterId, [FromBody] Delta<SystemParameter> delta)
+        public IActionResult PutSystemParameter(int systemParameterId, [FromBody] SystemParameter entity)
         {
             var original = _context.SystemParameters.Find(systemParameterId);
             if (original == null)
@@ -2362,9 +2390,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found SystemParameter with systemParameterId = {systemParameterId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/SystemParameters({systemParameterId:int})")]
@@ -2435,7 +2464,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/TransactionTypes/{transactionTypeId:int}")]
-        public IActionResult PutTransactionType(int transactionTypeId, [FromBody] Delta<TransactionType> delta)
+        public IActionResult PutTransactionType(int transactionTypeId, [FromBody] TransactionType entity)
         {
             var original = _context.TransactionTypes.Find(transactionTypeId);
             if (original == null)
@@ -2443,9 +2472,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found TransactionType with transactionTypeId = {transactionTypeId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/TransactionTypes({transactionTypeId:int})")]
@@ -2516,7 +2546,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
-        public IActionResult PutVehicleTemperature(int vehicleTemperatureId, [FromBody] Delta<VehicleTemperature> delta)
+        public IActionResult PutVehicleTemperature(int vehicleTemperatureId, [FromBody] VehicleTemperature entity)
         {
             var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
             if (original == null)
@@ -2524,9 +2554,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found VehicleTemperature with vehicleTemperatureId = {vehicleTemperatureId}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/VehicleTemperatures({vehicleTemperatureId:int})")]

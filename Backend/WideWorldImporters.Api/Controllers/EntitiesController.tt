@@ -125,7 +125,7 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [HttpPut("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
-        public IActionResult Put<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, [FromBody] Delta<<#= entitySet.EntityName #>> delta)
+        public IActionResult Put<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, [FromBody] <#= entitySet.EntityName #> entity)
         {
             var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
             if (original == null)
@@ -133,9 +133,10 @@ namespace WideWorldImporters.Api.Controllers
                 return NotFound($"Not found <#= entitySet.EntityName #> with <#= entitySet.EntityKeyName #> = {<#= entitySet.EntityKeyName #>}");
             }
 
-            delta.Put(original);
+            _context.Entry(original).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            return Updated(original);
+
+            return Ok(original);
         }
 
         [HttpPatch("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
