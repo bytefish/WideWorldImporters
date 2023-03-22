@@ -3,6 +3,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
+import { ODataBatchRequest } from "../models/odata-batch";
 import { ODataEntitiesResponse, ODataEntityResponse } from "../models/odata-response";
 
 /**
@@ -49,4 +50,18 @@ export class ODataService {
             .get<any>(url, { observe: 'response' })
             .pipe(map(response => new ODataEntitiesResponse<T>(response)));
     }
+
+    /**
+     * Sends Batch requests to an OData-enabled $batch enpoint.
+     *
+     * @typeParam T - Type of the entity
+     * @param url - URL for an OData-enabled enpoint
+     * @returns Response containing metadata and entities
+     */
+            getBatch(url: string, requests: ODataBatchRequest[]): Observable<any> {
+                return this.httpClient
+                    .post<any>(url, {
+                        "requests" : requests
+                    }, { observe: 'response' });
+            }
 }

@@ -1,6 +1,7 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.OData.Batch;
 using Microsoft.AspNetCore.OData.Query.Expressions;
 using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Api.Infrastructure.Spatial.Binder;
@@ -47,10 +48,14 @@ namespace WideWorldImporters.Api
                 // Register OData Routes:
                 .AddOData((opt) =>
                 {
-                    opt.AddRouteComponents("odata", ApplicationEdmModel.GetEdmModel(), svcs =>
-                    {
-                        svcs.AddSingleton<IFilterBinder, GeoDistanceFilterBinder>();
-                    })
+                    
+                    opt.AddRouteComponents(
+                        routePrefix: "odata",
+                        model: ApplicationEdmModel.GetEdmModel(), configureServices: svcs =>
+                        {
+                            svcs.AddSingleton<ODataBatchHandler>(new DefaultODataBatchHandler());
+                            svcs.AddSingleton<IFilterBinder, GeoDistanceFilterBinder>();
+                        })
                     .EnableQueryFeatures().Select().Expand().OrderBy().Filter().Count(); 
                 });
         }
@@ -72,11 +77,12 @@ namespace WideWorldImporters.Api
                 app.UseExceptionHandler("/Error");
             }
 
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod());
+
+            app.UseODataBatching();
 
             app.UseStaticFiles();
 
