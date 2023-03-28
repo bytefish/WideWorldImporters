@@ -46,7 +46,7 @@ foreach(var entityMetadata in EntityMetadatas) {
 #>
 
     public static convertTo<#= entityMetadata.Name #>Array(data: any): <#= entityMetadata.Name #>[] | undefined {
-        return Array.isArray(data) ? data.map(item => Converters.convertTo<#= entityMetadata.Name #>(item)) : undefined;")
+        return Array.isArray(data) ? data.map(item => Converters.convertTo<#= entityMetadata.Name #>(item)) : undefined;
     }
 
     public static convertTo<#= entityMetadata.Name #>(data: any): <#= entityMetadata.Name #> | undefined {

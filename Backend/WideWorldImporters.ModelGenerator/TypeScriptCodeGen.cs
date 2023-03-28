@@ -176,7 +176,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             
             #line default
             #line hidden
-            this.Write("(item)) : undefined;\")\r\n    }\r\n\r\n    public static convertTo");
+            this.Write("(item)) : undefined;\r\n    }\r\n\r\n    public static convertTo");
             
             #line 52 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
