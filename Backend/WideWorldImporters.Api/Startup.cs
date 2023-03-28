@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.OData.Batch;
 using Microsoft.AspNetCore.OData.Query.Expressions;
 using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Api.Infrastructure.Spatial.Binder;
+using WideWorldImporters.Api.Infrastructure.Swagger;
 using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 
@@ -39,12 +40,6 @@ namespace WideWorldImporters.Api
             services
                 // Register Web API Routes:
                 .AddControllers()
-                // Customize the Json Output, so we can serialize and deserialize the data:
-                .AddJsonOptions(options =>
-                {
-                    // Ignore objects when cycles have been detected in deserialization:
-                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-                })
                 // Register OData Routes:
                 .AddOData((opt) =>
                 {
@@ -67,9 +62,10 @@ namespace WideWorldImporters.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+                app.UseODataOpenApi();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/odata/swagger.json", "WideWorldImporters OData API");
+                    options.SwaggerEndpoint("http://localhost:5000/odata/$openapi", "WideWorldImporters API");
                 });
             }
             else

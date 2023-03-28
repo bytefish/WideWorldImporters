@@ -17,6 +17,7 @@ using Microsoft.OpenApi;
 using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 using WideWorldImporters.Database.Models;
+using Microsoft.AspNetCore.OData.Results;
 
 namespace WideWorldImporters.Api.Controllers
 {
@@ -28,30 +29,6 @@ namespace WideWorldImporters.Api.Controllers
         {
             _context = context;
         }
-
-        #region Swagger Endpoint
-        
-        [HttpGet("odata/swagger.json")]
-        public IActionResult GetSwaggerDocument()
-        {
-            var edmModel = ApplicationEdmModel.GetEdmModel();
-
-            // Convert to OpenApi:
-            var openApiSettings = new OpenApiConvertSettings
-            {
-                ServiceRoot = new("http://localhost:5000"),
-                PathPrefix = "odata",
-                EnableKeyAsSegment = true,
-            };
-
-            var openApiDocument = edmModel
-                .ConvertToOpenApi(openApiSettings)
-                .SerializeAsJson(OpenApiSpecVersion.OpenApi3_0);
-
-            return Content(openApiDocument, "application/json");
-        }
-
-        #endregion Swagger Endpoint
 
         #region BuyingGroups
 
@@ -66,14 +43,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/BuyingGroups({buyingGroupsId:int})")]
         public IActionResult GetBuyingGroups(int buyingGroupsId)
         {
-            var entity = _context.BuyingGroups.Find(buyingGroupsId);
+            var entity = _context.BuyingGroups.Where(x => x.BuyingGroupId == buyingGroupsId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/BuyingGroups")]
@@ -148,14 +125,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Cities({cityId:int})")]
         public IActionResult GetCities(int cityId)
         {
-            var entity = _context.Cities.Find(cityId);
+            var entity = _context.Cities.Where(x => x.CityId == cityId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Cities")]
@@ -230,14 +207,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
         public IActionResult GetColdRoomTemperatures(long coldRoomTemperatureId)
         {
-            var entity = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
+            var entity = _context.ColdRoomTemperatures.Where(x => x.ColdRoomTemperatureId == coldRoomTemperatureId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/ColdRoomTemperatures")]
@@ -312,14 +289,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Colors({colorId:int})")]
         public IActionResult GetColors(int colorId)
         {
-            var entity = _context.Colors.Find(colorId);
+            var entity = _context.Colors.Where(x => x.ColorId == colorId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Colors")]
@@ -394,14 +371,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Countries({countryId:int})")]
         public IActionResult GetCountries(int countryId)
         {
-            var entity = _context.Countries.Find(countryId);
+            var entity = _context.Countries.Where(x => x.CountryId == countryId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Countries")]
@@ -476,14 +453,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Customers({customerId:int})")]
         public IActionResult GetCustomers(int customerId)
         {
-            var entity = _context.Customers.Find(customerId);
+            var entity = _context.Customers.Where(x => x.CustomerId == customerId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Customers")]
@@ -558,14 +535,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/CustomerCategories({customerCategoryId:int})")]
         public IActionResult GetCustomerCategories(int customerCategoryId)
         {
-            var entity = _context.CustomerCategories.Find(customerCategoryId);
+            var entity = _context.CustomerCategories.Where(x => x.CustomerCategoryId == customerCategoryId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/CustomerCategories")]
@@ -640,14 +617,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/CustomerTransactions({customerTransactionId:int})")]
         public IActionResult GetCustomerTransactions(int customerTransactionId)
         {
-            var entity = _context.CustomerTransactions.Find(customerTransactionId);
+            var entity = _context.CustomerTransactions.Where(x => x.CustomerTransactionId == customerTransactionId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/CustomerTransactions")]
@@ -722,14 +699,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/DeliveryMethods({deliveryMethodId:int})")]
         public IActionResult GetDeliveryMethods(int deliveryMethodId)
         {
-            var entity = _context.DeliveryMethods.Find(deliveryMethodId);
+            var entity = _context.DeliveryMethods.Where(x => x.DeliveryMethodId == deliveryMethodId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/DeliveryMethods")]
@@ -804,14 +781,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Invoices({invoiceId:int})")]
         public IActionResult GetInvoices(int invoiceId)
         {
-            var entity = _context.Invoices.Find(invoiceId);
+            var entity = _context.Invoices.Where(x => x.InvoiceId == invoiceId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Invoices")]
@@ -886,14 +863,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/InvoiceLines({invoiceLineId:int})")]
         public IActionResult GetInvoiceLines(int invoiceLineId)
         {
-            var entity = _context.InvoiceLines.Find(invoiceLineId);
+            var entity = _context.InvoiceLines.Where(x => x.InvoiceLineId == invoiceLineId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/InvoiceLines")]
@@ -968,14 +945,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Orders({orderId:int})")]
         public IActionResult GetOrders(int orderId)
         {
-            var entity = _context.Orders.Find(orderId);
+            var entity = _context.Orders.Where(x => x.OrderId == orderId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Orders")]
@@ -1050,14 +1027,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/OrderLines({orderLineId:int})")]
         public IActionResult GetOrderLines(int orderLineId)
         {
-            var entity = _context.OrderLines.Find(orderLineId);
+            var entity = _context.OrderLines.Where(x => x.OrderLineId == orderLineId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/OrderLines")]
@@ -1132,14 +1109,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/PackageTypes({packageTypeId:int})")]
         public IActionResult GetPackageTypes(int packageTypeId)
         {
-            var entity = _context.PackageTypes.Find(packageTypeId);
+            var entity = _context.PackageTypes.Where(x => x.PackageTypeId == packageTypeId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/PackageTypes")]
@@ -1214,14 +1191,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/PaymentMethods({paymentMethodId:int})")]
         public IActionResult GetPaymentMethods(int paymentMethodId)
         {
-            var entity = _context.PaymentMethods.Find(paymentMethodId);
+            var entity = _context.PaymentMethods.Where(x => x.PaymentMethodId == paymentMethodId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/PaymentMethods")]
@@ -1296,14 +1273,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/People({personId:int})")]
         public IActionResult GetPeople(int personId)
         {
-            var entity = _context.People.Find(personId);
+            var entity = _context.People.Where(x => x.PersonId == personId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/People")]
@@ -1378,14 +1355,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/PurchaseOrders({purchaseOrderId:int})")]
         public IActionResult GetPurchaseOrders(int purchaseOrderId)
         {
-            var entity = _context.PurchaseOrders.Find(purchaseOrderId);
+            var entity = _context.PurchaseOrders.Where(x => x.PurchaseOrderId == purchaseOrderId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/PurchaseOrders")]
@@ -1460,14 +1437,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
         public IActionResult GetPurchaseOrderLines(int purchaseOrderLineId)
         {
-            var entity = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
+            var entity = _context.PurchaseOrderLines.Where(x => x.PurchaseOrderLineId == purchaseOrderLineId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/PurchaseOrderLines")]
@@ -1542,14 +1519,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/SpecialDeals({specialDealId:int})")]
         public IActionResult GetSpecialDeals(int specialDealId)
         {
-            var entity = _context.SpecialDeals.Find(specialDealId);
+            var entity = _context.SpecialDeals.Where(x => x.SpecialDealId == specialDealId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/SpecialDeals")]
@@ -1624,14 +1601,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/StateProvinces({stateProvinceId:int})")]
         public IActionResult GetStateProvinces(int stateProvinceId)
         {
-            var entity = _context.StateProvinces.Find(stateProvinceId);
+            var entity = _context.StateProvinces.Where(x => x.StateProvinceId == stateProvinceId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/StateProvinces")]
@@ -1706,14 +1683,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/StockGroups({stockGroupId:int})")]
         public IActionResult GetStockGroups(int stockGroupId)
         {
-            var entity = _context.StockGroups.Find(stockGroupId);
+            var entity = _context.StockGroups.Where(x => x.StockGroupId == stockGroupId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/StockGroups")]
@@ -1788,14 +1765,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/StockItems({stockItemId:int})")]
         public IActionResult GetStockItems(int stockItemId)
         {
-            var entity = _context.StockItems.Find(stockItemId);
+            var entity = _context.StockItems.Where(x => x.StockItemId == stockItemId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/StockItems")]
@@ -1857,88 +1834,6 @@ namespace WideWorldImporters.Api.Controllers
 
         #endregion StockItems
 
-        #region StockItemHoldings
-
-        [EnableQuery]
-        [HttpGet("odata/StockItemHoldings")]
-        public IActionResult GetStockItemHoldings()
-        {
-            return Ok(_context.StockItemHoldings);
-        }
-
-        [EnableQuery]
-        [HttpGet("odata/StockItemHoldings({stockItemId:int})")]
-        public IActionResult GetStockItemHoldings(int stockItemId)
-        {
-            var entity = _context.StockItemHoldings.Find(stockItemId);
-
-            if (entity == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(entity);
-        }
-
-        [HttpPost("odata/StockItemHoldings")]
-        public IActionResult PostStockItemHolding([FromBody]StockItemHolding entity, CancellationToken token)
-        {
-            _context.Add(entity);
-            _context.SaveChanges();
-
-            return Created(entity);
-        }
-
-        [HttpPut("odata/StockItemHoldings/{stockItemId:int}")]
-        public IActionResult PutStockItemHolding(int stockItemId, [FromBody] StockItemHolding entity)
-        {
-            var original = _context.StockItemHoldings.Find(stockItemId);
-            if (original == null)
-            {
-                return NotFound($"Not found StockItemHolding with stockItemId = {stockItemId}");
-            }
-
-            _context.Entry(original).CurrentValues.SetValues(entity);
-            _context.SaveChanges();
-
-            return Ok(original);
-        }
-
-        [HttpPatch("odata/StockItemHoldings({stockItemId:int})")]
-        public IActionResult PatchStockItemHolding(int stockItemId, Delta<StockItemHolding > delta)
-        {
-            var original = _context.StockItemHoldings.Find(stockItemId);
-
-            if (original == null)
-            {
-                return NotFound($"Not found StockItemHolding with stockItemId = {stockItemId}");
-            }
-
-            delta.Patch(original);
-
-            _context.SaveChanges();
-
-            return Updated(original);
-        }
-
-        [HttpDelete("odata/StockItemHoldings({stockItemId:int})")]
-        public IActionResult DeleteStockItemHolding(int stockItemId)
-        {
-            var original = _context.StockItemHoldings.Find(stockItemId);
-
-            if (original == null)
-            {
-                return NotFound($"Not found StockItemHolding with stockItemId = {stockItemId}");
-            }
-
-            _context.StockItemHoldings.Remove(original);
-            _context.SaveChanges();
-            return Ok();
-        }
-
-
-        #endregion StockItemHoldings
-
         #region StockItemStockGroups
 
         [EnableQuery]
@@ -1952,14 +1847,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
         public IActionResult GetStockItemStockGroups(int stockItemStockGroupId)
         {
-            var entity = _context.StockItemStockGroups.Find(stockItemStockGroupId);
+            var entity = _context.StockItemStockGroups.Where(x => x.StockItemStockGroupId == stockItemStockGroupId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/StockItemStockGroups")]
@@ -2034,14 +1929,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/StockItemTransactions({stockItemTransactionId:int})")]
         public IActionResult GetStockItemTransactions(int stockItemTransactionId)
         {
-            var entity = _context.StockItemTransactions.Find(stockItemTransactionId);
+            var entity = _context.StockItemTransactions.Where(x => x.StockItemTransactionId == stockItemTransactionId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/StockItemTransactions")]
@@ -2116,14 +2011,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/Suppliers({supplierId:int})")]
         public IActionResult GetSuppliers(int supplierId)
         {
-            var entity = _context.Suppliers.Find(supplierId);
+            var entity = _context.Suppliers.Where(x => x.SupplierId == supplierId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/Suppliers")]
@@ -2198,14 +2093,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/SupplierCategories({supplierCategoryId:int})")]
         public IActionResult GetSupplierCategories(int supplierCategoryId)
         {
-            var entity = _context.SupplierCategories.Find(supplierCategoryId);
+            var entity = _context.SupplierCategories.Where(x => x.SupplierCategoryId == supplierCategoryId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/SupplierCategories")]
@@ -2280,14 +2175,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/SupplierTransactions({supplierTransactionId:int})")]
         public IActionResult GetSupplierTransactions(int supplierTransactionId)
         {
-            var entity = _context.SupplierTransactions.Find(supplierTransactionId);
+            var entity = _context.SupplierTransactions.Where(x => x.SupplierTransactionId == supplierTransactionId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/SupplierTransactions")]
@@ -2362,14 +2257,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/SystemParameters({systemParameterId:int})")]
         public IActionResult GetSystemParameters(int systemParameterId)
         {
-            var entity = _context.SystemParameters.Find(systemParameterId);
+            var entity = _context.SystemParameters.Where(x => x.SystemParameterId == systemParameterId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/SystemParameters")]
@@ -2444,14 +2339,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/TransactionTypes({transactionTypeId:int})")]
         public IActionResult GetTransactionTypes(int transactionTypeId)
         {
-            var entity = _context.TransactionTypes.Find(transactionTypeId);
+            var entity = _context.TransactionTypes.Where(x => x.TransactionTypeId == transactionTypeId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/TransactionTypes")]
@@ -2526,14 +2421,14 @@ namespace WideWorldImporters.Api.Controllers
         [HttpGet("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
         public IActionResult GetVehicleTemperatures(int vehicleTemperatureId)
         {
-            var entity = _context.VehicleTemperatures.Find(vehicleTemperatureId);
+            var entity = _context.VehicleTemperatures.Where(x => x.VehicleTemperatureId == vehicleTemperatureId);
 
-            if (entity == null)
+            if (!entity.Any())
             {
                 return NotFound();
             }
 
-            return Ok(entity);
+            return Ok(SingleResult.Create(entity));
         }
 
         [HttpPost("odata/VehicleTemperatures")]

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ODataSample.Backend", "WideWorldImporters.Api\WideWorldImporters.Api.csproj", "{F824EC08-E827-4EC6-93E6-C9FC74741782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Api", "WideWorldImporters.Api\WideWorldImporters.Api.csproj", "{F824EC08-E827-4EC6-93E6-C9FC74741782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODataSample.Database", "WideWorldImporters.Database\WideWorldImporters.Database.csproj", "{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Database", "WideWorldImporters.Database\WideWorldImporters.Database.csproj", "{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WideWorldImporters.ModelGenerator", "WideWorldImporters.ModelGenerator\WideWorldImporters.ModelGenerator.csproj", "{7A36B31F-8F95-45F2-B7B0-BF735A7DE24C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A36B31F-8F95-45F2-B7B0-BF735A7DE24C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A36B31F-8F95-45F2-B7B0-BF735A7DE24C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A36B31F-8F95-45F2-B7B0-BF735A7DE24C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A36B31F-8F95-45F2-B7B0-BF735A7DE24C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
