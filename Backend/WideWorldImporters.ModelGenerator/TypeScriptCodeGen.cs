@@ -371,7 +371,7 @@ foreach(var entityMetadata in EntityMetadatas) {
         public bool? ElementIsNullable { get; set; }
     }
 
-    // The 
+    // The Entity Metadata List, that we are generating interfaces and Converters for:
     public EntityMetadata[] EntityMetadatas { get; set; }
 
         

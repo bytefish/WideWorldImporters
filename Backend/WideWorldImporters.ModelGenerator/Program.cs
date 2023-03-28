@@ -1,8 +1,5 @@
 ﻿using Microsoft.OData.Edm;
-using System;
-using System.Text;
 using WideWorldImporters.Api.Models;
-using WideWorldImporters.Database.Models;
 
 namespace WideWorldImporters.ModelGenerator // Note: actual namespace depends on the project name.
 {
@@ -10,15 +7,20 @@ namespace WideWorldImporters.ModelGenerator // Note: actual namespace depends on
     {
         static void Main(string[] args)
         {
-            var model = ApplicationEdmModel.GetEdmModel();
+            // Get the EDM Model used in the WideWorldImporters.Api project ...
+            var edmModel = ApplicationEdmModel.GetEdmModel();
 
-            //Evaluate(model);
-            var typescriptCode = new TypeScriptCodeGen
+            // Create the TypeScript Code Generator with the EntityMetadata list ...
+            var typeScriptCodeGenerator = new TypeScriptCodeGen()
             {
-                EntityMetadatas = GetEntityMetadata(model)
-            }.TransformText();
+                EntityMetadatas = GetEntityMetadata(edmModel)
+            };
 
-            File.WriteAllText("entities.codegen.ts", typescriptCode);
+            // Run the T4 Template to generate the TypeScript code ...
+            var typeScriptCode = typeScriptCodeGenerator.TransformText();
+
+            // ... and finall save it to disk:
+            File.WriteAllText("entities.codegen.ts", typeScriptCode);
         }
 
         public static TypeScriptCodeGen.EntityMetadata[] GetEntityMetadata(IEdmModel model)
@@ -75,7 +77,6 @@ namespace WideWorldImporters.ModelGenerator // Note: actual namespace depends on
         private static string GetByPrimitiveType(IEdmPrimitiveTypeReference edmPrimitiveTypeReference)
         {
             var edmPrimitiveKind = edmPrimitiveTypeReference.PrimitiveKind();
-
 
             switch (edmPrimitiveKind)
             {
