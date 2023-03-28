@@ -33,9 +33,10 @@ namespace WideWorldImporters.ModelGenerator
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
 ");
             
-            #line 10 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 11 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
  
 foreach(var entityMetadata in EntityMetadatas) { 
 
@@ -44,14 +45,14 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("export interface ");
             
-            #line 13 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 14 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n");
             
-            #line 14 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 15 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
  
     foreach(var propertyMetadata in entityMetadata.Properties) { 
 
@@ -59,7 +60,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line default
             #line hidden
             
-            #line 17 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 18 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         if(propertyMetadata.IsCollection) { 
 
@@ -68,28 +69,28 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("  ");
             
-            #line 20 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 21 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write(": Array<");
             
-            #line 20 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 21 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.ElementType));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 20 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 21 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.IsNullable ? " | null" : ""));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 21 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 22 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         } else { 
 
@@ -98,27 +99,27 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("  ");
             
-            #line 24 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 25 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write("?: ");
             
-            #line 24 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 25 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Type));
             
             #line default
             #line hidden
             
-            #line 24 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 25 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.IsNullable ? " | null" : ""));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 25 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 26 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         } 
 
@@ -126,7 +127,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line default
             #line hidden
             
-            #line 28 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 29 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
     }
 
@@ -135,7 +136,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("}\r\n\r\n");
             
-            #line 33 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 34 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
 }
 
@@ -147,7 +148,7 @@ foreach(var entityMetadata in EntityMetadatas) {
                     ": Date[] | undefined {\r\n        return Array.isArray(data) ? data.map(item => ne" +
                     "w Date(item)) : undefined;\r\n    }\r\n\r\n");
             
-            #line 44 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 45 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
  
 foreach(var entityMetadata in EntityMetadatas) { 
 
@@ -156,14 +157,14 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("\r\n    public static convertTo");
             
-            #line 48 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 49 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
             #line hidden
             this.Write("Array(data: any): ");
             
-            #line 48 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 49 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
@@ -171,28 +172,28 @@ foreach(var entityMetadata in EntityMetadatas) {
             this.Write("[] | undefined {\r\n        return Array.isArray(data) ? data.map(item => Converter" +
                     "s.convertTo");
             
-            #line 49 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 50 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
             #line hidden
             this.Write("(item)) : undefined;\r\n    }\r\n\r\n    public static convertTo");
             
-            #line 52 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 53 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
             #line hidden
             this.Write("(data: any): ");
             
-            #line 52 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 53 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entityMetadata.Name));
             
             #line default
             #line hidden
             this.Write(" | undefined {\r\n        return data ? {\r\n");
             
-            #line 54 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 55 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
     foreach(var propertyMetadata in entityMetadata.Properties) { 
 
@@ -200,7 +201,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line default
             #line hidden
             
-            #line 57 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 58 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         if(propertyMetadata.IsCollection) { 
 
@@ -209,28 +210,28 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("            ");
             
-            #line 60 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 61 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write(": Converters.convertTo");
             
-            #line 60 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 61 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.ElementType));
             
             #line default
             #line hidden
             this.Write("Array(data[\"");
             
-            #line 60 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 61 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write("\"]),\r\n");
             
-            #line 61 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 62 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         } else if(propertyMetadata.Type == "Date") { 
 
@@ -239,28 +240,28 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("            ");
             
-            #line 64 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 65 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write(": data[\"");
             
-            #line 64 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 65 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write("\"] ? new Date(data[\"");
             
-            #line 64 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 65 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write("\"]) : undefined,\r\n");
             
-            #line 65 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 66 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         } else  { 
 
@@ -269,21 +270,21 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("            ");
             
-            #line 68 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 69 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write(": data[\"");
             
-            #line 68 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 69 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyMetadata.Name));
             
             #line default
             #line hidden
             this.Write("\"],\r\n");
             
-            #line 69 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 70 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
         }
 
@@ -291,7 +292,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line default
             #line hidden
             
-            #line 72 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 73 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
     }
 
@@ -300,7 +301,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             #line hidden
             this.Write("        } : undefined;\r\n    }\r\n");
             
-            #line 77 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+            #line 78 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
     }
 
@@ -311,7 +312,7 @@ foreach(var entityMetadata in EntityMetadatas) {
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 82 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
+        #line 83 "C:\Users\philipp\source\repos\bytefish\WideWorldImporters\Backend\WideWorldImporters.ModelGenerator\TypeScriptCodeGen.tt"
 
 
     /// <summary>
