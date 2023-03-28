@@ -7,23 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 <#@ template language="C#" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="System.Runtime" #>
-<#@ assembly name="$(TargetPath)" #>
-<#@ assembly name="$(TargetDir)WideWorldImporters.Api.dll" #>
-<#@ assembly name="$(TargetDir)WideWorldImporters.Database.dll" #>
-<#@ assembly name="$(NuGetPackageRoot)microsoft.odata.edm\7.15.0\lib\netstandard1.1\Microsoft.OData.Edm.dll" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Text" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="Microsoft.OData.Edm" #>
-<#@ import namespace="Microsoft.OData.Edm.Csdl" #>
-<#@ import namespace="Microsoft.OData.Edm.Vocabularies" #>
-<#@ import namespace="Microsoft.OData.Edm.Vocabularies.V1" #>
-<#@ Import Namespace="System.Collections.Generic" #>
-<#@ Import Namespace="System.Text"#>
-<#@ Import Namespace="System.Net"#>
 <# 
 foreach(var entityMetadata in EntityMetadatas) { 
 #>
