@@ -5,8 +5,7 @@ said everyone trying to quickly expose a dataset with an Angular application. It
 to be this way.
 
 In this repository I will show you how to use ASP.NET Core OData and EF Core to quickly build Backends 
-and how to use Angular to display, filter and paginate datasets. It's not complicated, but there had 
-been quite a few pieces to the puzzle.
+and how to use Angular, Blazor or WPF to display, filter and paginate datasets.
 
 You can find an article on it at:
 
@@ -14,11 +13,16 @@ You can find an article on it at:
 
 ## Repository Structure ##
 
-* ``Backend``
+* `Backend`
     * Contains the Backend Solution, that you can start with your .NET Runtime.
-* ``Frontend``
-    * Contains the Angular 13 Frontend, that uses Clarity Design for its Components.
-
+* `Frontend`
+    * `Angular`
+        * Contains the Angular 15 Frontend, that uses Clarity Design for its Components.
+    * `Blazor`
+        * Contains the Blazor WASM Frontend, that uses Fluent UI Blazor for its Components.
+    * `WPF`
+        * Contains a WPF application, that shows how to display and edit data in a `DataGrid`.
+        
 ## About the Project ##
 
 We will build a Backend and Frontend for the "Wide World Importers" database, which is a Microsoft SQL Server 
@@ -49,8 +53,3 @@ I think it's a perfect non-trivial database to work with!
 We are building a Backend, that scaffolds the WWI database and exposes the data with Microsoft ASP.NET Core OData 8. We will 
 learn how to extend Microsoft ASP.NET Core OData 8 for spatial types, see how to generate the OData endpoints using T4 Text 
 Templates and provide OpenAPI 3.0 documents for Frontend code generation goodies.
-
-The Frontend is an Angular application to query the OData endpoints. We are going to use Angular components of the Clarity 
-Design system, because Clarity takes a Desktop-first approach and has a very nice Datagrid, that's easy to extend:
-
-* [https://clarity.design/](https://clarity.design/)

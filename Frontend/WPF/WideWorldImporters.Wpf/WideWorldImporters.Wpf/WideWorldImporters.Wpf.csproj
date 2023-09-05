@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Connected Services\WideWorldImporters Service\WideWorldImporters ServiceCsdl.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Connected Services\WideWorldImporters Service\WideWorldImporters ServiceCsdl.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="Microsoft.OData.Client" Version="7.15.0" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.15.0" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="7.15.0" />
+    <PackageReference Include="Microsoft.Spatial" Version="7.15.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="7.0.2" />
+  </ItemGroup>
+
+</Project>

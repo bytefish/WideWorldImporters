@@ -1,0 +1,1050 @@
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="WideWorldImportersService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityType Name="BuyingGroup">
+        <Key>
+          <PropertyRef Name="buyingGroupId" />
+        </Key>
+        <Property Name="buyingGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="buyingGroupName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customers" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+      </EntityType>
+      <EntityType Name="City">
+        <Key>
+          <PropertyRef Name="cityId" />
+        </Key>
+        <Property Name="cityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="cityName" Type="Edm.String" Nullable="false" />
+        <Property Name="stateProvinceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="latestRecordedPopulation" Type="Edm.Int64" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="location" Type="Edm.GeographyPoint" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stateProvince" Type="WideWorldImportersService.StateProvince" Nullable="false">
+          <ReferentialConstraint Property="stateProvinceId" ReferencedProperty="stateProvinceId" />
+        </NavigationProperty>
+        <NavigationProperty Name="customerDeliveryCities" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="customerPostalCities" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="supplierDeliveryCities" Type="Collection(WideWorldImportersService.Supplier)" />
+        <NavigationProperty Name="supplierPostalCities" Type="Collection(WideWorldImportersService.Supplier)" />
+        <NavigationProperty Name="systemParameterDeliveryCities" Type="Collection(WideWorldImportersService.SystemParameter)" />
+        <NavigationProperty Name="systemParameterPostalCities" Type="Collection(WideWorldImportersService.SystemParameter)" />
+      </EntityType>
+      <EntityType Name="ColdRoomTemperature">
+        <Key>
+          <PropertyRef Name="coldRoomTemperatureId" />
+        </Key>
+        <Property Name="coldRoomTemperatureId" Type="Edm.Int64" Nullable="false" />
+        <Property Name="coldRoomSensorNumber" Type="Edm.Int32" Nullable="false" />
+        <Property Name="recordedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="temperature" Type="Edm.Decimal" Nullable="false" />
+      </EntityType>
+      <EntityType Name="Color">
+        <Key>
+          <PropertyRef Name="colorId" />
+        </Key>
+        <Property Name="colorId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="colorName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stockItems" Type="Collection(WideWorldImportersService.StockItem)" />
+      </EntityType>
+      <EntityType Name="Country">
+        <Key>
+          <PropertyRef Name="countryId" />
+        </Key>
+        <Property Name="countryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="countryName" Type="Edm.String" Nullable="false" />
+        <Property Name="formalName" Type="Edm.String" Nullable="false" />
+        <Property Name="isoAlpha3Code" Type="Edm.String" />
+        <Property Name="isoNumericCode" Type="Edm.Int32" />
+        <Property Name="countryType" Type="Edm.String" />
+        <Property Name="latestRecordedPopulation" Type="Edm.Int64" />
+        <Property Name="continent" Type="Edm.String" Nullable="false" />
+        <Property Name="region" Type="Edm.String" Nullable="false" />
+        <Property Name="subregion" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="border" Type="Edm.Geography" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stateProvinces" Type="Collection(WideWorldImportersService.StateProvince)" />
+      </EntityType>
+      <EntityType Name="Customer">
+        <Key>
+          <PropertyRef Name="customerId" />
+        </Key>
+        <Property Name="customerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerName" Type="Edm.String" Nullable="false" />
+        <Property Name="billToCustomerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerCategoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="buyingGroupId" Type="Edm.Int32" />
+        <Property Name="primaryContactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="alternateContactPersonId" Type="Edm.Int32" />
+        <Property Name="deliveryMethodId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="postalCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="creditLimit" Type="Edm.Decimal" />
+        <Property Name="accountOpenedDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="standardDiscountPercentage" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="isStatementSent" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="isOnCreditHold" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="paymentDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="phoneNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="faxNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryRun" Type="Edm.String" />
+        <Property Name="runPosition" Type="Edm.String" />
+        <Property Name="websiteUrl" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryAddressLine2" Type="Edm.String" />
+        <Property Name="deliveryPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine2" Type="Edm.String" />
+        <Property Name="postalPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryLocation" Type="Edm.GeographyPoint" />
+        <NavigationProperty Name="alternateContactPerson" Type="WideWorldImportersService.Person" />
+        <NavigationProperty Name="billToCustomer" Type="WideWorldImportersService.Customer" Nullable="false">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="buyingGroup" Type="WideWorldImportersService.BuyingGroup">
+          <ReferentialConstraint Property="buyingGroupId" ReferencedProperty="buyingGroupId" />
+        </NavigationProperty>
+        <NavigationProperty Name="customerCategory" Type="WideWorldImportersService.CustomerCategory" Nullable="false">
+          <ReferentialConstraint Property="customerCategoryId" ReferencedProperty="customerCategoryId" />
+        </NavigationProperty>
+        <NavigationProperty Name="deliveryCity" Type="WideWorldImportersService.City" Nullable="false" />
+        <NavigationProperty Name="deliveryMethod" Type="WideWorldImportersService.DeliveryMethod" Nullable="false">
+          <ReferentialConstraint Property="deliveryMethodId" ReferencedProperty="deliveryMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="postalCity" Type="WideWorldImportersService.City" Nullable="false" />
+        <NavigationProperty Name="primaryContactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customerTransactions" Type="Collection(WideWorldImportersService.CustomerTransaction)" />
+        <NavigationProperty Name="inverseBillToCustomer" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="invoiceBillToCustomers" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="invoiceCustomers" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="orders" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+      </EntityType>
+      <EntityType Name="CustomerCategory">
+        <Key>
+          <PropertyRef Name="customerCategoryId" />
+        </Key>
+        <Property Name="customerCategoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerCategoryName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customers" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+      </EntityType>
+      <EntityType Name="CustomerTransaction">
+        <Key>
+          <PropertyRef Name="customerTransactionId" />
+        </Key>
+        <Property Name="customerTransactionId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="transactionTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="invoiceId" Type="Edm.Int32" />
+        <Property Name="paymentMethodId" Type="Edm.Int32" />
+        <Property Name="transactionDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="amountExcludingTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="taxAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="transactionAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="outstandingBalance" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="finalizationDate" Type="Edm.DateTimeOffset" />
+        <Property Name="isFinalized" Type="Edm.Boolean" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="customer" Type="WideWorldImportersService.Customer" Nullable="false">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="invoice" Type="WideWorldImportersService.Invoice">
+          <ReferentialConstraint Property="invoiceId" ReferencedProperty="invoiceId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="paymentMethod" Type="WideWorldImportersService.PaymentMethod">
+          <ReferentialConstraint Property="paymentMethodId" ReferencedProperty="paymentMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="transactionType" Type="WideWorldImportersService.TransactionType" Nullable="false">
+          <ReferentialConstraint Property="transactionTypeId" ReferencedProperty="transactionTypeId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="DeliveryMethod">
+        <Key>
+          <PropertyRef Name="deliveryMethodId" />
+        </Key>
+        <Property Name="deliveryMethodId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryMethodName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customers" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="invoices" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="purchaseOrders" Type="Collection(WideWorldImportersService.PurchaseOrder)" />
+        <NavigationProperty Name="suppliers" Type="Collection(WideWorldImportersService.Supplier)" />
+      </EntityType>
+      <EntityType Name="Invoice">
+        <Key>
+          <PropertyRef Name="invoiceId" />
+        </Key>
+        <Property Name="invoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="billToCustomerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="orderId" Type="Edm.Int32" />
+        <Property Name="deliveryMethodId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="contactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="accountsPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="salespersonPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="packedByPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="invoiceDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="customerPurchaseOrderNumber" Type="Edm.String" />
+        <Property Name="isCreditNote" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="creditNoteReason" Type="Edm.String" />
+        <Property Name="comments" Type="Edm.String" />
+        <Property Name="deliveryInstructions" Type="Edm.String" />
+        <Property Name="internalComments" Type="Edm.String" />
+        <Property Name="totalDryItems" Type="Edm.Int32" Nullable="false" />
+        <Property Name="totalChillerItems" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryRun" Type="Edm.String" />
+        <Property Name="runPosition" Type="Edm.String" />
+        <Property Name="returnedDeliveryData" Type="Edm.String" />
+        <Property Name="confirmedDeliveryTime" Type="Edm.DateTimeOffset" />
+        <Property Name="confirmedReceivedBy" Type="Edm.String" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="accountsPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="billToCustomer" Type="WideWorldImportersService.Customer" Nullable="false">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="contactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customer" Type="WideWorldImportersService.Customer" Nullable="false">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="deliveryMethod" Type="WideWorldImportersService.DeliveryMethod" Nullable="false">
+          <ReferentialConstraint Property="deliveryMethodId" ReferencedProperty="deliveryMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="order" Type="WideWorldImportersService.Order">
+          <ReferentialConstraint Property="orderId" ReferencedProperty="orderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="packedByPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="salespersonPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customerTransactions" Type="Collection(WideWorldImportersService.CustomerTransaction)" />
+        <NavigationProperty Name="invoiceLines" Type="Collection(WideWorldImportersService.InvoiceLine)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+      </EntityType>
+      <EntityType Name="InvoiceLine">
+        <Key>
+          <PropertyRef Name="invoiceLineId" />
+        </Key>
+        <Property Name="invoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="invoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="description" Type="Edm.String" Nullable="false" />
+        <Property Name="packageTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="quantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="unitPrice" Type="Edm.Decimal" />
+        <Property Name="taxRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="taxAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="lineProfit" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="extendedPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="invoice" Type="WideWorldImportersService.Invoice" Nullable="false">
+          <ReferentialConstraint Property="invoiceId" ReferencedProperty="invoiceId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="packageType" Type="WideWorldImportersService.PackageType" Nullable="false">
+          <ReferentialConstraint Property="packageTypeId" ReferencedProperty="packageTypeId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Order">
+        <Key>
+          <PropertyRef Name="orderId" />
+        </Key>
+        <Property Name="orderId" Type="Edm.Int32" />
+        <Property Name="customerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="salespersonPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="pickedByPersonId" Type="Edm.Int32" />
+        <Property Name="contactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="backorderOrderId" Type="Edm.Int32" />
+        <Property Name="orderDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="expectedDeliveryDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="customerPurchaseOrderNumber" Type="Edm.String" />
+        <Property Name="isUndersupplyBackordered" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="comments" Type="Edm.String" />
+        <Property Name="deliveryInstructions" Type="Edm.String" />
+        <Property Name="internalComments" Type="Edm.String" />
+        <Property Name="pickingCompletedWhen" Type="Edm.DateTimeOffset" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="backorderOrder" Type="WideWorldImportersService.Order">
+          <ReferentialConstraint Property="orderId" ReferencedProperty="orderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="contactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customer" Type="WideWorldImportersService.Customer" Nullable="false">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="pickedByPerson" Type="WideWorldImportersService.Person" />
+        <NavigationProperty Name="salespersonPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="inverseBackorderOrder" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="invoices" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="orderLines" Type="Collection(WideWorldImportersService.OrderLine)" />
+      </EntityType>
+      <EntityType Name="OrderLine">
+        <Key>
+          <PropertyRef Name="orderLineId" />
+        </Key>
+        <Property Name="orderLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="orderId" Type="Edm.Int32" />
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="description" Type="Edm.String" Nullable="false" />
+        <Property Name="packageTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="quantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="unitPrice" Type="Edm.Decimal" />
+        <Property Name="taxRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="pickedQuantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="pickingCompletedWhen" Type="Edm.DateTimeOffset" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="order" Type="WideWorldImportersService.Order" Nullable="false">
+          <ReferentialConstraint Property="orderId" ReferencedProperty="orderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="packageType" Type="WideWorldImportersService.PackageType" Nullable="false">
+          <ReferentialConstraint Property="packageTypeId" ReferencedProperty="packageTypeId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="PackageType">
+        <Key>
+          <PropertyRef Name="packageTypeId" />
+        </Key>
+        <Property Name="packageTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="packageTypeName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="invoiceLines" Type="Collection(WideWorldImportersService.InvoiceLine)" />
+        <NavigationProperty Name="orderLines" Type="Collection(WideWorldImportersService.OrderLine)" />
+        <NavigationProperty Name="purchaseOrderLines" Type="Collection(WideWorldImportersService.PurchaseOrderLine)" />
+        <NavigationProperty Name="stockItemOuterPackages" Type="Collection(WideWorldImportersService.StockItem)" />
+        <NavigationProperty Name="stockItemUnitPackages" Type="Collection(WideWorldImportersService.StockItem)" />
+      </EntityType>
+      <EntityType Name="PaymentMethod">
+        <Key>
+          <PropertyRef Name="paymentMethodId" />
+        </Key>
+        <Property Name="paymentMethodId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="paymentMethodName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customerTransactions" Type="Collection(WideWorldImportersService.CustomerTransaction)" />
+        <NavigationProperty Name="supplierTransactions" Type="Collection(WideWorldImportersService.SupplierTransaction)" />
+      </EntityType>
+      <EntityType Name="Person">
+        <Key>
+          <PropertyRef Name="personId" />
+        </Key>
+        <Property Name="personId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="fullName" Type="Edm.String" Nullable="false" />
+        <Property Name="preferredName" Type="Edm.String" Nullable="false" />
+        <Property Name="searchName" Type="Edm.String" Nullable="false" />
+        <Property Name="isPermittedToLogon" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="logonName" Type="Edm.String" />
+        <Property Name="isExternalLogonProvider" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="hashedPassword" Type="Edm.Binary" />
+        <Property Name="isSystemUser" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="isEmployee" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="isSalesperson" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="userPreferences" Type="Edm.String" />
+        <Property Name="phoneNumber" Type="Edm.String" />
+        <Property Name="faxNumber" Type="Edm.String" />
+        <Property Name="emailAddress" Type="Edm.String" />
+        <Property Name="photo" Type="Edm.Binary" />
+        <Property Name="customFields" Type="Edm.String" />
+        <Property Name="otherLanguages" Type="Edm.String" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false">
+          <ReferentialConstraint Property="personId" ReferencedProperty="personId" />
+        </NavigationProperty>
+        <NavigationProperty Name="buyingGroups" Type="Collection(WideWorldImportersService.BuyingGroup)" />
+        <NavigationProperty Name="cities" Type="Collection(WideWorldImportersService.City)" />
+        <NavigationProperty Name="colors" Type="Collection(WideWorldImportersService.Color)" />
+        <NavigationProperty Name="countries" Type="Collection(WideWorldImportersService.Country)" />
+        <NavigationProperty Name="customerAlternateContactPeople" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="customerCategories" Type="Collection(WideWorldImportersService.CustomerCategory)" />
+        <NavigationProperty Name="customerLastEditedByNavigations" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="customerPrimaryContactPeople" Type="Collection(WideWorldImportersService.Customer)" />
+        <NavigationProperty Name="customerTransactions" Type="Collection(WideWorldImportersService.CustomerTransaction)" />
+        <NavigationProperty Name="deliveryMethods" Type="Collection(WideWorldImportersService.DeliveryMethod)" />
+        <NavigationProperty Name="inverseLastEditedByNavigation" Type="Collection(WideWorldImportersService.Person)" />
+        <NavigationProperty Name="invoiceAccountsPeople" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="invoiceContactPeople" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="invoiceLastEditedByNavigations" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="invoiceLines" Type="Collection(WideWorldImportersService.InvoiceLine)" />
+        <NavigationProperty Name="invoicePackedByPeople" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="invoiceSalespersonPeople" Type="Collection(WideWorldImportersService.Invoice)" />
+        <NavigationProperty Name="orderContactPeople" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="orderLastEditedByNavigations" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="orderLines" Type="Collection(WideWorldImportersService.OrderLine)" />
+        <NavigationProperty Name="orderPickedByPeople" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="orderSalespersonPeople" Type="Collection(WideWorldImportersService.Order)" />
+        <NavigationProperty Name="packageTypes" Type="Collection(WideWorldImportersService.PackageType)" />
+        <NavigationProperty Name="paymentMethods" Type="Collection(WideWorldImportersService.PaymentMethod)" />
+        <NavigationProperty Name="purchaseOrderContactPeople" Type="Collection(WideWorldImportersService.PurchaseOrder)" />
+        <NavigationProperty Name="purchaseOrderLastEditedByNavigations" Type="Collection(WideWorldImportersService.PurchaseOrder)" />
+        <NavigationProperty Name="purchaseOrderLines" Type="Collection(WideWorldImportersService.PurchaseOrderLine)" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+        <NavigationProperty Name="stateProvinces" Type="Collection(WideWorldImportersService.StateProvince)" />
+        <NavigationProperty Name="stockGroups" Type="Collection(WideWorldImportersService.StockGroup)" />
+        <NavigationProperty Name="stockItemHoldings" Type="Collection(WideWorldImportersService.StockItemHolding)" />
+        <NavigationProperty Name="stockItemStockGroups" Type="Collection(WideWorldImportersService.StockItemStockGroup)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+        <NavigationProperty Name="stockItems" Type="Collection(WideWorldImportersService.StockItem)" />
+        <NavigationProperty Name="supplierAlternateContactPeople" Type="Collection(WideWorldImportersService.Supplier)" />
+        <NavigationProperty Name="supplierCategories" Type="Collection(WideWorldImportersService.SupplierCategory)" />
+        <NavigationProperty Name="supplierLastEditedByNavigations" Type="Collection(WideWorldImportersService.Supplier)" />
+        <NavigationProperty Name="supplierPrimaryContactPeople" Type="Collection(WideWorldImportersService.Supplier)" />
+        <NavigationProperty Name="supplierTransactions" Type="Collection(WideWorldImportersService.SupplierTransaction)" />
+        <NavigationProperty Name="systemParameters" Type="Collection(WideWorldImportersService.SystemParameter)" />
+        <NavigationProperty Name="transactionTypes" Type="Collection(WideWorldImportersService.TransactionType)" />
+      </EntityType>
+      <EntityType Name="PurchaseOrder">
+        <Key>
+          <PropertyRef Name="purchaseOrderId" />
+        </Key>
+        <Property Name="purchaseOrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="supplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="orderDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="deliveryMethodId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="contactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="expectedDeliveryDate" Type="Edm.DateTimeOffset" />
+        <Property Name="supplierReference" Type="Edm.String" />
+        <Property Name="isOrderFinalized" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="comments" Type="Edm.String" />
+        <Property Name="internalComments" Type="Edm.String" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="contactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="deliveryMethod" Type="WideWorldImportersService.DeliveryMethod" Nullable="false">
+          <ReferentialConstraint Property="deliveryMethodId" ReferencedProperty="deliveryMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="supplier" Type="WideWorldImportersService.Supplier" Nullable="false">
+          <ReferentialConstraint Property="supplierId" ReferencedProperty="supplierId" />
+        </NavigationProperty>
+        <NavigationProperty Name="purchaseOrderLines" Type="Collection(WideWorldImportersService.PurchaseOrderLine)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+        <NavigationProperty Name="supplierTransactions" Type="Collection(WideWorldImportersService.SupplierTransaction)" />
+      </EntityType>
+      <EntityType Name="PurchaseOrderLine">
+        <Key>
+          <PropertyRef Name="purchaseOrderLineId" />
+        </Key>
+        <Property Name="purchaseOrderLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="purchaseOrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="orderedOuters" Type="Edm.Int32" Nullable="false" />
+        <Property Name="description" Type="Edm.String" Nullable="false" />
+        <Property Name="receivedOuters" Type="Edm.Int32" Nullable="false" />
+        <Property Name="packageTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="expectedUnitPricePerOuter" Type="Edm.Decimal" />
+        <Property Name="lastReceiptDate" Type="Edm.DateTimeOffset" />
+        <Property Name="isOrderLineFinalized" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="packageType" Type="WideWorldImportersService.PackageType" Nullable="false">
+          <ReferentialConstraint Property="packageTypeId" ReferencedProperty="packageTypeId" />
+        </NavigationProperty>
+        <NavigationProperty Name="purchaseOrder" Type="WideWorldImportersService.PurchaseOrder" Nullable="false">
+          <ReferentialConstraint Property="purchaseOrderId" ReferencedProperty="purchaseOrderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="SpecialDeal">
+        <Key>
+          <PropertyRef Name="specialDealId" />
+        </Key>
+        <Property Name="specialDealId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemId" Type="Edm.Int32" />
+        <Property Name="customerId" Type="Edm.Int32" />
+        <Property Name="buyingGroupId" Type="Edm.Int32" />
+        <Property Name="customerCategoryId" Type="Edm.Int32" />
+        <Property Name="stockGroupId" Type="Edm.Int32" />
+        <Property Name="dealDescription" Type="Edm.String" Nullable="false" />
+        <Property Name="startDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="endDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="discountAmount" Type="Edm.Decimal" />
+        <Property Name="discountPercentage" Type="Edm.Decimal" />
+        <Property Name="unitPrice" Type="Edm.Decimal" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="buyingGroup" Type="WideWorldImportersService.BuyingGroup">
+          <ReferentialConstraint Property="buyingGroupId" ReferencedProperty="buyingGroupId" />
+        </NavigationProperty>
+        <NavigationProperty Name="customer" Type="WideWorldImportersService.Customer">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="customerCategory" Type="WideWorldImportersService.CustomerCategory">
+          <ReferentialConstraint Property="customerCategoryId" ReferencedProperty="customerCategoryId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stockGroup" Type="WideWorldImportersService.StockGroup">
+          <ReferentialConstraint Property="stockGroupId" ReferencedProperty="stockGroupId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="StateProvince">
+        <Key>
+          <PropertyRef Name="stateProvinceId" />
+        </Key>
+        <Property Name="stateProvinceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stateProvinceCode" Type="Edm.String" Nullable="false" />
+        <Property Name="stateProvinceName" Type="Edm.String" Nullable="false" />
+        <Property Name="countryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="salesTerritory" Type="Edm.String" Nullable="false" />
+        <Property Name="latestRecordedPopulation" Type="Edm.Int64" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="border" Type="Edm.Geography" />
+        <NavigationProperty Name="country" Type="WideWorldImportersService.Country" Nullable="false">
+          <ReferentialConstraint Property="countryId" ReferencedProperty="countryId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="cities" Type="Collection(WideWorldImportersService.City)" />
+      </EntityType>
+      <EntityType Name="StockGroup">
+        <Key>
+          <PropertyRef Name="stockGroupId" />
+        </Key>
+        <Property Name="stockGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockGroupName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+        <NavigationProperty Name="stockItemStockGroups" Type="Collection(WideWorldImportersService.StockItemStockGroup)" />
+      </EntityType>
+      <EntityType Name="StockItem">
+        <Key>
+          <PropertyRef Name="stockItemId" />
+        </Key>
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemName" Type="Edm.String" Nullable="false" />
+        <Property Name="supplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="colorId" Type="Edm.Int32" />
+        <Property Name="unitPackageId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="outerPackageId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="brand" Type="Edm.String" />
+        <Property Name="size" Type="Edm.String" />
+        <Property Name="leadTimeDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="quantityPerOuter" Type="Edm.Int32" Nullable="false" />
+        <Property Name="isChillerStock" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="barcode" Type="Edm.String" />
+        <Property Name="taxRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="unitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="recommendedRetailPrice" Type="Edm.Decimal" />
+        <Property Name="typicalWeightPerUnit" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="marketingComments" Type="Edm.String" />
+        <Property Name="internalComments" Type="Edm.String" />
+        <Property Name="photo" Type="Edm.Binary" />
+        <Property Name="customFields" Type="Edm.String" />
+        <Property Name="tags" Type="Edm.String" />
+        <Property Name="searchDetails" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="color" Type="WideWorldImportersService.Color">
+          <ReferentialConstraint Property="colorId" ReferencedProperty="colorId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="outerPackage" Type="WideWorldImportersService.PackageType" Nullable="false" />
+        <NavigationProperty Name="supplier" Type="WideWorldImportersService.Supplier" Nullable="false">
+          <ReferentialConstraint Property="supplierId" ReferencedProperty="supplierId" />
+        </NavigationProperty>
+        <NavigationProperty Name="unitPackage" Type="WideWorldImportersService.PackageType" Nullable="false" />
+        <NavigationProperty Name="stockItemHolding" Type="WideWorldImportersService.StockItemHolding" Nullable="false" />
+        <NavigationProperty Name="invoiceLines" Type="Collection(WideWorldImportersService.InvoiceLine)" />
+        <NavigationProperty Name="orderLines" Type="Collection(WideWorldImportersService.OrderLine)" />
+        <NavigationProperty Name="purchaseOrderLines" Type="Collection(WideWorldImportersService.PurchaseOrderLine)" />
+        <NavigationProperty Name="specialDeals" Type="Collection(WideWorldImportersService.SpecialDeal)" />
+        <NavigationProperty Name="stockItemStockGroups" Type="Collection(WideWorldImportersService.StockItemStockGroup)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+      </EntityType>
+      <EntityType Name="StockItemHolding">
+        <Key>
+          <PropertyRef Name="stockItemId" />
+        </Key>
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="quantityOnHand" Type="Edm.Int32" Nullable="false" />
+        <Property Name="binLocation" Type="Edm.String" Nullable="false" />
+        <Property Name="lastStocktakeQuantity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastCostPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="reorderLevel" Type="Edm.Int32" Nullable="false" />
+        <Property Name="targetStockLevel" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="StockItemStockGroup">
+        <Key>
+          <PropertyRef Name="stockItemStockGroupId" />
+        </Key>
+        <Property Name="stockItemStockGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="stockGroup" Type="WideWorldImportersService.StockGroup" Nullable="false">
+          <ReferentialConstraint Property="stockGroupId" ReferencedProperty="stockGroupId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="StockItemTransaction">
+        <Key>
+          <PropertyRef Name="stockItemTransactionId" />
+        </Key>
+        <Property Name="stockItemTransactionId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="stockItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="transactionTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="customerId" Type="Edm.Int32" />
+        <Property Name="invoiceId" Type="Edm.Int32" />
+        <Property Name="supplierId" Type="Edm.Int32" />
+        <Property Name="purchaseOrderId" Type="Edm.Int32" />
+        <Property Name="transactionOccurredWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="quantity" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="customer" Type="WideWorldImportersService.Customer">
+          <ReferentialConstraint Property="customerId" ReferencedProperty="customerId" />
+        </NavigationProperty>
+        <NavigationProperty Name="invoice" Type="WideWorldImportersService.Invoice">
+          <ReferentialConstraint Property="invoiceId" ReferencedProperty="invoiceId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="purchaseOrder" Type="WideWorldImportersService.PurchaseOrder">
+          <ReferentialConstraint Property="purchaseOrderId" ReferencedProperty="purchaseOrderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="stockItem" Type="WideWorldImportersService.StockItem" Nullable="false">
+          <ReferentialConstraint Property="stockItemId" ReferencedProperty="stockItemId" />
+        </NavigationProperty>
+        <NavigationProperty Name="supplier" Type="WideWorldImportersService.Supplier">
+          <ReferentialConstraint Property="supplierId" ReferencedProperty="supplierId" />
+        </NavigationProperty>
+        <NavigationProperty Name="transactionType" Type="WideWorldImportersService.TransactionType" Nullable="false">
+          <ReferentialConstraint Property="transactionTypeId" ReferencedProperty="transactionTypeId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Supplier">
+        <Key>
+          <PropertyRef Name="supplierId" />
+        </Key>
+        <Property Name="supplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="supplierName" Type="Edm.String" Nullable="false" />
+        <Property Name="supplierCategoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="primaryContactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="alternateContactPersonId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryMethodId" Type="Edm.Int32" />
+        <Property Name="deliveryCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="postalCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="supplierReference" Type="Edm.String" />
+        <Property Name="bankAccountName" Type="Edm.String" />
+        <Property Name="bankAccountBranch" Type="Edm.String" />
+        <Property Name="bankAccountCode" Type="Edm.String" />
+        <Property Name="bankAccountNumber" Type="Edm.String" />
+        <Property Name="bankInternationalCode" Type="Edm.String" />
+        <Property Name="paymentDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="internalComments" Type="Edm.String" />
+        <Property Name="phoneNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="faxNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="websiteUrl" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryAddressLine2" Type="Edm.String" />
+        <Property Name="deliveryPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine2" Type="Edm.String" />
+        <Property Name="postalPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryLocation" Type="Edm.GeographyPoint" />
+        <NavigationProperty Name="alternateContactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="deliveryCity" Type="WideWorldImportersService.City" Nullable="false" />
+        <NavigationProperty Name="deliveryMethod" Type="WideWorldImportersService.DeliveryMethod">
+          <ReferentialConstraint Property="deliveryMethodId" ReferencedProperty="deliveryMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="postalCity" Type="WideWorldImportersService.City" Nullable="false" />
+        <NavigationProperty Name="primaryContactPerson" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="supplierCategory" Type="WideWorldImportersService.SupplierCategory" Nullable="false">
+          <ReferentialConstraint Property="supplierCategoryId" ReferencedProperty="supplierCategoryId" />
+        </NavigationProperty>
+        <NavigationProperty Name="purchaseOrders" Type="Collection(WideWorldImportersService.PurchaseOrder)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+        <NavigationProperty Name="stockItems" Type="Collection(WideWorldImportersService.StockItem)" />
+        <NavigationProperty Name="supplierTransactions" Type="Collection(WideWorldImportersService.SupplierTransaction)" />
+      </EntityType>
+      <EntityType Name="SupplierCategory">
+        <Key>
+          <PropertyRef Name="supplierCategoryId" />
+        </Key>
+        <Property Name="supplierCategoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="supplierCategoryName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="suppliers" Type="Collection(WideWorldImportersService.Supplier)" />
+      </EntityType>
+      <EntityType Name="SupplierTransaction">
+        <Key>
+          <PropertyRef Name="supplierTransactionId" />
+        </Key>
+        <Property Name="supplierTransactionId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="supplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="transactionTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="purchaseOrderId" Type="Edm.Int32" />
+        <Property Name="paymentMethodId" Type="Edm.Int32" />
+        <Property Name="supplierInvoiceNumber" Type="Edm.String" />
+        <Property Name="transactionDate" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="amountExcludingTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="taxAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="transactionAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="outstandingBalance" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="finalizationDate" Type="Edm.DateTimeOffset" />
+        <Property Name="isFinalized" Type="Edm.Boolean" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="paymentMethod" Type="WideWorldImportersService.PaymentMethod">
+          <ReferentialConstraint Property="paymentMethodId" ReferencedProperty="paymentMethodId" />
+        </NavigationProperty>
+        <NavigationProperty Name="purchaseOrder" Type="WideWorldImportersService.PurchaseOrder">
+          <ReferentialConstraint Property="purchaseOrderId" ReferencedProperty="purchaseOrderId" />
+        </NavigationProperty>
+        <NavigationProperty Name="supplier" Type="WideWorldImportersService.Supplier" Nullable="false">
+          <ReferentialConstraint Property="supplierId" ReferencedProperty="supplierId" />
+        </NavigationProperty>
+        <NavigationProperty Name="transactionType" Type="WideWorldImportersService.TransactionType" Nullable="false">
+          <ReferentialConstraint Property="transactionTypeId" ReferencedProperty="transactionTypeId" />
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="SystemParameter">
+        <Key>
+          <PropertyRef Name="systemParameterId" />
+        </Key>
+        <Property Name="systemParameterId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="deliveryAddressLine2" Type="Edm.String" />
+        <Property Name="deliveryCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="deliveryPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine1" Type="Edm.String" Nullable="false" />
+        <Property Name="postalAddressLine2" Type="Edm.String" />
+        <Property Name="postalCityId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="postalPostalCode" Type="Edm.String" Nullable="false" />
+        <Property Name="applicationSettings" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="lastEditedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="deliveryLocation" Type="Edm.GeographyPoint" />
+        <NavigationProperty Name="deliveryCity" Type="WideWorldImportersService.City" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="postalCity" Type="WideWorldImportersService.City" Nullable="false" />
+      </EntityType>
+      <EntityType Name="TransactionType">
+        <Key>
+          <PropertyRef Name="transactionTypeId" />
+        </Key>
+        <Property Name="transactionTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="transactionTypeName" Type="Edm.String" Nullable="false" />
+        <Property Name="lastEditedBy" Type="Edm.Int32" Nullable="false" />
+        <NavigationProperty Name="lastEditedByNavigation" Type="WideWorldImportersService.Person" Nullable="false" />
+        <NavigationProperty Name="customerTransactions" Type="Collection(WideWorldImportersService.CustomerTransaction)" />
+        <NavigationProperty Name="stockItemTransactions" Type="Collection(WideWorldImportersService.StockItemTransaction)" />
+        <NavigationProperty Name="supplierTransactions" Type="Collection(WideWorldImportersService.SupplierTransaction)" />
+      </EntityType>
+      <EntityType Name="VehicleTemperature">
+        <Key>
+          <PropertyRef Name="vehicleTemperatureId" />
+        </Key>
+        <Property Name="vehicleTemperatureId" Type="Edm.Int64" Nullable="false" />
+        <Property Name="vehicleRegistration" Type="Edm.String" Nullable="false" />
+        <Property Name="chillerSensorNumber" Type="Edm.Int32" Nullable="false" />
+        <Property Name="recordedWhen" Type="Edm.DateTimeOffset" Nullable="false" />
+        <Property Name="temperature" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="fullSensorData" Type="Edm.String" />
+        <Property Name="isCompressed" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="compressedSensorData" Type="Edm.Binary" />
+      </EntityType>
+      <ComplexType Name="Geography" Abstract="true" />
+      <EntityContainer Name="Container">
+        <EntitySet Name="BuyingGroups" EntityType="WideWorldImportersService.BuyingGroup">
+          <NavigationPropertyBinding Path="customers" Target="Customers" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+        </EntitySet>
+        <EntitySet Name="Cities" EntityType="WideWorldImportersService.City">
+          <NavigationPropertyBinding Path="customerDeliveryCities" Target="Customers" />
+          <NavigationPropertyBinding Path="customerPostalCities" Target="Customers" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stateProvince" Target="StateProvinces" />
+          <NavigationPropertyBinding Path="supplierDeliveryCities" Target="Suppliers" />
+          <NavigationPropertyBinding Path="supplierPostalCities" Target="Suppliers" />
+          <NavigationPropertyBinding Path="systemParameterDeliveryCities" Target="SystemParameters" />
+          <NavigationPropertyBinding Path="systemParameterPostalCities" Target="SystemParameters" />
+        </EntitySet>
+        <EntitySet Name="ColdRoomTemperatures" EntityType="WideWorldImportersService.ColdRoomTemperature" />
+        <EntitySet Name="Colors" EntityType="WideWorldImportersService.Color">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stockItems" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="Countries" EntityType="WideWorldImportersService.Country">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stateProvinces" Target="StateProvinces" />
+        </EntitySet>
+        <EntitySet Name="Customers" EntityType="WideWorldImportersService.Customer">
+          <NavigationPropertyBinding Path="alternateContactPerson" Target="People" />
+          <NavigationPropertyBinding Path="billToCustomer" Target="Customers" />
+          <NavigationPropertyBinding Path="buyingGroup" Target="BuyingGroups" />
+          <NavigationPropertyBinding Path="customerCategory" Target="CustomerCategories" />
+          <NavigationPropertyBinding Path="customerTransactions" Target="CustomerTransactions" />
+          <NavigationPropertyBinding Path="deliveryCity" Target="Cities" />
+          <NavigationPropertyBinding Path="deliveryMethod" Target="DeliveryMethods" />
+          <NavigationPropertyBinding Path="inverseBillToCustomer" Target="Customers" />
+          <NavigationPropertyBinding Path="invoiceBillToCustomers" Target="Invoices" />
+          <NavigationPropertyBinding Path="invoiceCustomers" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="orders" Target="Orders" />
+          <NavigationPropertyBinding Path="postalCity" Target="Cities" />
+          <NavigationPropertyBinding Path="primaryContactPerson" Target="People" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+        </EntitySet>
+        <EntitySet Name="CustomerCategories" EntityType="WideWorldImportersService.CustomerCategory">
+          <NavigationPropertyBinding Path="customers" Target="Customers" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+        </EntitySet>
+        <EntitySet Name="CustomerTransactions" EntityType="WideWorldImportersService.CustomerTransaction">
+          <NavigationPropertyBinding Path="customer" Target="Customers" />
+          <NavigationPropertyBinding Path="invoice" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="paymentMethod" Target="PaymentMethods" />
+          <NavigationPropertyBinding Path="transactionType" Target="TransactionTypes" />
+        </EntitySet>
+        <EntitySet Name="DeliveryMethods" EntityType="WideWorldImportersService.DeliveryMethod">
+          <NavigationPropertyBinding Path="customers" Target="Customers" />
+          <NavigationPropertyBinding Path="invoices" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="purchaseOrders" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="suppliers" Target="Suppliers" />
+        </EntitySet>
+        <EntitySet Name="Invoices" EntityType="WideWorldImportersService.Invoice">
+          <NavigationPropertyBinding Path="accountsPerson" Target="People" />
+          <NavigationPropertyBinding Path="billToCustomer" Target="Customers" />
+          <NavigationPropertyBinding Path="contactPerson" Target="People" />
+          <NavigationPropertyBinding Path="customer" Target="Customers" />
+          <NavigationPropertyBinding Path="customerTransactions" Target="CustomerTransactions" />
+          <NavigationPropertyBinding Path="deliveryMethod" Target="DeliveryMethods" />
+          <NavigationPropertyBinding Path="invoiceLines" Target="InvoiceLines" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="order" Target="Orders" />
+          <NavigationPropertyBinding Path="packedByPerson" Target="People" />
+          <NavigationPropertyBinding Path="salespersonPerson" Target="People" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+        </EntitySet>
+        <EntitySet Name="InvoiceLines" EntityType="WideWorldImportersService.InvoiceLine">
+          <NavigationPropertyBinding Path="invoice" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="packageType" Target="PackageTypes" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="Orders" EntityType="WideWorldImportersService.Order">
+          <NavigationPropertyBinding Path="backorderOrder" Target="Orders" />
+          <NavigationPropertyBinding Path="contactPerson" Target="People" />
+          <NavigationPropertyBinding Path="customer" Target="Customers" />
+          <NavigationPropertyBinding Path="inverseBackorderOrder" Target="Orders" />
+          <NavigationPropertyBinding Path="invoices" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="orderLines" Target="OrderLines" />
+          <NavigationPropertyBinding Path="pickedByPerson" Target="People" />
+          <NavigationPropertyBinding Path="salespersonPerson" Target="People" />
+        </EntitySet>
+        <EntitySet Name="OrderLines" EntityType="WideWorldImportersService.OrderLine">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="order" Target="Orders" />
+          <NavigationPropertyBinding Path="packageType" Target="PackageTypes" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="PackageTypes" EntityType="WideWorldImportersService.PackageType">
+          <NavigationPropertyBinding Path="invoiceLines" Target="InvoiceLines" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="orderLines" Target="OrderLines" />
+          <NavigationPropertyBinding Path="purchaseOrderLines" Target="PurchaseOrderLines" />
+          <NavigationPropertyBinding Path="stockItemOuterPackages" Target="StockItems" />
+          <NavigationPropertyBinding Path="stockItemUnitPackages" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="PaymentMethods" EntityType="WideWorldImportersService.PaymentMethod">
+          <NavigationPropertyBinding Path="customerTransactions" Target="CustomerTransactions" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="supplierTransactions" Target="SupplierTransactions" />
+        </EntitySet>
+        <EntitySet Name="People" EntityType="WideWorldImportersService.Person">
+          <NavigationPropertyBinding Path="buyingGroups" Target="BuyingGroups" />
+          <NavigationPropertyBinding Path="cities" Target="Cities" />
+          <NavigationPropertyBinding Path="colors" Target="Colors" />
+          <NavigationPropertyBinding Path="countries" Target="Countries" />
+          <NavigationPropertyBinding Path="customerAlternateContactPeople" Target="Customers" />
+          <NavigationPropertyBinding Path="customerCategories" Target="CustomerCategories" />
+          <NavigationPropertyBinding Path="customerLastEditedByNavigations" Target="Customers" />
+          <NavigationPropertyBinding Path="customerPrimaryContactPeople" Target="Customers" />
+          <NavigationPropertyBinding Path="customerTransactions" Target="CustomerTransactions" />
+          <NavigationPropertyBinding Path="deliveryMethods" Target="DeliveryMethods" />
+          <NavigationPropertyBinding Path="inverseLastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="invoiceAccountsPeople" Target="Invoices" />
+          <NavigationPropertyBinding Path="invoiceContactPeople" Target="Invoices" />
+          <NavigationPropertyBinding Path="invoiceLastEditedByNavigations" Target="Invoices" />
+          <NavigationPropertyBinding Path="invoiceLines" Target="InvoiceLines" />
+          <NavigationPropertyBinding Path="invoicePackedByPeople" Target="Invoices" />
+          <NavigationPropertyBinding Path="invoiceSalespersonPeople" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="orderContactPeople" Target="Orders" />
+          <NavigationPropertyBinding Path="orderLastEditedByNavigations" Target="Orders" />
+          <NavigationPropertyBinding Path="orderLines" Target="OrderLines" />
+          <NavigationPropertyBinding Path="orderPickedByPeople" Target="Orders" />
+          <NavigationPropertyBinding Path="orderSalespersonPeople" Target="Orders" />
+          <NavigationPropertyBinding Path="packageTypes" Target="PackageTypes" />
+          <NavigationPropertyBinding Path="paymentMethods" Target="PaymentMethods" />
+          <NavigationPropertyBinding Path="purchaseOrderContactPeople" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="purchaseOrderLastEditedByNavigations" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="purchaseOrderLines" Target="PurchaseOrderLines" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+          <NavigationPropertyBinding Path="stateProvinces" Target="StateProvinces" />
+          <NavigationPropertyBinding Path="stockGroups" Target="StockGroups" />
+          <NavigationPropertyBinding Path="stockItemHoldings" Target="StockItemHoldings" />
+          <NavigationPropertyBinding Path="stockItems" Target="StockItems" />
+          <NavigationPropertyBinding Path="stockItemStockGroups" Target="StockItemStockGroups" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+          <NavigationPropertyBinding Path="supplierAlternateContactPeople" Target="Suppliers" />
+          <NavigationPropertyBinding Path="supplierCategories" Target="SupplierCategories" />
+          <NavigationPropertyBinding Path="supplierLastEditedByNavigations" Target="Suppliers" />
+          <NavigationPropertyBinding Path="supplierPrimaryContactPeople" Target="Suppliers" />
+          <NavigationPropertyBinding Path="supplierTransactions" Target="SupplierTransactions" />
+          <NavigationPropertyBinding Path="systemParameters" Target="SystemParameters" />
+          <NavigationPropertyBinding Path="transactionTypes" Target="TransactionTypes" />
+        </EntitySet>
+        <EntitySet Name="PurchaseOrders" EntityType="WideWorldImportersService.PurchaseOrder">
+          <NavigationPropertyBinding Path="contactPerson" Target="People" />
+          <NavigationPropertyBinding Path="deliveryMethod" Target="DeliveryMethods" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="purchaseOrderLines" Target="PurchaseOrderLines" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+          <NavigationPropertyBinding Path="supplier" Target="Suppliers" />
+          <NavigationPropertyBinding Path="supplierTransactions" Target="SupplierTransactions" />
+        </EntitySet>
+        <EntitySet Name="PurchaseOrderLines" EntityType="WideWorldImportersService.PurchaseOrderLine">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="packageType" Target="PackageTypes" />
+          <NavigationPropertyBinding Path="purchaseOrder" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="SpecialDeals" EntityType="WideWorldImportersService.SpecialDeal">
+          <NavigationPropertyBinding Path="buyingGroup" Target="BuyingGroups" />
+          <NavigationPropertyBinding Path="customer" Target="Customers" />
+          <NavigationPropertyBinding Path="customerCategory" Target="CustomerCategories" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stockGroup" Target="StockGroups" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="StateProvinces" EntityType="WideWorldImportersService.StateProvince">
+          <NavigationPropertyBinding Path="cities" Target="Cities" />
+          <NavigationPropertyBinding Path="country" Target="Countries" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+        </EntitySet>
+        <EntitySet Name="StockGroups" EntityType="WideWorldImportersService.StockGroup">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+          <NavigationPropertyBinding Path="stockItemStockGroups" Target="StockItemStockGroups" />
+        </EntitySet>
+        <EntitySet Name="StockItems" EntityType="WideWorldImportersService.StockItem">
+          <NavigationPropertyBinding Path="color" Target="Colors" />
+          <NavigationPropertyBinding Path="invoiceLines" Target="InvoiceLines" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="orderLines" Target="OrderLines" />
+          <NavigationPropertyBinding Path="outerPackage" Target="PackageTypes" />
+          <NavigationPropertyBinding Path="purchaseOrderLines" Target="PurchaseOrderLines" />
+          <NavigationPropertyBinding Path="specialDeals" Target="SpecialDeals" />
+          <NavigationPropertyBinding Path="stockItemHolding" Target="StockItemHoldings" />
+          <NavigationPropertyBinding Path="stockItemStockGroups" Target="StockItemStockGroups" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+          <NavigationPropertyBinding Path="supplier" Target="Suppliers" />
+          <NavigationPropertyBinding Path="unitPackage" Target="PackageTypes" />
+        </EntitySet>
+        <EntitySet Name="StockItemHoldings" EntityType="WideWorldImportersService.StockItemHolding">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="StockItemStockGroups" EntityType="WideWorldImportersService.StockItemStockGroup">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stockGroup" Target="StockGroups" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+        </EntitySet>
+        <EntitySet Name="StockItemTransactions" EntityType="WideWorldImportersService.StockItemTransaction">
+          <NavigationPropertyBinding Path="customer" Target="Customers" />
+          <NavigationPropertyBinding Path="invoice" Target="Invoices" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="purchaseOrder" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="stockItem" Target="StockItems" />
+          <NavigationPropertyBinding Path="supplier" Target="Suppliers" />
+          <NavigationPropertyBinding Path="transactionType" Target="TransactionTypes" />
+        </EntitySet>
+        <EntitySet Name="Suppliers" EntityType="WideWorldImportersService.Supplier">
+          <NavigationPropertyBinding Path="alternateContactPerson" Target="People" />
+          <NavigationPropertyBinding Path="deliveryCity" Target="Cities" />
+          <NavigationPropertyBinding Path="deliveryMethod" Target="DeliveryMethods" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="postalCity" Target="Cities" />
+          <NavigationPropertyBinding Path="primaryContactPerson" Target="People" />
+          <NavigationPropertyBinding Path="purchaseOrders" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="stockItems" Target="StockItems" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+          <NavigationPropertyBinding Path="supplierCategory" Target="SupplierCategories" />
+          <NavigationPropertyBinding Path="supplierTransactions" Target="SupplierTransactions" />
+        </EntitySet>
+        <EntitySet Name="SupplierCategories" EntityType="WideWorldImportersService.SupplierCategory">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="suppliers" Target="Suppliers" />
+        </EntitySet>
+        <EntitySet Name="SupplierTransactions" EntityType="WideWorldImportersService.SupplierTransaction">
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="paymentMethod" Target="PaymentMethods" />
+          <NavigationPropertyBinding Path="purchaseOrder" Target="PurchaseOrders" />
+          <NavigationPropertyBinding Path="supplier" Target="Suppliers" />
+          <NavigationPropertyBinding Path="transactionType" Target="TransactionTypes" />
+        </EntitySet>
+        <EntitySet Name="SystemParameters" EntityType="WideWorldImportersService.SystemParameter">
+          <NavigationPropertyBinding Path="deliveryCity" Target="Cities" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="postalCity" Target="Cities" />
+        </EntitySet>
+        <EntitySet Name="TransactionTypes" EntityType="WideWorldImportersService.TransactionType">
+          <NavigationPropertyBinding Path="customerTransactions" Target="CustomerTransactions" />
+          <NavigationPropertyBinding Path="lastEditedByNavigation" Target="People" />
+          <NavigationPropertyBinding Path="stockItemTransactions" Target="StockItemTransactions" />
+          <NavigationPropertyBinding Path="supplierTransactions" Target="SupplierTransactions" />
+        </EntitySet>
+        <EntitySet Name="VehicleTemperatures" EntityType="WideWorldImportersService.VehicleTemperature" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
