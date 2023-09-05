@@ -7,9 +7,16 @@ to be this way.
 In this repository I will show you how to use ASP.NET Core OData and EF Core to quickly build Backends 
 and how to use Angular, Blazor or WPF to display, filter and paginate datasets.
 
-You can find an article on it at:
+[An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]: https://www.bytefish.de/blog/aspnet_core_odata_example.html
+[Building an Angular Frontend for an ASP.NET Core OData Application]: https://www.bytefish.de/blog/aspnet_core_odata_frontend.html
+[Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]: https://www.bytefish.de/blog/blazor_fluentui_and_odata.html
 
-* [https://www.bytefish.de/blog/aspnet_core_odata_example.html](https://www.bytefish.de/blog/aspnet_core_odata_example.html)
+* ASP.NET Core Backend
+    * [An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]
+* Angular Frontend
+    * [Building an Angular Frontend for an ASP.NET Core OData Application]
+* Blazor Frontend
+    * [Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]
 
 ## Repository Structure ##
 
