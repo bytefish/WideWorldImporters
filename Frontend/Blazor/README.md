@@ -12,14 +12,14 @@ data, see:
 The idea is to use an ASP.NET Core OData Backend and a Frontend using Blazor with FluentUI Components. We 
 are going to its a DataGrid to display data. The final DataGrid is going to look like this:
 
-<a href="https://raw.githubusercontent.com/bytefish/BlazorDataGridExample/main/Screenshots/Customer_Grid.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/BlazorDataGridExample/main/Screenshots/Customer_Grid.jpg" alt="The Blazor Frontend with the FluentUI DataGrid" width="50%" />
+<a href="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/Blazor/Screenshots/Customer_Grid.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/Blazor/Screenshots/Customer_Grid.jpg" alt="The Blazor Frontend with the FluentUI DataGrid" width="50%" />
 </a>
 
 And it's possible to provide filters for each column, for example a filter on text:
 
-<a href="https://raw.githubusercontent.com/bytefish/BlazorDataGridExample/main/Screenshots/Customer_Grid_ColumnFilter_String.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/BlazorDataGridExample/main/Screenshots/Customer_Grid_ColumnFilter_String.jpg" alt="FluentUI DataGrid with a String Filter" width="50%" />
+<a href="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/Blazor/Screenshots/Customer_Grid_ColumnFilter_String.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/Blazor/Screenshots/Customer_Grid_ColumnFilter_String.jpg" alt="FluentUI DataGrid with a String Filter" width="50%" />
 </a>
 
 The Razor Page uses the `BooleanFilter`, `DateFiler`, `StringFilter` and a `NumericFilter` to filter the 
