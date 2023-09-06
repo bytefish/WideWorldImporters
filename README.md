@@ -5,34 +5,11 @@ said everyone trying to quickly expose a dataset with an Angular application. It
 to be this way.
 
 In this repository I will show you how to use ASP.NET Core OData and EF Core to quickly build Backends 
-and how to use Angular, Blazor or WPF to display, filter and paginate datasets.
+and how to use Angular, Blazor and WPF to display, filter and paginate datasets. 
 
-[An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]: https://www.bytefish.de/blog/aspnet_core_odata_example.html
-[Building an Angular Frontend for an ASP.NET Core OData Application]: https://www.bytefish.de/blog/aspnet_core_odata_frontend.html
-[Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]: https://www.bytefish.de/blog/blazor_fluentui_and_odata.html
-
-* ASP.NET Core Backend
-    * [An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]
-* Angular Frontend
-    * [Building an Angular Frontend for an ASP.NET Core OData Application]
-* Blazor Frontend
-    * [Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]
-
-## Repository Structure ##
-
-* `Backend`
-    * Contains the Backend Solution, that you can start with your .NET Runtime.
-* `Frontend`
-    * `Angular`
-        * Contains the Angular 15 Frontend, that uses Clarity Design for its Components.
-    * `Blazor`
-        * Contains the Blazor WASM Frontend, that uses Fluent UI Blazor for its Components.
-    * `WPF`
-        * Contains a WPF application, that shows how to display and edit data in a `DataGrid`.
-        
 ## About the Project ##
 
-We will build a Backend and Frontend for the "Wide World Importers" database, which is a Microsoft SQL Server 
+We will build a Backend and Frontends for the "Wide World Importers" database, which is a Microsoft SQL Server 
 sample database for a fictional company:
 
 * https://docs.microsoft.com/en-us/sql/samples/wide-world-importers-what-is?view=sql-server-ver15
@@ -60,3 +37,37 @@ I think it's a perfect non-trivial database to work with!
 We are building a Backend, that scaffolds the WWI database and exposes the data with Microsoft ASP.NET Core OData 8. We will 
 learn how to extend Microsoft ASP.NET Core OData 8 for spatial types, see how to generate the OData endpoints using T4 Text 
 Templates and provide OpenAPI 3.0 documents for Frontend code generation goodies.
+
+## Repository Structure ##
+
+The Repository contains the ASP.NET Core Backend and various Frontends.
+
+The Repository Structure is:
+
+* `Backend`
+    * Contains the Backend Solution, that you can start with your .NET Runtime.
+* `Frontend`
+    * `Angular`
+        * Contains the Angular 15 Frontend, that uses Clarity Design for its Components.
+    * `Blazor`
+        * Contains the Blazor WASM Frontend, that uses Fluent UI Blazor for its Components.
+    * `WPF`
+        * Contains a WPF application, that shows how to display and edit data in a `DataGrid`.
+        
+
+## Related Articles ##
+
+[An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]: https://www.bytefish.de/blog/aspnet_core_odata_example.html
+[Building an Angular Frontend for an ASP.NET Core OData Application]: https://www.bytefish.de/blog/aspnet_core_odata_frontend.html
+[Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]: https://www.bytefish.de/blog/blazor_fluentui_and_odata.html
+
+Various articles have been written explaining the implementation and the ideas behind. You can find the articles 
+on my website for the various components:
+
+* ASP.NET Core Backend
+    * [An ASP.NET Core OData Example using the Wide WorldImporters database and Entity Framework Core]
+* Angular Frontend
+    * [Building an Angular Frontend for an ASP.NET Core OData Application]
+* Blazor Frontend
+    * [Extending a Fluent UI Blazor DataGrid for Filtering and Sorting with OData]
+
