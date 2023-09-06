@@ -6,6 +6,6 @@ This is an experiment for using a standard WPF DataGrid to query the WideWorldIm
 
 The WPF application uses a DataGrid to show data and allow pagination and modifications:
 
-<a href="https://raw.githubusercontent.com/bytefish/WideWorldImporters.Wpf/master/Screenshots/ModifiedRowsAndValidation.jpg">
-    <img src="https://raw.githubusercontent.com/bytefish/WideWorldImporters.Wpf/master/Screenshots/ModifiedRowsAndValidation.jpg" alt="Sample Application with Modifcations and Validations" width="50%" />
+<a href="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/WPF/WideWorldImporters.Wpf/master/Screenshots/ModifiedRowsAndValidation.jpg">
+    <img src="https://raw.githubusercontent.com/bytefish/WideWorldImporters/main/Frontend/WPF/WideWorldImporters.Wpf/master/Screenshots/ModifiedRowsAndValidation.jpg" alt="Sample Application with Modifcations and Validations" width="50%" />
 </a>
