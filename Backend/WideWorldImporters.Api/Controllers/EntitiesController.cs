@@ -11,22 +11,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.OpenApi.OData;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi;
-using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 using WideWorldImporters.Database.Models;
 using Microsoft.AspNetCore.OData.Results;
+using WideWorldImporters.Api.Infrastructure.Exceptions;
+using WideWorldImporters.Api.Infrastructure.Errors;
+using WideWorldImporters.Api.Infrastructure.Logging;
 
 namespace WideWorldImporters.Api.Controllers
 {
     public partial class EntitiesController : ODataController
     {
+        private readonly ILogger<EntitiesController> _logger;
+        private readonly ApplicationErrorHandler _applicationErrorHandler;
         private readonly WideWorldImportersContext _context;
-
-        public EntitiesController(WideWorldImportersContext context)
+        
+        public EntitiesController(ILogger<EntitiesController> logger, ApplicationErrorHandler applicationErrorHandler, WideWorldImportersContext context)
         {
+            _logger = logger;
+            _applicationErrorHandler = applicationErrorHandler;
             _context = context;
         }
 
@@ -40,14 +43,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/BuyingGroups({buyingGroupsId:int})")]
-        public IActionResult GetBuyingGroups(int buyingGroupsId)
+        [HttpGet("odata/BuyingGroups({key})")]
+        public IActionResult GetBuyingGroups(int key)
         {
-            var entity = _context.BuyingGroups.Where(x => x.BuyingGroupId == buyingGroupsId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.BuyingGroups.Where(x => x.BuyingGroupId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(BuyingGroup),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -56,35 +70,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/BuyingGroups")]
         public IActionResult PostBuyingGroup([FromBody]BuyingGroup entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/BuyingGroups/{buyingGroupsId:int}")]
-        public IActionResult PutBuyingGroup(int buyingGroupsId, [FromBody] BuyingGroup entity)
+        [HttpPut("odata/BuyingGroups({key})")]
+        public IActionResult PutBuyingGroup(int key, [FromBody] BuyingGroup entity)
         {
-            var original = _context.BuyingGroups.Find(buyingGroupsId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found BuyingGroup with buyingGroupsId = {buyingGroupsId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.BuyingGroups.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(BuyingGroup),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/BuyingGroups({buyingGroupsId:int})")]
-        public IActionResult PatchBuyingGroup(int buyingGroupsId, Delta<BuyingGroup > delta)
+        [HttpPatch("odata/BuyingGroups({key})")]
+        public IActionResult PatchBuyingGroup(int key, Delta<BuyingGroup> delta)
         {
-            var original = _context.BuyingGroups.Find(buyingGroupsId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.BuyingGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found BuyingGroup with buyingGroupsId = {buyingGroupsId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(BuyingGroup),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -94,14 +141,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/BuyingGroups({buyingGroupsId:int})")]
-        public IActionResult DeleteBuyingGroup(int buyingGroupsId)
+        [HttpDelete("odata/BuyingGroups({key})")]
+        public IActionResult DeleteBuyingGroup(int key)
         {
-            var original = _context.BuyingGroups.Find(buyingGroupsId);
+            var original = _context.BuyingGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found BuyingGroup with buyingGroupsId = {buyingGroupsId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(BuyingGroup),
+                    EntityId = key
+                };
             }
 
             _context.BuyingGroups.Remove(original);
@@ -122,14 +173,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Cities({cityId:int})")]
-        public IActionResult GetCities(int cityId)
+        [HttpGet("odata/Cities({key})")]
+        public IActionResult GetCities(int key)
         {
-            var entity = _context.Cities.Where(x => x.CityId == cityId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Cities.Where(x => x.CityId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(City),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -138,35 +200,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Cities")]
         public IActionResult PostCity([FromBody]City entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Cities/{cityId:int}")]
-        public IActionResult PutCity(int cityId, [FromBody] City entity)
+        [HttpPut("odata/Cities({key})")]
+        public IActionResult PutCity(int key, [FromBody] City entity)
         {
-            var original = _context.Cities.Find(cityId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found City with cityId = {cityId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Cities.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(City),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Cities({cityId:int})")]
-        public IActionResult PatchCity(int cityId, Delta<City > delta)
+        [HttpPatch("odata/Cities({key})")]
+        public IActionResult PatchCity(int key, Delta<City> delta)
         {
-            var original = _context.Cities.Find(cityId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Cities.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found City with cityId = {cityId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(City),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -176,14 +271,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Cities({cityId:int})")]
-        public IActionResult DeleteCity(int cityId)
+        [HttpDelete("odata/Cities({key})")]
+        public IActionResult DeleteCity(int key)
         {
-            var original = _context.Cities.Find(cityId);
+            var original = _context.Cities.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found City with cityId = {cityId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(City),
+                    EntityId = key
+                };
             }
 
             _context.Cities.Remove(original);
@@ -204,14 +303,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
-        public IActionResult GetColdRoomTemperatures(long coldRoomTemperatureId)
+        [HttpGet("odata/ColdRoomTemperatures({key})")]
+        public IActionResult GetColdRoomTemperatures(long key)
         {
-            var entity = _context.ColdRoomTemperatures.Where(x => x.ColdRoomTemperatureId == coldRoomTemperatureId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.ColdRoomTemperatures.Where(x => x.ColdRoomTemperatureId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(ColdRoomTemperature),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -220,35 +330,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/ColdRoomTemperatures")]
         public IActionResult PostColdRoomTemperature([FromBody]ColdRoomTemperature entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/ColdRoomTemperatures/{coldRoomTemperatureId:long}")]
-        public IActionResult PutColdRoomTemperature(long coldRoomTemperatureId, [FromBody] ColdRoomTemperature entity)
+        [HttpPut("odata/ColdRoomTemperatures({key})")]
+        public IActionResult PutColdRoomTemperature(long key, [FromBody] ColdRoomTemperature entity)
         {
-            var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found ColdRoomTemperature with coldRoomTemperatureId = {coldRoomTemperatureId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.ColdRoomTemperatures.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(ColdRoomTemperature),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
-        public IActionResult PatchColdRoomTemperature(long coldRoomTemperatureId, Delta<ColdRoomTemperature > delta)
+        [HttpPatch("odata/ColdRoomTemperatures({key})")]
+        public IActionResult PatchColdRoomTemperature(long key, Delta<ColdRoomTemperature> delta)
         {
-            var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.ColdRoomTemperatures.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found ColdRoomTemperature with coldRoomTemperatureId = {coldRoomTemperatureId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(ColdRoomTemperature),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -258,14 +401,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/ColdRoomTemperatures({coldRoomTemperatureId:long})")]
-        public IActionResult DeleteColdRoomTemperature(long coldRoomTemperatureId)
+        [HttpDelete("odata/ColdRoomTemperatures({key})")]
+        public IActionResult DeleteColdRoomTemperature(long key)
         {
-            var original = _context.ColdRoomTemperatures.Find(coldRoomTemperatureId);
+            var original = _context.ColdRoomTemperatures.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found ColdRoomTemperature with coldRoomTemperatureId = {coldRoomTemperatureId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(ColdRoomTemperature),
+                    EntityId = key
+                };
             }
 
             _context.ColdRoomTemperatures.Remove(original);
@@ -286,14 +433,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Colors({colorId:int})")]
-        public IActionResult GetColors(int colorId)
+        [HttpGet("odata/Colors({key})")]
+        public IActionResult GetColors(int key)
         {
-            var entity = _context.Colors.Where(x => x.ColorId == colorId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Colors.Where(x => x.ColorId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Color),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -302,35 +460,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Colors")]
         public IActionResult PostColor([FromBody]Color entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Colors/{colorId:int}")]
-        public IActionResult PutColor(int colorId, [FromBody] Color entity)
+        [HttpPut("odata/Colors({key})")]
+        public IActionResult PutColor(int key, [FromBody] Color entity)
         {
-            var original = _context.Colors.Find(colorId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Color with colorId = {colorId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Colors.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Color),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Colors({colorId:int})")]
-        public IActionResult PatchColor(int colorId, Delta<Color > delta)
+        [HttpPatch("odata/Colors({key})")]
+        public IActionResult PatchColor(int key, Delta<Color> delta)
         {
-            var original = _context.Colors.Find(colorId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Colors.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Color with colorId = {colorId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Color),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -340,14 +531,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Colors({colorId:int})")]
-        public IActionResult DeleteColor(int colorId)
+        [HttpDelete("odata/Colors({key})")]
+        public IActionResult DeleteColor(int key)
         {
-            var original = _context.Colors.Find(colorId);
+            var original = _context.Colors.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Color with colorId = {colorId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Color),
+                    EntityId = key
+                };
             }
 
             _context.Colors.Remove(original);
@@ -368,14 +563,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Countries({countryId:int})")]
-        public IActionResult GetCountries(int countryId)
+        [HttpGet("odata/Countries({key})")]
+        public IActionResult GetCountries(int key)
         {
-            var entity = _context.Countries.Where(x => x.CountryId == countryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Countries.Where(x => x.CountryId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Country),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -384,35 +590,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Countries")]
         public IActionResult PostCountry([FromBody]Country entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Countries/{countryId:int}")]
-        public IActionResult PutCountry(int countryId, [FromBody] Country entity)
+        [HttpPut("odata/Countries({key})")]
+        public IActionResult PutCountry(int key, [FromBody] Country entity)
         {
-            var original = _context.Countries.Find(countryId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Country with countryId = {countryId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Countries.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Country),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Countries({countryId:int})")]
-        public IActionResult PatchCountry(int countryId, Delta<Country > delta)
+        [HttpPatch("odata/Countries({key})")]
+        public IActionResult PatchCountry(int key, Delta<Country> delta)
         {
-            var original = _context.Countries.Find(countryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Countries.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Country with countryId = {countryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Country),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -422,14 +661,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Countries({countryId:int})")]
-        public IActionResult DeleteCountry(int countryId)
+        [HttpDelete("odata/Countries({key})")]
+        public IActionResult DeleteCountry(int key)
         {
-            var original = _context.Countries.Find(countryId);
+            var original = _context.Countries.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Country with countryId = {countryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Country),
+                    EntityId = key
+                };
             }
 
             _context.Countries.Remove(original);
@@ -450,14 +693,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Customers({customerId:int})")]
-        public IActionResult GetCustomers(int customerId)
+        [HttpGet("odata/Customers({key})")]
+        public IActionResult GetCustomers(int key)
         {
-            var entity = _context.Customers.Where(x => x.CustomerId == customerId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Customers.Where(x => x.CustomerId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Customer),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -466,35 +720,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Customers")]
         public IActionResult PostCustomer([FromBody]Customer entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Customers/{customerId:int}")]
-        public IActionResult PutCustomer(int customerId, [FromBody] Customer entity)
+        [HttpPut("odata/Customers({key})")]
+        public IActionResult PutCustomer(int key, [FromBody] Customer entity)
         {
-            var original = _context.Customers.Find(customerId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Customer with customerId = {customerId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Customers.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Customer),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Customers({customerId:int})")]
-        public IActionResult PatchCustomer(int customerId, Delta<Customer > delta)
+        [HttpPatch("odata/Customers({key})")]
+        public IActionResult PatchCustomer(int key, Delta<Customer> delta)
         {
-            var original = _context.Customers.Find(customerId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Customers.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Customer with customerId = {customerId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Customer),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -504,14 +791,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Customers({customerId:int})")]
-        public IActionResult DeleteCustomer(int customerId)
+        [HttpDelete("odata/Customers({key})")]
+        public IActionResult DeleteCustomer(int key)
         {
-            var original = _context.Customers.Find(customerId);
+            var original = _context.Customers.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Customer with customerId = {customerId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Customer),
+                    EntityId = key
+                };
             }
 
             _context.Customers.Remove(original);
@@ -532,14 +823,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/CustomerCategories({customerCategoryId:int})")]
-        public IActionResult GetCustomerCategories(int customerCategoryId)
+        [HttpGet("odata/CustomerCategories({key})")]
+        public IActionResult GetCustomerCategories(int key)
         {
-            var entity = _context.CustomerCategories.Where(x => x.CustomerCategoryId == customerCategoryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.CustomerCategories.Where(x => x.CustomerCategoryId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(CustomerCategory),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -548,35 +850,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/CustomerCategories")]
         public IActionResult PostCustomerCategory([FromBody]CustomerCategory entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/CustomerCategories/{customerCategoryId:int}")]
-        public IActionResult PutCustomerCategory(int customerCategoryId, [FromBody] CustomerCategory entity)
+        [HttpPut("odata/CustomerCategories({key})")]
+        public IActionResult PutCustomerCategory(int key, [FromBody] CustomerCategory entity)
         {
-            var original = _context.CustomerCategories.Find(customerCategoryId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found CustomerCategory with customerCategoryId = {customerCategoryId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.CustomerCategories.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(CustomerCategory),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/CustomerCategories({customerCategoryId:int})")]
-        public IActionResult PatchCustomerCategory(int customerCategoryId, Delta<CustomerCategory > delta)
+        [HttpPatch("odata/CustomerCategories({key})")]
+        public IActionResult PatchCustomerCategory(int key, Delta<CustomerCategory> delta)
         {
-            var original = _context.CustomerCategories.Find(customerCategoryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.CustomerCategories.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found CustomerCategory with customerCategoryId = {customerCategoryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(CustomerCategory),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -586,14 +921,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/CustomerCategories({customerCategoryId:int})")]
-        public IActionResult DeleteCustomerCategory(int customerCategoryId)
+        [HttpDelete("odata/CustomerCategories({key})")]
+        public IActionResult DeleteCustomerCategory(int key)
         {
-            var original = _context.CustomerCategories.Find(customerCategoryId);
+            var original = _context.CustomerCategories.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found CustomerCategory with customerCategoryId = {customerCategoryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(CustomerCategory),
+                    EntityId = key
+                };
             }
 
             _context.CustomerCategories.Remove(original);
@@ -614,14 +953,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/CustomerTransactions({customerTransactionId:int})")]
-        public IActionResult GetCustomerTransactions(int customerTransactionId)
+        [HttpGet("odata/CustomerTransactions({key})")]
+        public IActionResult GetCustomerTransactions(int key)
         {
-            var entity = _context.CustomerTransactions.Where(x => x.CustomerTransactionId == customerTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.CustomerTransactions.Where(x => x.CustomerTransactionId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(CustomerTransaction),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -630,35 +980,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/CustomerTransactions")]
         public IActionResult PostCustomerTransaction([FromBody]CustomerTransaction entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/CustomerTransactions/{customerTransactionId:int}")]
-        public IActionResult PutCustomerTransaction(int customerTransactionId, [FromBody] CustomerTransaction entity)
+        [HttpPut("odata/CustomerTransactions({key})")]
+        public IActionResult PutCustomerTransaction(int key, [FromBody] CustomerTransaction entity)
         {
-            var original = _context.CustomerTransactions.Find(customerTransactionId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found CustomerTransaction with customerTransactionId = {customerTransactionId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.CustomerTransactions.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(CustomerTransaction),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/CustomerTransactions({customerTransactionId:int})")]
-        public IActionResult PatchCustomerTransaction(int customerTransactionId, Delta<CustomerTransaction > delta)
+        [HttpPatch("odata/CustomerTransactions({key})")]
+        public IActionResult PatchCustomerTransaction(int key, Delta<CustomerTransaction> delta)
         {
-            var original = _context.CustomerTransactions.Find(customerTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.CustomerTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found CustomerTransaction with customerTransactionId = {customerTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(CustomerTransaction),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -668,14 +1051,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/CustomerTransactions({customerTransactionId:int})")]
-        public IActionResult DeleteCustomerTransaction(int customerTransactionId)
+        [HttpDelete("odata/CustomerTransactions({key})")]
+        public IActionResult DeleteCustomerTransaction(int key)
         {
-            var original = _context.CustomerTransactions.Find(customerTransactionId);
+            var original = _context.CustomerTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found CustomerTransaction with customerTransactionId = {customerTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(CustomerTransaction),
+                    EntityId = key
+                };
             }
 
             _context.CustomerTransactions.Remove(original);
@@ -696,14 +1083,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/DeliveryMethods({deliveryMethodId:int})")]
-        public IActionResult GetDeliveryMethods(int deliveryMethodId)
+        [HttpGet("odata/DeliveryMethods({key})")]
+        public IActionResult GetDeliveryMethods(int key)
         {
-            var entity = _context.DeliveryMethods.Where(x => x.DeliveryMethodId == deliveryMethodId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.DeliveryMethods.Where(x => x.DeliveryMethodId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(DeliveryMethod),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -712,35 +1110,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/DeliveryMethods")]
         public IActionResult PostDeliveryMethod([FromBody]DeliveryMethod entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/DeliveryMethods/{deliveryMethodId:int}")]
-        public IActionResult PutDeliveryMethod(int deliveryMethodId, [FromBody] DeliveryMethod entity)
+        [HttpPut("odata/DeliveryMethods({key})")]
+        public IActionResult PutDeliveryMethod(int key, [FromBody] DeliveryMethod entity)
         {
-            var original = _context.DeliveryMethods.Find(deliveryMethodId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found DeliveryMethod with deliveryMethodId = {deliveryMethodId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.DeliveryMethods.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(DeliveryMethod),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/DeliveryMethods({deliveryMethodId:int})")]
-        public IActionResult PatchDeliveryMethod(int deliveryMethodId, Delta<DeliveryMethod > delta)
+        [HttpPatch("odata/DeliveryMethods({key})")]
+        public IActionResult PatchDeliveryMethod(int key, Delta<DeliveryMethod> delta)
         {
-            var original = _context.DeliveryMethods.Find(deliveryMethodId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.DeliveryMethods.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found DeliveryMethod with deliveryMethodId = {deliveryMethodId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(DeliveryMethod),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -750,14 +1181,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/DeliveryMethods({deliveryMethodId:int})")]
-        public IActionResult DeleteDeliveryMethod(int deliveryMethodId)
+        [HttpDelete("odata/DeliveryMethods({key})")]
+        public IActionResult DeleteDeliveryMethod(int key)
         {
-            var original = _context.DeliveryMethods.Find(deliveryMethodId);
+            var original = _context.DeliveryMethods.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found DeliveryMethod with deliveryMethodId = {deliveryMethodId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(DeliveryMethod),
+                    EntityId = key
+                };
             }
 
             _context.DeliveryMethods.Remove(original);
@@ -778,14 +1213,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Invoices({invoiceId:int})")]
-        public IActionResult GetInvoices(int invoiceId)
+        [HttpGet("odata/Invoices({key})")]
+        public IActionResult GetInvoices(int key)
         {
-            var entity = _context.Invoices.Where(x => x.InvoiceId == invoiceId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Invoices.Where(x => x.InvoiceId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Invoice),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -794,35 +1240,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Invoices")]
         public IActionResult PostInvoice([FromBody]Invoice entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Invoices/{invoiceId:int}")]
-        public IActionResult PutInvoice(int invoiceId, [FromBody] Invoice entity)
+        [HttpPut("odata/Invoices({key})")]
+        public IActionResult PutInvoice(int key, [FromBody] Invoice entity)
         {
-            var original = _context.Invoices.Find(invoiceId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Invoice with invoiceId = {invoiceId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Invoices.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Invoice),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Invoices({invoiceId:int})")]
-        public IActionResult PatchInvoice(int invoiceId, Delta<Invoice > delta)
+        [HttpPatch("odata/Invoices({key})")]
+        public IActionResult PatchInvoice(int key, Delta<Invoice> delta)
         {
-            var original = _context.Invoices.Find(invoiceId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Invoices.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Invoice with invoiceId = {invoiceId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Invoice),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -832,14 +1311,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Invoices({invoiceId:int})")]
-        public IActionResult DeleteInvoice(int invoiceId)
+        [HttpDelete("odata/Invoices({key})")]
+        public IActionResult DeleteInvoice(int key)
         {
-            var original = _context.Invoices.Find(invoiceId);
+            var original = _context.Invoices.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Invoice with invoiceId = {invoiceId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Invoice),
+                    EntityId = key
+                };
             }
 
             _context.Invoices.Remove(original);
@@ -860,14 +1343,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/InvoiceLines({invoiceLineId:int})")]
-        public IActionResult GetInvoiceLines(int invoiceLineId)
+        [HttpGet("odata/InvoiceLines({key})")]
+        public IActionResult GetInvoiceLines(int key)
         {
-            var entity = _context.InvoiceLines.Where(x => x.InvoiceLineId == invoiceLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.InvoiceLines.Where(x => x.InvoiceLineId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(InvoiceLine),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -876,35 +1370,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/InvoiceLines")]
         public IActionResult PostInvoiceLine([FromBody]InvoiceLine entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/InvoiceLines/{invoiceLineId:int}")]
-        public IActionResult PutInvoiceLine(int invoiceLineId, [FromBody] InvoiceLine entity)
+        [HttpPut("odata/InvoiceLines({key})")]
+        public IActionResult PutInvoiceLine(int key, [FromBody] InvoiceLine entity)
         {
-            var original = _context.InvoiceLines.Find(invoiceLineId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found InvoiceLine with invoiceLineId = {invoiceLineId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.InvoiceLines.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(InvoiceLine),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/InvoiceLines({invoiceLineId:int})")]
-        public IActionResult PatchInvoiceLine(int invoiceLineId, Delta<InvoiceLine > delta)
+        [HttpPatch("odata/InvoiceLines({key})")]
+        public IActionResult PatchInvoiceLine(int key, Delta<InvoiceLine> delta)
         {
-            var original = _context.InvoiceLines.Find(invoiceLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.InvoiceLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found InvoiceLine with invoiceLineId = {invoiceLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(InvoiceLine),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -914,14 +1441,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/InvoiceLines({invoiceLineId:int})")]
-        public IActionResult DeleteInvoiceLine(int invoiceLineId)
+        [HttpDelete("odata/InvoiceLines({key})")]
+        public IActionResult DeleteInvoiceLine(int key)
         {
-            var original = _context.InvoiceLines.Find(invoiceLineId);
+            var original = _context.InvoiceLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found InvoiceLine with invoiceLineId = {invoiceLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(InvoiceLine),
+                    EntityId = key
+                };
             }
 
             _context.InvoiceLines.Remove(original);
@@ -942,14 +1473,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Orders({orderId:int})")]
-        public IActionResult GetOrders(int orderId)
+        [HttpGet("odata/Orders({key})")]
+        public IActionResult GetOrders(int key)
         {
-            var entity = _context.Orders.Where(x => x.OrderId == orderId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Orders.Where(x => x.OrderId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Order),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -958,35 +1500,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Orders")]
         public IActionResult PostOrder([FromBody]Order entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Orders/{orderId:int}")]
-        public IActionResult PutOrder(int orderId, [FromBody] Order entity)
+        [HttpPut("odata/Orders({key})")]
+        public IActionResult PutOrder(int key, [FromBody] Order entity)
         {
-            var original = _context.Orders.Find(orderId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Order with orderId = {orderId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Orders.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Order),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Orders({orderId:int})")]
-        public IActionResult PatchOrder(int orderId, Delta<Order > delta)
+        [HttpPatch("odata/Orders({key})")]
+        public IActionResult PatchOrder(int key, Delta<Order> delta)
         {
-            var original = _context.Orders.Find(orderId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Orders.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Order with orderId = {orderId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Order),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -996,14 +1571,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Orders({orderId:int})")]
-        public IActionResult DeleteOrder(int orderId)
+        [HttpDelete("odata/Orders({key})")]
+        public IActionResult DeleteOrder(int key)
         {
-            var original = _context.Orders.Find(orderId);
+            var original = _context.Orders.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Order with orderId = {orderId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Order),
+                    EntityId = key
+                };
             }
 
             _context.Orders.Remove(original);
@@ -1024,14 +1603,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/OrderLines({orderLineId:int})")]
-        public IActionResult GetOrderLines(int orderLineId)
+        [HttpGet("odata/OrderLines({key})")]
+        public IActionResult GetOrderLines(int key)
         {
-            var entity = _context.OrderLines.Where(x => x.OrderLineId == orderLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.OrderLines.Where(x => x.OrderLineId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(OrderLine),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1040,35 +1630,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/OrderLines")]
         public IActionResult PostOrderLine([FromBody]OrderLine entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/OrderLines/{orderLineId:int}")]
-        public IActionResult PutOrderLine(int orderLineId, [FromBody] OrderLine entity)
+        [HttpPut("odata/OrderLines({key})")]
+        public IActionResult PutOrderLine(int key, [FromBody] OrderLine entity)
         {
-            var original = _context.OrderLines.Find(orderLineId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found OrderLine with orderLineId = {orderLineId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.OrderLines.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(OrderLine),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/OrderLines({orderLineId:int})")]
-        public IActionResult PatchOrderLine(int orderLineId, Delta<OrderLine > delta)
+        [HttpPatch("odata/OrderLines({key})")]
+        public IActionResult PatchOrderLine(int key, Delta<OrderLine> delta)
         {
-            var original = _context.OrderLines.Find(orderLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.OrderLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found OrderLine with orderLineId = {orderLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(OrderLine),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1078,14 +1701,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/OrderLines({orderLineId:int})")]
-        public IActionResult DeleteOrderLine(int orderLineId)
+        [HttpDelete("odata/OrderLines({key})")]
+        public IActionResult DeleteOrderLine(int key)
         {
-            var original = _context.OrderLines.Find(orderLineId);
+            var original = _context.OrderLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found OrderLine with orderLineId = {orderLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(OrderLine),
+                    EntityId = key
+                };
             }
 
             _context.OrderLines.Remove(original);
@@ -1106,14 +1733,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PackageTypes({packageTypeId:int})")]
-        public IActionResult GetPackageTypes(int packageTypeId)
+        [HttpGet("odata/PackageTypes({key})")]
+        public IActionResult GetPackageTypes(int key)
         {
-            var entity = _context.PackageTypes.Where(x => x.PackageTypeId == packageTypeId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.PackageTypes.Where(x => x.PackageTypeId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PackageType),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1122,35 +1760,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/PackageTypes")]
         public IActionResult PostPackageType([FromBody]PackageType entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/PackageTypes/{packageTypeId:int}")]
-        public IActionResult PutPackageType(int packageTypeId, [FromBody] PackageType entity)
+        [HttpPut("odata/PackageTypes({key})")]
+        public IActionResult PutPackageType(int key, [FromBody] PackageType entity)
         {
-            var original = _context.PackageTypes.Find(packageTypeId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found PackageType with packageTypeId = {packageTypeId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.PackageTypes.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PackageType),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/PackageTypes({packageTypeId:int})")]
-        public IActionResult PatchPackageType(int packageTypeId, Delta<PackageType > delta)
+        [HttpPatch("odata/PackageTypes({key})")]
+        public IActionResult PatchPackageType(int key, Delta<PackageType> delta)
         {
-            var original = _context.PackageTypes.Find(packageTypeId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.PackageTypes.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PackageType with packageTypeId = {packageTypeId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PackageType),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1160,14 +1831,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PackageTypes({packageTypeId:int})")]
-        public IActionResult DeletePackageType(int packageTypeId)
+        [HttpDelete("odata/PackageTypes({key})")]
+        public IActionResult DeletePackageType(int key)
         {
-            var original = _context.PackageTypes.Find(packageTypeId);
+            var original = _context.PackageTypes.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PackageType with packageTypeId = {packageTypeId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PackageType),
+                    EntityId = key
+                };
             }
 
             _context.PackageTypes.Remove(original);
@@ -1188,14 +1863,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PaymentMethods({paymentMethodId:int})")]
-        public IActionResult GetPaymentMethods(int paymentMethodId)
+        [HttpGet("odata/PaymentMethods({key})")]
+        public IActionResult GetPaymentMethods(int key)
         {
-            var entity = _context.PaymentMethods.Where(x => x.PaymentMethodId == paymentMethodId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.PaymentMethods.Where(x => x.PaymentMethodId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PaymentMethod),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1204,35 +1890,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/PaymentMethods")]
         public IActionResult PostPaymentMethod([FromBody]PaymentMethod entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/PaymentMethods/{paymentMethodId:int}")]
-        public IActionResult PutPaymentMethod(int paymentMethodId, [FromBody] PaymentMethod entity)
+        [HttpPut("odata/PaymentMethods({key})")]
+        public IActionResult PutPaymentMethod(int key, [FromBody] PaymentMethod entity)
         {
-            var original = _context.PaymentMethods.Find(paymentMethodId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found PaymentMethod with paymentMethodId = {paymentMethodId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.PaymentMethods.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PaymentMethod),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/PaymentMethods({paymentMethodId:int})")]
-        public IActionResult PatchPaymentMethod(int paymentMethodId, Delta<PaymentMethod > delta)
+        [HttpPatch("odata/PaymentMethods({key})")]
+        public IActionResult PatchPaymentMethod(int key, Delta<PaymentMethod> delta)
         {
-            var original = _context.PaymentMethods.Find(paymentMethodId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.PaymentMethods.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PaymentMethod with paymentMethodId = {paymentMethodId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PaymentMethod),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1242,14 +1961,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PaymentMethods({paymentMethodId:int})")]
-        public IActionResult DeletePaymentMethod(int paymentMethodId)
+        [HttpDelete("odata/PaymentMethods({key})")]
+        public IActionResult DeletePaymentMethod(int key)
         {
-            var original = _context.PaymentMethods.Find(paymentMethodId);
+            var original = _context.PaymentMethods.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PaymentMethod with paymentMethodId = {paymentMethodId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PaymentMethod),
+                    EntityId = key
+                };
             }
 
             _context.PaymentMethods.Remove(original);
@@ -1270,14 +1993,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/People({personId:int})")]
-        public IActionResult GetPeople(int personId)
+        [HttpGet("odata/People({key})")]
+        public IActionResult GetPeople(int key)
         {
-            var entity = _context.People.Where(x => x.PersonId == personId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.People.Where(x => x.PersonId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Person),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1286,35 +2020,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/People")]
         public IActionResult PostPerson([FromBody]Person entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/People/{personId:int}")]
-        public IActionResult PutPerson(int personId, [FromBody] Person entity)
+        [HttpPut("odata/People({key})")]
+        public IActionResult PutPerson(int key, [FromBody] Person entity)
         {
-            var original = _context.People.Find(personId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Person with personId = {personId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.People.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Person),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/People({personId:int})")]
-        public IActionResult PatchPerson(int personId, Delta<Person > delta)
+        [HttpPatch("odata/People({key})")]
+        public IActionResult PatchPerson(int key, Delta<Person> delta)
         {
-            var original = _context.People.Find(personId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.People.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Person with personId = {personId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Person),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1324,14 +2091,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/People({personId:int})")]
-        public IActionResult DeletePerson(int personId)
+        [HttpDelete("odata/People({key})")]
+        public IActionResult DeletePerson(int key)
         {
-            var original = _context.People.Find(personId);
+            var original = _context.People.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Person with personId = {personId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Person),
+                    EntityId = key
+                };
             }
 
             _context.People.Remove(original);
@@ -1352,14 +2123,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PurchaseOrders({purchaseOrderId:int})")]
-        public IActionResult GetPurchaseOrders(int purchaseOrderId)
+        [HttpGet("odata/PurchaseOrders({key})")]
+        public IActionResult GetPurchaseOrders(int key)
         {
-            var entity = _context.PurchaseOrders.Where(x => x.PurchaseOrderId == purchaseOrderId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.PurchaseOrders.Where(x => x.PurchaseOrderId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PurchaseOrder),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1368,35 +2150,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/PurchaseOrders")]
         public IActionResult PostPurchaseOrder([FromBody]PurchaseOrder entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/PurchaseOrders/{purchaseOrderId:int}")]
-        public IActionResult PutPurchaseOrder(int purchaseOrderId, [FromBody] PurchaseOrder entity)
+        [HttpPut("odata/PurchaseOrders({key})")]
+        public IActionResult PutPurchaseOrder(int key, [FromBody] PurchaseOrder entity)
         {
-            var original = _context.PurchaseOrders.Find(purchaseOrderId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found PurchaseOrder with purchaseOrderId = {purchaseOrderId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.PurchaseOrders.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PurchaseOrder),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/PurchaseOrders({purchaseOrderId:int})")]
-        public IActionResult PatchPurchaseOrder(int purchaseOrderId, Delta<PurchaseOrder > delta)
+        [HttpPatch("odata/PurchaseOrders({key})")]
+        public IActionResult PatchPurchaseOrder(int key, Delta<PurchaseOrder> delta)
         {
-            var original = _context.PurchaseOrders.Find(purchaseOrderId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.PurchaseOrders.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PurchaseOrder with purchaseOrderId = {purchaseOrderId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PurchaseOrder),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1406,14 +2221,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PurchaseOrders({purchaseOrderId:int})")]
-        public IActionResult DeletePurchaseOrder(int purchaseOrderId)
+        [HttpDelete("odata/PurchaseOrders({key})")]
+        public IActionResult DeletePurchaseOrder(int key)
         {
-            var original = _context.PurchaseOrders.Find(purchaseOrderId);
+            var original = _context.PurchaseOrders.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PurchaseOrder with purchaseOrderId = {purchaseOrderId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PurchaseOrder),
+                    EntityId = key
+                };
             }
 
             _context.PurchaseOrders.Remove(original);
@@ -1434,14 +2253,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
-        public IActionResult GetPurchaseOrderLines(int purchaseOrderLineId)
+        [HttpGet("odata/PurchaseOrderLines({key})")]
+        public IActionResult GetPurchaseOrderLines(int key)
         {
-            var entity = _context.PurchaseOrderLines.Where(x => x.PurchaseOrderLineId == purchaseOrderLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.PurchaseOrderLines.Where(x => x.PurchaseOrderLineId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PurchaseOrderLine),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1450,35 +2280,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/PurchaseOrderLines")]
         public IActionResult PostPurchaseOrderLine([FromBody]PurchaseOrderLine entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/PurchaseOrderLines/{purchaseOrderLineId:int}")]
-        public IActionResult PutPurchaseOrderLine(int purchaseOrderLineId, [FromBody] PurchaseOrderLine entity)
+        [HttpPut("odata/PurchaseOrderLines({key})")]
+        public IActionResult PutPurchaseOrderLine(int key, [FromBody] PurchaseOrderLine entity)
         {
-            var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found PurchaseOrderLine with purchaseOrderLineId = {purchaseOrderLineId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.PurchaseOrderLines.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(PurchaseOrderLine),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
-        public IActionResult PatchPurchaseOrderLine(int purchaseOrderLineId, Delta<PurchaseOrderLine > delta)
+        [HttpPatch("odata/PurchaseOrderLines({key})")]
+        public IActionResult PatchPurchaseOrderLine(int key, Delta<PurchaseOrderLine> delta)
         {
-            var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.PurchaseOrderLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PurchaseOrderLine with purchaseOrderLineId = {purchaseOrderLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PurchaseOrderLine),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1488,14 +2351,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/PurchaseOrderLines({purchaseOrderLineId:int})")]
-        public IActionResult DeletePurchaseOrderLine(int purchaseOrderLineId)
+        [HttpDelete("odata/PurchaseOrderLines({key})")]
+        public IActionResult DeletePurchaseOrderLine(int key)
         {
-            var original = _context.PurchaseOrderLines.Find(purchaseOrderLineId);
+            var original = _context.PurchaseOrderLines.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found PurchaseOrderLine with purchaseOrderLineId = {purchaseOrderLineId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(PurchaseOrderLine),
+                    EntityId = key
+                };
             }
 
             _context.PurchaseOrderLines.Remove(original);
@@ -1516,14 +2383,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SpecialDeals({specialDealId:int})")]
-        public IActionResult GetSpecialDeals(int specialDealId)
+        [HttpGet("odata/SpecialDeals({key})")]
+        public IActionResult GetSpecialDeals(int key)
         {
-            var entity = _context.SpecialDeals.Where(x => x.SpecialDealId == specialDealId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.SpecialDeals.Where(x => x.SpecialDealId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SpecialDeal),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1532,35 +2410,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/SpecialDeals")]
         public IActionResult PostSpecialDeal([FromBody]SpecialDeal entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/SpecialDeals/{specialDealId:int}")]
-        public IActionResult PutSpecialDeal(int specialDealId, [FromBody] SpecialDeal entity)
+        [HttpPut("odata/SpecialDeals({key})")]
+        public IActionResult PutSpecialDeal(int key, [FromBody] SpecialDeal entity)
         {
-            var original = _context.SpecialDeals.Find(specialDealId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found SpecialDeal with specialDealId = {specialDealId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.SpecialDeals.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SpecialDeal),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/SpecialDeals({specialDealId:int})")]
-        public IActionResult PatchSpecialDeal(int specialDealId, Delta<SpecialDeal > delta)
+        [HttpPatch("odata/SpecialDeals({key})")]
+        public IActionResult PatchSpecialDeal(int key, Delta<SpecialDeal> delta)
         {
-            var original = _context.SpecialDeals.Find(specialDealId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.SpecialDeals.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SpecialDeal with specialDealId = {specialDealId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SpecialDeal),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1570,14 +2481,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SpecialDeals({specialDealId:int})")]
-        public IActionResult DeleteSpecialDeal(int specialDealId)
+        [HttpDelete("odata/SpecialDeals({key})")]
+        public IActionResult DeleteSpecialDeal(int key)
         {
-            var original = _context.SpecialDeals.Find(specialDealId);
+            var original = _context.SpecialDeals.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SpecialDeal with specialDealId = {specialDealId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SpecialDeal),
+                    EntityId = key
+                };
             }
 
             _context.SpecialDeals.Remove(original);
@@ -1598,14 +2513,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StateProvinces({stateProvinceId:int})")]
-        public IActionResult GetStateProvinces(int stateProvinceId)
+        [HttpGet("odata/StateProvinces({key})")]
+        public IActionResult GetStateProvinces(int key)
         {
-            var entity = _context.StateProvinces.Where(x => x.StateProvinceId == stateProvinceId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.StateProvinces.Where(x => x.StateProvinceId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StateProvince),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1614,35 +2540,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/StateProvinces")]
         public IActionResult PostStateProvince([FromBody]StateProvince entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/StateProvinces/{stateProvinceId:int}")]
-        public IActionResult PutStateProvince(int stateProvinceId, [FromBody] StateProvince entity)
+        [HttpPut("odata/StateProvinces({key})")]
+        public IActionResult PutStateProvince(int key, [FromBody] StateProvince entity)
         {
-            var original = _context.StateProvinces.Find(stateProvinceId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found StateProvince with stateProvinceId = {stateProvinceId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.StateProvinces.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StateProvince),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/StateProvinces({stateProvinceId:int})")]
-        public IActionResult PatchStateProvince(int stateProvinceId, Delta<StateProvince > delta)
+        [HttpPatch("odata/StateProvinces({key})")]
+        public IActionResult PatchStateProvince(int key, Delta<StateProvince> delta)
         {
-            var original = _context.StateProvinces.Find(stateProvinceId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.StateProvinces.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StateProvince with stateProvinceId = {stateProvinceId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StateProvince),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1652,14 +2611,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StateProvinces({stateProvinceId:int})")]
-        public IActionResult DeleteStateProvince(int stateProvinceId)
+        [HttpDelete("odata/StateProvinces({key})")]
+        public IActionResult DeleteStateProvince(int key)
         {
-            var original = _context.StateProvinces.Find(stateProvinceId);
+            var original = _context.StateProvinces.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StateProvince with stateProvinceId = {stateProvinceId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StateProvince),
+                    EntityId = key
+                };
             }
 
             _context.StateProvinces.Remove(original);
@@ -1680,14 +2643,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockGroups({stockGroupId:int})")]
-        public IActionResult GetStockGroups(int stockGroupId)
+        [HttpGet("odata/StockGroups({key})")]
+        public IActionResult GetStockGroups(int key)
         {
-            var entity = _context.StockGroups.Where(x => x.StockGroupId == stockGroupId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.StockGroups.Where(x => x.StockGroupId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockGroup),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1696,35 +2670,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/StockGroups")]
         public IActionResult PostStockGroup([FromBody]StockGroup entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/StockGroups/{stockGroupId:int}")]
-        public IActionResult PutStockGroup(int stockGroupId, [FromBody] StockGroup entity)
+        [HttpPut("odata/StockGroups({key})")]
+        public IActionResult PutStockGroup(int key, [FromBody] StockGroup entity)
         {
-            var original = _context.StockGroups.Find(stockGroupId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found StockGroup with stockGroupId = {stockGroupId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.StockGroups.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockGroup),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/StockGroups({stockGroupId:int})")]
-        public IActionResult PatchStockGroup(int stockGroupId, Delta<StockGroup > delta)
+        [HttpPatch("odata/StockGroups({key})")]
+        public IActionResult PatchStockGroup(int key, Delta<StockGroup> delta)
         {
-            var original = _context.StockGroups.Find(stockGroupId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.StockGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockGroup with stockGroupId = {stockGroupId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockGroup),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1734,14 +2741,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockGroups({stockGroupId:int})")]
-        public IActionResult DeleteStockGroup(int stockGroupId)
+        [HttpDelete("odata/StockGroups({key})")]
+        public IActionResult DeleteStockGroup(int key)
         {
-            var original = _context.StockGroups.Find(stockGroupId);
+            var original = _context.StockGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockGroup with stockGroupId = {stockGroupId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockGroup),
+                    EntityId = key
+                };
             }
 
             _context.StockGroups.Remove(original);
@@ -1762,14 +2773,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItems({stockItemId:int})")]
-        public IActionResult GetStockItems(int stockItemId)
+        [HttpGet("odata/StockItems({key})")]
+        public IActionResult GetStockItems(int key)
         {
-            var entity = _context.StockItems.Where(x => x.StockItemId == stockItemId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.StockItems.Where(x => x.StockItemId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItem),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1778,35 +2800,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/StockItems")]
         public IActionResult PostStockItem([FromBody]StockItem entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/StockItems/{stockItemId:int}")]
-        public IActionResult PutStockItem(int stockItemId, [FromBody] StockItem entity)
+        [HttpPut("odata/StockItems({key})")]
+        public IActionResult PutStockItem(int key, [FromBody] StockItem entity)
         {
-            var original = _context.StockItems.Find(stockItemId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found StockItem with stockItemId = {stockItemId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.StockItems.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItem),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/StockItems({stockItemId:int})")]
-        public IActionResult PatchStockItem(int stockItemId, Delta<StockItem > delta)
+        [HttpPatch("odata/StockItems({key})")]
+        public IActionResult PatchStockItem(int key, Delta<StockItem> delta)
         {
-            var original = _context.StockItems.Find(stockItemId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.StockItems.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItem with stockItemId = {stockItemId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItem),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1816,14 +2871,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItems({stockItemId:int})")]
-        public IActionResult DeleteStockItem(int stockItemId)
+        [HttpDelete("odata/StockItems({key})")]
+        public IActionResult DeleteStockItem(int key)
         {
-            var original = _context.StockItems.Find(stockItemId);
+            var original = _context.StockItems.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItem with stockItemId = {stockItemId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItem),
+                    EntityId = key
+                };
             }
 
             _context.StockItems.Remove(original);
@@ -1844,14 +2903,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
-        public IActionResult GetStockItemStockGroups(int stockItemStockGroupId)
+        [HttpGet("odata/StockItemStockGroups({key})")]
+        public IActionResult GetStockItemStockGroups(int key)
         {
-            var entity = _context.StockItemStockGroups.Where(x => x.StockItemStockGroupId == stockItemStockGroupId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.StockItemStockGroups.Where(x => x.StockItemStockGroupId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItemStockGroup),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1860,35 +2930,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/StockItemStockGroups")]
         public IActionResult PostStockItemStockGroup([FromBody]StockItemStockGroup entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/StockItemStockGroups/{stockItemStockGroupId:int}")]
-        public IActionResult PutStockItemStockGroup(int stockItemStockGroupId, [FromBody] StockItemStockGroup entity)
+        [HttpPut("odata/StockItemStockGroups({key})")]
+        public IActionResult PutStockItemStockGroup(int key, [FromBody] StockItemStockGroup entity)
         {
-            var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found StockItemStockGroup with stockItemStockGroupId = {stockItemStockGroupId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.StockItemStockGroups.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItemStockGroup),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
-        public IActionResult PatchStockItemStockGroup(int stockItemStockGroupId, Delta<StockItemStockGroup > delta)
+        [HttpPatch("odata/StockItemStockGroups({key})")]
+        public IActionResult PatchStockItemStockGroup(int key, Delta<StockItemStockGroup> delta)
         {
-            var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.StockItemStockGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItemStockGroup with stockItemStockGroupId = {stockItemStockGroupId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItemStockGroup),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1898,14 +3001,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItemStockGroups({stockItemStockGroupId:int})")]
-        public IActionResult DeleteStockItemStockGroup(int stockItemStockGroupId)
+        [HttpDelete("odata/StockItemStockGroups({key})")]
+        public IActionResult DeleteStockItemStockGroup(int key)
         {
-            var original = _context.StockItemStockGroups.Find(stockItemStockGroupId);
+            var original = _context.StockItemStockGroups.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItemStockGroup with stockItemStockGroupId = {stockItemStockGroupId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItemStockGroup),
+                    EntityId = key
+                };
             }
 
             _context.StockItemStockGroups.Remove(original);
@@ -1926,14 +3033,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/StockItemTransactions({stockItemTransactionId:int})")]
-        public IActionResult GetStockItemTransactions(int stockItemTransactionId)
+        [HttpGet("odata/StockItemTransactions({key})")]
+        public IActionResult GetStockItemTransactions(int key)
         {
-            var entity = _context.StockItemTransactions.Where(x => x.StockItemTransactionId == stockItemTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.StockItemTransactions.Where(x => x.StockItemTransactionId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItemTransaction),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -1942,35 +3060,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/StockItemTransactions")]
         public IActionResult PostStockItemTransaction([FromBody]StockItemTransaction entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/StockItemTransactions/{stockItemTransactionId:int}")]
-        public IActionResult PutStockItemTransaction(int stockItemTransactionId, [FromBody] StockItemTransaction entity)
+        [HttpPut("odata/StockItemTransactions({key})")]
+        public IActionResult PutStockItemTransaction(int key, [FromBody] StockItemTransaction entity)
         {
-            var original = _context.StockItemTransactions.Find(stockItemTransactionId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found StockItemTransaction with stockItemTransactionId = {stockItemTransactionId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.StockItemTransactions.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(StockItemTransaction),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/StockItemTransactions({stockItemTransactionId:int})")]
-        public IActionResult PatchStockItemTransaction(int stockItemTransactionId, Delta<StockItemTransaction > delta)
+        [HttpPatch("odata/StockItemTransactions({key})")]
+        public IActionResult PatchStockItemTransaction(int key, Delta<StockItemTransaction> delta)
         {
-            var original = _context.StockItemTransactions.Find(stockItemTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.StockItemTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItemTransaction with stockItemTransactionId = {stockItemTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItemTransaction),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -1980,14 +3131,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/StockItemTransactions({stockItemTransactionId:int})")]
-        public IActionResult DeleteStockItemTransaction(int stockItemTransactionId)
+        [HttpDelete("odata/StockItemTransactions({key})")]
+        public IActionResult DeleteStockItemTransaction(int key)
         {
-            var original = _context.StockItemTransactions.Find(stockItemTransactionId);
+            var original = _context.StockItemTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found StockItemTransaction with stockItemTransactionId = {stockItemTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(StockItemTransaction),
+                    EntityId = key
+                };
             }
 
             _context.StockItemTransactions.Remove(original);
@@ -2008,14 +3163,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/Suppliers({supplierId:int})")]
-        public IActionResult GetSuppliers(int supplierId)
+        [HttpGet("odata/Suppliers({key})")]
+        public IActionResult GetSuppliers(int key)
         {
-            var entity = _context.Suppliers.Where(x => x.SupplierId == supplierId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.Suppliers.Where(x => x.SupplierId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Supplier),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2024,35 +3190,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/Suppliers")]
         public IActionResult PostSupplier([FromBody]Supplier entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/Suppliers/{supplierId:int}")]
-        public IActionResult PutSupplier(int supplierId, [FromBody] Supplier entity)
+        [HttpPut("odata/Suppliers({key})")]
+        public IActionResult PutSupplier(int key, [FromBody] Supplier entity)
         {
-            var original = _context.Suppliers.Find(supplierId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found Supplier with supplierId = {supplierId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.Suppliers.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(Supplier),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/Suppliers({supplierId:int})")]
-        public IActionResult PatchSupplier(int supplierId, Delta<Supplier > delta)
+        [HttpPatch("odata/Suppliers({key})")]
+        public IActionResult PatchSupplier(int key, Delta<Supplier> delta)
         {
-            var original = _context.Suppliers.Find(supplierId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.Suppliers.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Supplier with supplierId = {supplierId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Supplier),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2062,14 +3261,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/Suppliers({supplierId:int})")]
-        public IActionResult DeleteSupplier(int supplierId)
+        [HttpDelete("odata/Suppliers({key})")]
+        public IActionResult DeleteSupplier(int key)
         {
-            var original = _context.Suppliers.Find(supplierId);
+            var original = _context.Suppliers.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found Supplier with supplierId = {supplierId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(Supplier),
+                    EntityId = key
+                };
             }
 
             _context.Suppliers.Remove(original);
@@ -2090,14 +3293,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SupplierCategories({supplierCategoryId:int})")]
-        public IActionResult GetSupplierCategories(int supplierCategoryId)
+        [HttpGet("odata/SupplierCategories({key})")]
+        public IActionResult GetSupplierCategories(int key)
         {
-            var entity = _context.SupplierCategories.Where(x => x.SupplierCategoryId == supplierCategoryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.SupplierCategories.Where(x => x.SupplierCategoryId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SupplierCategory),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2106,35 +3320,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/SupplierCategories")]
         public IActionResult PostSupplierCategory([FromBody]SupplierCategory entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/SupplierCategories/{supplierCategoryId:int}")]
-        public IActionResult PutSupplierCategory(int supplierCategoryId, [FromBody] SupplierCategory entity)
+        [HttpPut("odata/SupplierCategories({key})")]
+        public IActionResult PutSupplierCategory(int key, [FromBody] SupplierCategory entity)
         {
-            var original = _context.SupplierCategories.Find(supplierCategoryId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found SupplierCategory with supplierCategoryId = {supplierCategoryId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.SupplierCategories.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SupplierCategory),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/SupplierCategories({supplierCategoryId:int})")]
-        public IActionResult PatchSupplierCategory(int supplierCategoryId, Delta<SupplierCategory > delta)
+        [HttpPatch("odata/SupplierCategories({key})")]
+        public IActionResult PatchSupplierCategory(int key, Delta<SupplierCategory> delta)
         {
-            var original = _context.SupplierCategories.Find(supplierCategoryId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.SupplierCategories.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SupplierCategory with supplierCategoryId = {supplierCategoryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SupplierCategory),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2144,14 +3391,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SupplierCategories({supplierCategoryId:int})")]
-        public IActionResult DeleteSupplierCategory(int supplierCategoryId)
+        [HttpDelete("odata/SupplierCategories({key})")]
+        public IActionResult DeleteSupplierCategory(int key)
         {
-            var original = _context.SupplierCategories.Find(supplierCategoryId);
+            var original = _context.SupplierCategories.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SupplierCategory with supplierCategoryId = {supplierCategoryId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SupplierCategory),
+                    EntityId = key
+                };
             }
 
             _context.SupplierCategories.Remove(original);
@@ -2172,14 +3423,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SupplierTransactions({supplierTransactionId:int})")]
-        public IActionResult GetSupplierTransactions(int supplierTransactionId)
+        [HttpGet("odata/SupplierTransactions({key})")]
+        public IActionResult GetSupplierTransactions(int key)
         {
-            var entity = _context.SupplierTransactions.Where(x => x.SupplierTransactionId == supplierTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.SupplierTransactions.Where(x => x.SupplierTransactionId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SupplierTransaction),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2188,35 +3450,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/SupplierTransactions")]
         public IActionResult PostSupplierTransaction([FromBody]SupplierTransaction entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/SupplierTransactions/{supplierTransactionId:int}")]
-        public IActionResult PutSupplierTransaction(int supplierTransactionId, [FromBody] SupplierTransaction entity)
+        [HttpPut("odata/SupplierTransactions({key})")]
+        public IActionResult PutSupplierTransaction(int key, [FromBody] SupplierTransaction entity)
         {
-            var original = _context.SupplierTransactions.Find(supplierTransactionId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found SupplierTransaction with supplierTransactionId = {supplierTransactionId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.SupplierTransactions.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SupplierTransaction),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/SupplierTransactions({supplierTransactionId:int})")]
-        public IActionResult PatchSupplierTransaction(int supplierTransactionId, Delta<SupplierTransaction > delta)
+        [HttpPatch("odata/SupplierTransactions({key})")]
+        public IActionResult PatchSupplierTransaction(int key, Delta<SupplierTransaction> delta)
         {
-            var original = _context.SupplierTransactions.Find(supplierTransactionId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.SupplierTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SupplierTransaction with supplierTransactionId = {supplierTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SupplierTransaction),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2226,14 +3521,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SupplierTransactions({supplierTransactionId:int})")]
-        public IActionResult DeleteSupplierTransaction(int supplierTransactionId)
+        [HttpDelete("odata/SupplierTransactions({key})")]
+        public IActionResult DeleteSupplierTransaction(int key)
         {
-            var original = _context.SupplierTransactions.Find(supplierTransactionId);
+            var original = _context.SupplierTransactions.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SupplierTransaction with supplierTransactionId = {supplierTransactionId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SupplierTransaction),
+                    EntityId = key
+                };
             }
 
             _context.SupplierTransactions.Remove(original);
@@ -2254,14 +3553,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/SystemParameters({systemParameterId:int})")]
-        public IActionResult GetSystemParameters(int systemParameterId)
+        [HttpGet("odata/SystemParameters({key})")]
+        public IActionResult GetSystemParameters(int key)
         {
-            var entity = _context.SystemParameters.Where(x => x.SystemParameterId == systemParameterId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.SystemParameters.Where(x => x.SystemParameterId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SystemParameter),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2270,35 +3580,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/SystemParameters")]
         public IActionResult PostSystemParameter([FromBody]SystemParameter entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/SystemParameters/{systemParameterId:int}")]
-        public IActionResult PutSystemParameter(int systemParameterId, [FromBody] SystemParameter entity)
+        [HttpPut("odata/SystemParameters({key})")]
+        public IActionResult PutSystemParameter(int key, [FromBody] SystemParameter entity)
         {
-            var original = _context.SystemParameters.Find(systemParameterId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found SystemParameter with systemParameterId = {systemParameterId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.SystemParameters.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(SystemParameter),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/SystemParameters({systemParameterId:int})")]
-        public IActionResult PatchSystemParameter(int systemParameterId, Delta<SystemParameter > delta)
+        [HttpPatch("odata/SystemParameters({key})")]
+        public IActionResult PatchSystemParameter(int key, Delta<SystemParameter> delta)
         {
-            var original = _context.SystemParameters.Find(systemParameterId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.SystemParameters.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SystemParameter with systemParameterId = {systemParameterId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SystemParameter),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2308,14 +3651,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/SystemParameters({systemParameterId:int})")]
-        public IActionResult DeleteSystemParameter(int systemParameterId)
+        [HttpDelete("odata/SystemParameters({key})")]
+        public IActionResult DeleteSystemParameter(int key)
         {
-            var original = _context.SystemParameters.Find(systemParameterId);
+            var original = _context.SystemParameters.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found SystemParameter with systemParameterId = {systemParameterId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(SystemParameter),
+                    EntityId = key
+                };
             }
 
             _context.SystemParameters.Remove(original);
@@ -2336,14 +3683,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/TransactionTypes({transactionTypeId:int})")]
-        public IActionResult GetTransactionTypes(int transactionTypeId)
+        [HttpGet("odata/TransactionTypes({key})")]
+        public IActionResult GetTransactionTypes(int key)
         {
-            var entity = _context.TransactionTypes.Where(x => x.TransactionTypeId == transactionTypeId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.TransactionTypes.Where(x => x.TransactionTypeId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(TransactionType),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2352,35 +3710,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/TransactionTypes")]
         public IActionResult PostTransactionType([FromBody]TransactionType entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/TransactionTypes/{transactionTypeId:int}")]
-        public IActionResult PutTransactionType(int transactionTypeId, [FromBody] TransactionType entity)
+        [HttpPut("odata/TransactionTypes({key})")]
+        public IActionResult PutTransactionType(int key, [FromBody] TransactionType entity)
         {
-            var original = _context.TransactionTypes.Find(transactionTypeId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found TransactionType with transactionTypeId = {transactionTypeId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.TransactionTypes.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(TransactionType),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/TransactionTypes({transactionTypeId:int})")]
-        public IActionResult PatchTransactionType(int transactionTypeId, Delta<TransactionType > delta)
+        [HttpPatch("odata/TransactionTypes({key})")]
+        public IActionResult PatchTransactionType(int key, Delta<TransactionType> delta)
         {
-            var original = _context.TransactionTypes.Find(transactionTypeId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.TransactionTypes.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found TransactionType with transactionTypeId = {transactionTypeId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(TransactionType),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2390,14 +3781,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/TransactionTypes({transactionTypeId:int})")]
-        public IActionResult DeleteTransactionType(int transactionTypeId)
+        [HttpDelete("odata/TransactionTypes({key})")]
+        public IActionResult DeleteTransactionType(int key)
         {
-            var original = _context.TransactionTypes.Find(transactionTypeId);
+            var original = _context.TransactionTypes.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found TransactionType with transactionTypeId = {transactionTypeId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(TransactionType),
+                    EntityId = key
+                };
             }
 
             _context.TransactionTypes.Remove(original);
@@ -2418,14 +3813,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
-        public IActionResult GetVehicleTemperatures(int vehicleTemperatureId)
+        [HttpGet("odata/VehicleTemperatures({key})")]
+        public IActionResult GetVehicleTemperatures(int key)
         {
-            var entity = _context.VehicleTemperatures.Where(x => x.VehicleTemperatureId == vehicleTemperatureId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.VehicleTemperatures.Where(x => x.VehicleTemperatureId == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(VehicleTemperature),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -2434,35 +3840,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/VehicleTemperatures")]
         public IActionResult PostVehicleTemperature([FromBody]VehicleTemperature entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/VehicleTemperatures/{vehicleTemperatureId:int}")]
-        public IActionResult PutVehicleTemperature(int vehicleTemperatureId, [FromBody] VehicleTemperature entity)
+        [HttpPut("odata/VehicleTemperatures({key})")]
+        public IActionResult PutVehicleTemperature(int key, [FromBody] VehicleTemperature entity)
         {
-            var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found VehicleTemperature with vehicleTemperatureId = {vehicleTemperatureId}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.VehicleTemperatures.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(VehicleTemperature),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
-        public IActionResult PatchVehicleTemperature(int vehicleTemperatureId, Delta<VehicleTemperature > delta)
+        [HttpPatch("odata/VehicleTemperatures({key})")]
+        public IActionResult PatchVehicleTemperature(int key, Delta<VehicleTemperature> delta)
         {
-            var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.VehicleTemperatures.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found VehicleTemperature with vehicleTemperatureId = {vehicleTemperatureId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(VehicleTemperature),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -2472,14 +3911,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/VehicleTemperatures({vehicleTemperatureId:int})")]
-        public IActionResult DeleteVehicleTemperature(int vehicleTemperatureId)
+        [HttpDelete("odata/VehicleTemperatures({key})")]
+        public IActionResult DeleteVehicleTemperature(int key)
         {
-            var original = _context.VehicleTemperatures.Find(vehicleTemperatureId);
+            var original = _context.VehicleTemperatures.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found VehicleTemperature with vehicleTemperatureId = {vehicleTemperatureId}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(VehicleTemperature),
+                    EntityId = key
+                };
             }
 
             _context.VehicleTemperatures.Remove(original);

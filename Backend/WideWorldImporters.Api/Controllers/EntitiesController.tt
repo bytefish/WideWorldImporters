@@ -48,22 +48,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using Microsoft.OpenApi.OData;
-using Microsoft.OpenApi.Extensions;
-using Microsoft.OpenApi;
-using WideWorldImporters.Api.Models;
 using WideWorldImporters.Database;
 using WideWorldImporters.Database.Models;
 using Microsoft.AspNetCore.OData.Results;
+using WideWorldImporters.Api.Infrastructure.Exceptions;
+using WideWorldImporters.Api.Infrastructure.Errors;
+using WideWorldImporters.Api.Infrastructure.Logging;
 
 namespace WideWorldImporters.Api.Controllers
 {
     public partial class EntitiesController : ODataController
     {
+        private readonly ILogger<EntitiesController> _logger;
+        private readonly ApplicationErrorHandler _applicationErrorHandler;
         private readonly WideWorldImportersContext _context;
-
-        public EntitiesController(WideWorldImportersContext context)
+        
+        public EntitiesController(ILogger<EntitiesController> logger, ApplicationErrorHandler applicationErrorHandler, WideWorldImportersContext context)
         {
+            _logger = logger;
+            _applicationErrorHandler = applicationErrorHandler;
             _context = context;
         }
 
@@ -78,14 +81,25 @@ namespace WideWorldImporters.Api.Controllers
         }
 
         [EnableQuery]
-        [HttpGet("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
-        public IActionResult Get<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>)
+        [HttpGet("odata/<#= entitySet.EntitySetName #>({key})")]
+        public IActionResult Get<#= entitySet.EntitySetName #>(<#= entitySet.EntityKeyType #> key)
         {
-            var entity = _context.<#= entitySet.EntitySetName #>.Where(x => x.<#= entitySet.EntityName #>Id == <#= entitySet.EntityKeyName #>);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var entity = _context.<#= entitySet.EntitySetName #>.Where(x => x.<#= entitySet.EntityName #>Id == key);
 
             if (!entity.Any())
             {
-                return NotFound();
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(<#= entitySet.EntityName #>),
+                    EntityId = key
+                };
             }
 
             return Ok(SingleResult.Create(entity));
@@ -94,35 +108,68 @@ namespace WideWorldImporters.Api.Controllers
         [HttpPost("odata/<#= entitySet.EntitySetName #>")]
         public IActionResult Post<#= entitySet.EntityName #>([FromBody]<#= entitySet.EntityName #> entity, CancellationToken token)
         {
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
             _context.Add(entity);
             _context.SaveChanges();
 
             return Created(entity);
         }
 
-        [HttpPut("odata/<#= entitySet.EntitySetName #>/{<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>}")]
-        public IActionResult Put<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, [FromBody] <#= entitySet.EntityName #> entity)
+        [HttpPut("odata/<#= entitySet.EntitySetName #>({key})")]
+        public IActionResult Put<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> key, [FromBody] <#= entitySet.EntityName #> entity)
         {
-            var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
-            if (original == null)
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
             {
-                return NotFound($"Not found <#= entitySet.EntityName #> with <#= entitySet.EntityKeyName #> = {<#= entitySet.EntityKeyName #>}");
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
             }
 
-            _context.Entry(original).CurrentValues.SetValues(entity);
+            var original = _context.<#= entitySet.EntitySetName #>.Find(key);
+
+            if (original == null)
+            {
+                throw new EntityNotFoundException 
+                {
+                    EntityName = nameof(<#= entitySet.EntityName #>),
+                    EntityId = key
+                };
+            }
+
+            _context.Entry(original)
+                .CurrentValues
+                .SetValues(entity);
+
             _context.SaveChanges();
 
             return Ok(original);
         }
 
-        [HttpPatch("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
-        public IActionResult Patch<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>, Delta<<#= entitySet.EntityName #> > delta)
+        [HttpPatch("odata/<#= entitySet.EntitySetName #>({key})")]
+        public IActionResult Patch<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> key, Delta<<#= entitySet.EntityName #>> delta)
         {
-            var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
+            _logger.TraceMethodEntry();
+
+            if (!ModelState.IsValid)
+            {
+                return _applicationErrorHandler.HandleInvalidModelState(HttpContext, ModelState);
+            }
+
+            var original = _context.<#= entitySet.EntitySetName #>.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found <#= entitySet.EntityName #> with <#= entitySet.EntityKeyName #> = {<#= entitySet.EntityKeyName #>}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(<#= entitySet.EntityName #>),
+                    EntityId = key
+                };
             }
 
             delta.Patch(original);
@@ -132,14 +179,18 @@ namespace WideWorldImporters.Api.Controllers
             return Updated(original);
         }
 
-        [HttpDelete("odata/<#= entitySet.EntitySetName #>({<#= entitySet.EntityKeyName #>:<#= entitySet.EntityKeyType #>})")]
-        public IActionResult Delete<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> <#= entitySet.EntityKeyName #>)
+        [HttpDelete("odata/<#= entitySet.EntitySetName #>({key})")]
+        public IActionResult Delete<#= entitySet.EntityName #>(<#= entitySet.EntityKeyType #> key)
         {
-            var original = _context.<#= entitySet.EntitySetName #>.Find(<#= entitySet.EntityKeyName #>);
+            var original = _context.<#= entitySet.EntitySetName #>.Find(key);
 
             if (original == null)
             {
-                return NotFound($"Not found <#= entitySet.EntityName #> with <#= entitySet.EntityKeyName #> = {<#= entitySet.EntityKeyName #>}");
+                throw new EntityNotFoundException
+                {
+                    EntityName = nameof(<#= entitySet.EntityName #>),
+                    EntityId = key
+                };
             }
 
             _context.<#= entitySet.EntitySetName #>.Remove(original);

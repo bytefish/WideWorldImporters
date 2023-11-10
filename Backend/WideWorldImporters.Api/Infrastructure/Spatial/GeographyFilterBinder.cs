@@ -6,7 +6,7 @@ using NetTopologySuite.Geometries;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace WideWorldImporters.Api.Infrastructure.Spatial.Binder
+namespace WideWorldImporters.Api.Infrastructure.Spatial
 {
     public class GeoDistanceFilterBinder : FilterBinder
     {
