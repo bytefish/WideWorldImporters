@@ -8,5 +8,4 @@ obj/
 packages/
 *.DotSettings.user
 *.db
-wwwroot
 *.log
