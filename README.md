@@ -7,22 +7,6 @@ to be this way.
 In this repository I will show you how to use ASP.NET Core OData and EF Core to quickly build Backends 
 and how to use Angular, Blazor and WPF to display, filter and paginate datasets. 
 
-## Repository Structure ##
-
-The Repository contains the ASP.NET Core Backend and various Frontends.
-
-The Repository Structure is:
-
-* `Backend`
-    * Contains the Backend Solution, that you can start with your .NET Runtime.
-* `Frontend`
-    * `Angular`
-        * Contains the Angular 15 Frontend, that uses Clarity Design for its Components.
-    * `Blazor`
-        * Contains the Blazor WASM Frontend, that uses Fluent UI Blazor for its Components.
-    * `WPF`
-        * Contains a WPF application, that shows how to display and edit data in a `DataGrid`.
-
 ## About the Project ##
 
 We will build a Backend and Frontends for the "Wide World Importers" database, which is a Microsoft SQL Server 
