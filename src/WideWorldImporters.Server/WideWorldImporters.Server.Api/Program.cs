@@ -15,13 +15,13 @@ using WideWorldImporters.Server.Api.Infrastructure.Errors;
 using WideWorldImporters.Server.Api.Infrastructure.Spatial;
 using WideWorldImporters.Server.Api.Models;
 
-// We will log to %LocalAppData%/RebacExperiments to store the Logs, so it doesn't need to be configured 
+// We will log to %LocalAppData%/LogWideWorldImporters to store the Logs, so it doesn't need to be configured 
 // to a different path, when you run it on your machine.
-string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "RebacExperiments");
+string logDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WideWorldImporters");
 
 // We are writing with RollingFileAppender using a daily rotation, and we want to have the filename as 
-// as "LogRebacExperiments-{Date}.log", the "{Date}" placeholder will be replaced by Serilog itself.
-string logFilePath = Path.Combine(logDirectory, "LogRebacExperiments-.log");
+// as "LogWideWorldImporters-{Date}.log", the "{Date}" placeholder will be replaced by Serilog itself.
+string logFilePath = Path.Combine(logDirectory, "LogWideWorldImporters-.log");
 
 // Configure the Serilog Logger. This Serilog Logger will be passed 
 // to the Microsoft.Extensions.Logging LoggingBuilder using the 

@@ -1,0 +1,27 @@
+﻿@using WideWorldImporters.Client.Blazor.Shared.Models;
+@using Microsoft.Fast.Components.FluentUI.Utilities;
+
+@inherits FluentComponentBase
+
+<div class="filter-container">
+    <FluentGrid Justify="JustifyContent.Center">
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">Filter Operator:</FluentLabel>
+            <FilterOperatorSelector FilterOperators="filterOperatorOptions" @bind-FilterOperator="_filterOperator"></FilterOperatorSelector>
+        </FluentGridItem>
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">Start Date:</FluentLabel>
+            <FluentDatePicker @bind-Value="_startDateTime" Disabled="IsStartDateTimeDisabled()" Class="w-100"></FluentDatePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">End Date:</FluentLabel>
+            <FluentDatePicker @bind-Value="_endDateTime" Disabled="IsEndDateTimeDisabled()" Class="w-100"></FluentDatePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Neutral" OnClick="@(async () => await RemoveFilterAsync())">Reset</FluentButton>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Accent" OnClick="@(async () => await ApplyFilterAsync())">Apply</FluentButton>
+        </FluentGridItem>
+    </FluentGrid>
+</div>

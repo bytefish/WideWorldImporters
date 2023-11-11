@@ -1,4 +1,0 @@
-﻿[*.cs]
-
-# IDE0066: Convert switch statement to expression
-dotnet_diagnostic.IDE0066.severity = silent

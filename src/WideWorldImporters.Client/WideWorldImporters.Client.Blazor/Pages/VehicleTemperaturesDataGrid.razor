@@ -1,0 +1,48 @@
+﻿@page "/VehicleTemperatures"
+@using WideWorldImporters.Client.Blazor.Components
+@using WideWorldImporters.Client.Blazor.Shared.Models;
+@using WideWorldImporters.Shared.ApiSdk;
+@using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
+
+@inject ApiClient ApiClient;
+
+<PageTitle>Customers</PageTitle>
+
+<h1>Vehicle Temperatures</h1>
+
+@if (VehicleTemperatureProvider == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <FluentDataGrid @ref="DataGrid" ItemsProvider="@VehicleTemperatureProvider" Pagination="@Pagination" TGridItem=VehicleTemperature>
+        <PropertyColumn Title="VehicleTemperatureID" Property="@(c => c!.VehicleTemperatureId)" Sortable="true" Align=Align.Start>
+            <ColumnOptions>
+                <NumericFilter TItem="int" PropertyName="VehicleTemperatureId" FilterState="FilterState"></NumericFilter>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Title="Vehicle Registration" Property="@(c => c!.VehicleRegistration)" Sortable="true" Align=Align.Start>
+            <ColumnOptions>
+                <StringFilter PropertyName="VehicleRegistration" FilterState="FilterState"></StringFilter>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Title="Chiller Sensor Number" Property="@(c => c!.ChillerSensorNumber)" Sortable="true" Align=Align.Start>
+            <ColumnOptions>
+                <NumericFilter TItem="int" PropertyName="ChillerSensorNumber" FilterState="FilterState"></NumericFilter>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Title="RecordedWhen" Property="@(c => c!.RecordedWhen)" Format="yyyy-MM-dd mm:ss" Sortable="true" Align=Align.Start>
+            <ColumnOptions>
+                <DateTimeFilter PropertyName="RecordedWhen" FilterState="FilterState"></DateTimeFilter>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Title="Temperature" Property="@(c => c!.Temperature)" Sortable="true" Align=Align.Start>
+            <ColumnOptions>
+                <NumericFilter TItem="decimal" PropertyName="Temperature" FilterState="FilterState"></NumericFilter>
+            </ColumnOptions>
+        </PropertyColumn>
+    </FluentDataGrid>
+
+    <FluentPaginator State="@Pagination" />
+}
