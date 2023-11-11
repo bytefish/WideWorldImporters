@@ -42,8 +42,16 @@ try
     // Register DbContexts:
     builder.Services.AddDbContext<WideWorldImportersContext>(options =>
     {
-        options.EnableSensitiveDataLogging();
-        options.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=WideWorldImporters;Trusted_Connection=True;", o => o.UseNetTopologySuite());
+        var connectionString = builder.Configuration.GetConnectionString("ApplicationDatabase");
+
+        if (connectionString == null)
+        {
+            throw new InvalidOperationException("No ConnectionString named 'ApplicationDatabase' was found");
+        }
+
+        options
+            .UseSqlServer(connectionString, o => o.UseNetTopologySuite())
+            .EnableSensitiveDataLogging();
     });
 
     // Logging

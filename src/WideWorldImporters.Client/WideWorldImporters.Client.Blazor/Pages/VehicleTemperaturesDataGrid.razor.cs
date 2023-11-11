@@ -107,6 +107,11 @@ namespace WideWorldImporters.Client.Blazor.Pages
                 request.QueryParameters.Top = parameters.Top;
                 request.QueryParameters.Skip = parameters.Skip;
 
+                if (parameters.Expand != null)
+                {
+                    request.QueryParameters.Expand = parameters.Expand;
+                }
+
                 if (!string.IsNullOrWhiteSpace(parameters.Filter))
                 {
                     request.QueryParameters.Filter = parameters.Filter;

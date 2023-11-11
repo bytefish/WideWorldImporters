@@ -96,6 +96,7 @@ namespace WideWorldImporters.Client.Blazor.Pages
             // Build the ODataQueryParameters using the ODataQueryParametersBuilder
             var parameters = ODataQueryParameters.Builder
                 .Page(Pagination.CurrentPageIndex + 1, Pagination.ItemsPerPage)
+                .AddExpand(nameof(Customer.LastEditedByNavigation))
                 .Filter(filters)
                 .OrderBy(sortColumns)
                 .Build();
@@ -104,8 +105,14 @@ namespace WideWorldImporters.Client.Blazor.Pages
             return await ApiClient.Odata.Customers.GetAsync(request =>
             {
                 request.QueryParameters.Count = true;
+                
                 request.QueryParameters.Top = parameters.Top;
                 request.QueryParameters.Skip = parameters.Skip;
+
+                if(parameters.Expand != null)
+                {
+                    request.QueryParameters.Expand = parameters.Expand;
+                }
 
                 if (!string.IsNullOrWhiteSpace(parameters.Filter))
                 {

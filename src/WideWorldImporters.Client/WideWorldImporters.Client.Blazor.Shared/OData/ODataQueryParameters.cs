@@ -25,6 +25,11 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         public string? Filter { get; set; }
 
         /// <summary>
+        /// Gets or sets the expand clause.
+        /// </summary>
+        public string[]? Expand { get; set; }
+
+        /// <summary>
         /// Gets or sets the order by clause.
         /// </summary>
         public string? OrderBy { get; set; }
@@ -49,6 +54,7 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         private int? _top;
         private string? _orderby;
         private string? _filter;
+        private List<string> _expand = new();
 
         /// <summary>
         /// Sets the $top and $skip clauses using the page information.
@@ -63,6 +69,22 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
 
             return this;
         }
+
+        /// <summary>
+        /// Sets the $expand clause.
+        /// </summary>
+        /// <param name="filterDescriptors">Filter Descriptors to filter for</param>
+        /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $filter clause set</returns>
+        public ODataQueryParametersBuilder AddExpand(string expand)
+        {
+            if(!_expand.Contains(expand))
+            {
+                _expand.Add(expand);
+            }
+
+            return this;
+        }
+
 
         /// <summary>
         /// Sets the $filter clause.
@@ -115,12 +137,14 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns><see cref="ODataQueryParameters"/> with the OData clauses applied</returns>
         public ODataQueryParameters Build()
         {
+            
             return new ODataQueryParameters
             {
                 Skip = _skip,
                 Top = _top,
                 OrderBy = _orderby,
                 Filter = _filter,
+                Expand = _expand.Any() ? _expand.ToArray() : null
             };
         }
     }
