@@ -3,9 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Api", "WideWorldImporters.Api\WideWorldImporters.Api.csproj", "{F824EC08-E827-4EC6-93E6-C9FC74741782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Shared.ApiSdk", "src\WideWorldImporters.Shared\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj", "{AB0D8D21-E10A-445D-A15D-C06337A01CF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Database", "WideWorldImporters.Database\WideWorldImporters.Database.csproj", "{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Api", "src\WideWorldImporters.Server\WideWorldImporters.Server.Api\WideWorldImporters.Server.Api.csproj", "{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Server", "WideWorldImporters.Server", "{9251D805-59B9-4E4A-82CD-E9750C2E8578}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Shared", "WideWorldImporters.Shared", "{DD50AE7C-579B-4963-B09F-1E50D6FB8D1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Blazor", "WideWorldImporters.Blazor", "{A9A6CB6F-CAD3-4A95-82B0-FAFB20EE2A73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Blazor", "src\WideWorldImporters.Blazor\WideWorldImporters.Blazor\WideWorldImporters.Blazor.csproj", "{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Blazor.Shared", "src\WideWorldImporters.Blazor\WideWorldImporters.Blazor.Shared\WideWorldImporters.Blazor.Shared.csproj", "{22351DE8-480D-4838-AA85-4C774B4FDD8E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Database", "src\WideWorldImporters.Server\WideWorldImporters.Server.Database\WideWorldImporters.Server.Database.csproj", "{7C1915DA-0930-4348-B965-61D202941535}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,17 +25,36 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F824EC08-E827-4EC6-93E6-C9FC74741782}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D19E1E1-6523-47ED-8E29-63FBA1B4D97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB0D8D21-E10A-445D-A15D-C06337A01CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB0D8D21-E10A-445D-A15D-C06337A01CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB0D8D21-E10A-445D-A15D-C06337A01CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB0D8D21-E10A-445D-A15D-C06337A01CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22351DE8-480D-4838-AA85-4C774B4FDD8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22351DE8-480D-4838-AA85-4C774B4FDD8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22351DE8-480D-4838-AA85-4C774B4FDD8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22351DE8-480D-4838-AA85-4C774B4FDD8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1915DA-0930-4348-B965-61D202941535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1915DA-0930-4348-B965-61D202941535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1915DA-0930-4348-B965-61D202941535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1915DA-0930-4348-B965-61D202941535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AB0D8D21-E10A-445D-A15D-C06337A01CF3} = {DD50AE7C-579B-4963-B09F-1E50D6FB8D1B}
+		{FED84CEE-5531-4F7C-8F6B-AEF74C758E99} = {9251D805-59B9-4E4A-82CD-E9750C2E8578}
+		{CF9692F1-60C6-4B0A-9EF3-945D97DA71B2} = {A9A6CB6F-CAD3-4A95-82B0-FAFB20EE2A73}
+		{22351DE8-480D-4838-AA85-4C774B4FDD8E} = {A9A6CB6F-CAD3-4A95-82B0-FAFB20EE2A73}
+		{7C1915DA-0930-4348-B965-61D202941535} = {9251D805-59B9-4E4A-82CD-E9750C2E8578}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C77A9A3-BFAB-42F1-B465-8C48CFCC8740}

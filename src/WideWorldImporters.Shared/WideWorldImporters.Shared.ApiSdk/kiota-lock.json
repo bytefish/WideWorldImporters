@@ -1,0 +1,32 @@
+{
+  "descriptionHash": "F65A40FFB392C95B122D6C85491520010FE189F65AEDF9EC85DB8F8452F6493FF439780C36FD1357BD41550415E8586A74521261808C77F0E998C296B842830B",
+  "descriptionLocation": "https://localhost:5000/odata/openapi.json",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.8.1",
+  "clientClassName": "ApiClient",
+  "clientNamespaceName": "WideWorldImporters.Shared.ApiSdk",
+  "language": "CSharp",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": false,
+  "includeAdditionalData": true,
+  "serializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Form.FormSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Multipart.MultipartSerializationWriterFactory"
+  ],
+  "deserializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Text.TextParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
+  ],
+  "structuredMimeTypes": [
+    "application/json;q=1",
+    "text/plain;q=0",
+    "application/x-www-form-urlencoded;q=0",
+    "multipart/form-data;q=0"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [],
+  "disabledValidationRules": []
+}

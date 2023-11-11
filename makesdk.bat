@@ -8,8 +8,8 @@ set KIOTA_EXECUTABLE=kiota
 :: Parameters for the Code Generator
 set PARAM_OPENAPI_SCHEMA="https://localhost:5000/odata/openapi.json"
 set PARAM_LANGUAGE=csharp
-set PARAM_NAMESPACE=WideWorldImporters.Shared.ApiSdk 
-set PARAM_OUT_DIR=%~dp0/src/Shared/WideWorldImporters.Shared.ApiSdk
+set PARAM_NAMESPACE=WideWorldImporters.Shared.ApiSdk
+set PARAM_OUT_DIR=%~dp0/src/WideWorldImporters.Shared/WideWorldImporters.Shared.ApiSdk
 set PARAM_LOG_LEVEL=Trace
 
 :: Run the "kiota generate" Command
