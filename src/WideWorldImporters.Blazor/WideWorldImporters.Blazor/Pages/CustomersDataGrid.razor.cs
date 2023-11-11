@@ -2,29 +2,26 @@
 
 using WideWorldImporters.Blazor.Components;
 using WideWorldImporters.Blazor.Infrastructure;
-using WideWorldImporters.Blazor.Shared.Extensions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
-using Microsoft.OData.Client;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
 using WideWorldImporters.Blazor.Shared.OData;
-using Microsoft.AspNetCore.Components.Web;
 using WideWorldImporters.Blazor.Extensions;
 
 namespace WideWorldImporters.Blazor.Pages
 {
-    public partial class VehicleTemperaturesDataGrid
+    public partial class CustomersDataGrid
     {
         /// <summary>
         /// Provides the Data Items.
         /// </summary>
-        private GridItemsProvider<VehicleTemperature> VehicleTemperatureProvider = default!;
+        private GridItemsProvider<Customer> CustomerProvider = default!;
 
         /// <summary>
         /// DataGrid.
         /// </summary>
-        private FluentDataGrid<VehicleTemperature> DataGrid = default!;
+        private FluentDataGrid<Customer> DataGrid = default!;
 
         /// <summary>
         /// The current Pagination State.
@@ -41,27 +38,27 @@ namespace WideWorldImporters.Blazor.Pages
         /// </summary>
         private readonly EventCallbackSubscriber<FilterState> CurrentFiltersChanged;
 
-        public VehicleTemperaturesDataGrid()
+        public CustomersDataGrid()
         {
             CurrentFiltersChanged = new(EventCallback.Factory.Create<FilterState>(this, RefreshData));
         }
 
         protected override Task OnInitializedAsync()
         {
-            VehicleTemperatureProvider = async request =>
+            CustomerProvider = async request =>
             {
-                var response = await GetVehicleTemperaturesAsync(request);
+                var response = await GetCustomers(request);
 
                 if (response == null)
                 {
-                    return GridItemsProviderResult.From(items: new List<VehicleTemperature>(), totalItemCount: 0);
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
                 }
 
                 var entities = response.Value;
 
                 if (entities == null)
                 {
-                    return GridItemsProviderResult.From(items: new List<VehicleTemperature>(), totalItemCount: 0);
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
                 }
 
                 int count = response.GetODataCount();
@@ -88,7 +85,7 @@ namespace WideWorldImporters.Blazor.Pages
             return DataGrid.RefreshDataAsync();
         }
 
-        private async Task<VehicleTemperatureCollectionResponse?> GetVehicleTemperaturesAsync(GridItemsProviderRequest<VehicleTemperature> request)
+        private async Task<CustomerCollectionResponse?> GetCustomers(GridItemsProviderRequest<Customer> request)
         {
             // Extract all Sort Columns from the Blazor FluentUI DataGrid
             var sortColumns = DataGridUtils.GetSortColumns(request);
@@ -104,7 +101,7 @@ namespace WideWorldImporters.Blazor.Pages
                 .Build();
 
             // Get the Data using the ApiClient from the SDK
-            return await ApiClient.Odata.VehicleTemperatures.GetAsync(request =>
+            return await ApiClient.Odata.Customers.GetAsync(request =>
             {
                 request.QueryParameters.Count = true;
                 request.QueryParameters.Top = parameters.Top;

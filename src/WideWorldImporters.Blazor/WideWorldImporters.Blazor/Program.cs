@@ -5,21 +5,20 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.OData.Client;
+using Microsoft.Kiota.Abstractions.Authentication;
+using Microsoft.Kiota.Abstractions;
+using Microsoft.Kiota.Http.HttpClientLibrary;
+using WideWorldImporters.Shared.ApiSdk;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+// Add the Kiota Client.
+builder.Services.AddScoped<IAuthenticationProvider, AnonymousAuthenticationProvider>();
+builder.Services.AddHttpClient<IRequestAdapter, HttpClientRequestAdapter>(client => client.BaseAddress = new Uri("https://localhost:5000"));
+builder.Services.AddScoped<ApiClient>();
 
-// OData
-builder.Services.AddScoped(sp =>
-{
-    return new WideWorldImportersService.Container(new Uri("http://localhost:5000/odata"))
-    {
-        HttpRequestTransportMode = HttpRequestTransportMode.HttpClient
-    };
-});
 
 builder.Services.AddLocalization();
 

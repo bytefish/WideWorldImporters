@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Connected Services\WideWorldImportersService\WideWorldImportersServiceCsdl.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Connected Services\WideWorldImportersService\WideWorldImportersServiceCsdl.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.OData.Client" Version="7.17.0" />
     <PackageReference Include="Microsoft.OData.Core" Version="7.17.0" />
     <PackageReference Include="Microsoft.OData.Edm" Version="7.17.0" />

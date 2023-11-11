@@ -3,7 +3,10 @@
 @using WideWorldImporters.Blazor.Shared.Models;
 @using WideWorldImporters.Blazor.Shared.Extensions;
 @using Microsoft.OData.Client;
-@using WideWorldImportersService;
+@using WideWorldImporters.Shared.ApiSdk;
+@using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
+
+@inject ApiClient ApiClient;
 
 <PageTitle>Customers</PageTitle>
 

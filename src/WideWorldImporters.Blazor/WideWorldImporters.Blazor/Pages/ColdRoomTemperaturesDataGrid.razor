@@ -2,12 +2,12 @@
 @using WideWorldImporters.Blazor.Components
 @using WideWorldImporters.Blazor.Shared.Models;
 @using WideWorldImporters.Blazor.Shared.Extensions;
-@using Microsoft.OData.Client;
-@using WideWorldImportersService;
+@using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
+@using WideWorldImporters.Shared.ApiSdk;
 
-@inject WideWorldImportersService.Container Container
+@inject ApiClient ApiClient
 
-<PageTitle>Customers</PageTitle>
+<PageTitle>Cold Room Temperatures</PageTitle>
 
 <h1>Cold Room Temperatures</h1>
 

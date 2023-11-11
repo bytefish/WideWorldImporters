@@ -3,11 +3,13 @@
 using WideWorldImporters.Blazor.Components;
 using WideWorldImporters.Blazor.Infrastructure;
 using WideWorldImporters.Blazor.Shared.Extensions;
-using WideWorldImporters.Blazor.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 using Microsoft.OData.Client;
-using WideWorldImportersService;
+using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
+using WideWorldImporters.Shared.ApiSdk;
+using WideWorldImporters.Blazor.Shared.OData;
+using WideWorldImporters.Blazor.Extensions;
 
 namespace WideWorldImporters.Blazor.Pages
 {
@@ -47,13 +49,29 @@ namespace WideWorldImporters.Blazor.Pages
         {
             ColdRoomTemperatureProvider = async request =>
             {
-                var response = await GetCustomers(request);
+                var response = await GetColdRoomTemperaturesAsync(request);
 
-                return GridItemsProviderResult.From(items: response.ToList(), totalItemCount: (int)response.Count);
+                if (response == null)
+                {
+                    return GridItemsProviderResult.From(items: new List<ColdRoomTemperature>(), totalItemCount: 0);
+                }
+
+                var entities = response.Value;
+
+                if (entities == null)
+                {
+                    return GridItemsProviderResult.From(items: new List<ColdRoomTemperature>(), totalItemCount: 0);
+                }
+
+                int count = response.GetODataCount();
+
+                return GridItemsProviderResult.From(items: entities, totalItemCount: count);
             };
-            
+
             return base.OnInitializedAsync();
         }
+
+
 
         /// <inheritdoc />
         protected override Task OnParametersSetAsync()
@@ -69,27 +87,38 @@ namespace WideWorldImporters.Blazor.Pages
             return DataGrid.RefreshDataAsync();
         }
 
-        private async Task<QueryOperationResponse<ColdRoomTemperature>> GetCustomers(GridItemsProviderRequest<ColdRoomTemperature> request)
+        private async Task<ColdRoomTemperatureCollectionResponse?> GetColdRoomTemperaturesAsync(GridItemsProviderRequest<ColdRoomTemperature> request)
         {
-            var sorts = DataGridUtils.GetSortColumns(request);
+            // Extract all Sort Columns from the Blazor FluentUI DataGrid
+            var sortColumns = DataGridUtils.GetSortColumns(request);
+
+            // Extract all Filters from the Blazor FluentUI DataGrid
             var filters = FilterState.Filters.Values.ToList();
 
-            var dataServiceQuery = GetDataServiceQuery(sorts, filters, Pagination.CurrentPageIndex, Pagination.ItemsPerPage);
-
-            var result = await dataServiceQuery.ExecuteAsync(request.CancellationToken);
-
-            return (QueryOperationResponse<ColdRoomTemperature>)result;
-        }
-
-        private DataServiceQuery<ColdRoomTemperature> GetDataServiceQuery(List<SortColumn> sortColumns, List<FilterDescriptor> filters,  int pageNumber, int pageSize)
-        {
-            var query = Container.ColdRoomTemperatures
-                .Page(pageNumber + 1, pageSize)
+            // Build the ODataQueryParameters using the ODataQueryParametersBuilder
+            var parameters = ODataQueryParameters.Builder
+                .Page(Pagination.CurrentPageIndex + 1, Pagination.ItemsPerPage)
                 .Filter(filters)
-                .SortBy(sortColumns)
-                .IncludeCount(true);
+                .OrderBy(sortColumns)
+                .Build();
 
-            return (DataServiceQuery<ColdRoomTemperature>)query;
+            // Get the Data using the ApiClient from the SDK
+            return await ApiClient.Odata.ColdRoomTemperatures.GetAsync(request =>
+            {
+                request.QueryParameters.Count = true;
+                request.QueryParameters.Top = parameters.Top;
+                request.QueryParameters.Skip = parameters.Skip;
+
+                if (!string.IsNullOrWhiteSpace(parameters.Filter))
+                {
+                    request.QueryParameters.Filter = parameters.Filter;
+                }
+
+                if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
+                {
+                    request.QueryParameters.Orderby = new[] { parameters.OrderBy };
+                }
+            });
         }
     }
 }
