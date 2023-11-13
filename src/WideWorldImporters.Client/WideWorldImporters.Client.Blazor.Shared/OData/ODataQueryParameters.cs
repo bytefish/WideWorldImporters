@@ -90,7 +90,7 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $filter clause set</returns>
         public ODataQueryParametersBuilder AddExpand(string expand)
         {
-            if(!_expand.Contains(expand))
+            if (!_expand.Contains(expand))
             {
                 _expand.Add(expand);
             }
@@ -105,9 +105,12 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $orderby clause set</returns>
         public ODataQueryParametersBuilder AddOrderBy(SortColumn column)
         {
-            var orderByClause = GetOrderByColumns(new []{ column });
+            var orderByClause = GetOrderByColumns(new[] { column });
 
-            _orderby.Add(orderByClause);
+            if (string.IsNullOrWhiteSpace(orderByClause))
+            {
+                _orderby.Add(orderByClause);
+            }
 
             return this;
         }
@@ -119,7 +122,17 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $orderby clause set</returns>
         public ODataQueryParametersBuilder AddOrderBy(List<SortColumn> columns)
         {
+            if (columns.Count == 0)
+            {
+                return this;
+            }
+
             var orderbyClause = GetOrderByColumns(columns);
+
+            if (string.IsNullOrWhiteSpace(orderbyClause))
+            {
+                return this;
+            }
 
             _orderby.Add(orderbyClause);
 
@@ -153,7 +166,7 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns><see cref="ODataQueryParameters"/> with the OData clauses applied</returns>
         public ODataQueryParameters Build()
         {
-            
+
             return new ODataQueryParameters
             {
                 Skip = _skip,
