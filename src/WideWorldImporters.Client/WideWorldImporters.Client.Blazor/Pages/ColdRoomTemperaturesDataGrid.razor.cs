@@ -95,9 +95,9 @@ namespace WideWorldImporters.Client.Blazor.Pages
 
             // Build the ODataQueryParameters using the ODataQueryParametersBuilder
             var parameters = ODataQueryParameters.Builder
-                .Page(Pagination.CurrentPageIndex + 1, Pagination.ItemsPerPage)
-                .Filter(filters)
-                .OrderBy(sortColumns)
+                .SetPage(Pagination.CurrentPageIndex + 1, Pagination.ItemsPerPage)
+                .SetFilter(filters)
+                .AddOrderBy(sortColumns)
                 .Build();
 
             // Get the Data using the ApiClient from the SDK
@@ -117,9 +117,9 @@ namespace WideWorldImporters.Client.Blazor.Pages
                     request.QueryParameters.Filter = parameters.Filter;
                 }
 
-                if (!string.IsNullOrWhiteSpace(parameters.OrderBy))
+                if (parameters.OrderBy != null)
                 {
-                    request.QueryParameters.Orderby = new[] { parameters.OrderBy };
+                    request.QueryParameters.Orderby = parameters.OrderBy;
                 }
             });
         }

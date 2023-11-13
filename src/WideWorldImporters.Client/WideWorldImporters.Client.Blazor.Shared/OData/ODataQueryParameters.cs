@@ -32,7 +32,7 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <summary>
         /// Gets or sets the order by clause.
         /// </summary>
-        public string? OrderBy { get; set; }
+        public string[]? OrderBy { get; set; }
 
         /// <summary>
         /// Gets or sets the option to include the count (default: <see cref="true"/>).
@@ -52,8 +52,8 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
     {
         private int? _skip;
         private int? _top;
-        private string? _orderby;
         private string? _filter;
+        private List<string> _orderby = new();
         private List<string> _expand = new();
 
         /// <summary>
@@ -62,10 +62,23 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <param name="pageNumber">Page number to request</param>
         /// <param name="pageNumber">Page size to request</param>
         /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $top and $skip clauses set</returns>
-        public ODataQueryParametersBuilder Page(int pageNumber, int pageSize)
+        public ODataQueryParametersBuilder SetPage(int pageNumber, int pageSize)
         {
             _skip = (pageNumber - 1) * pageSize;
             _top = pageSize;
+
+            return this;
+        }
+
+
+        /// <summary>
+        /// Sets the $filter clause.
+        /// </summary>
+        /// <param name="filterDescriptors">Filter Descriptors to filter for</param>
+        /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $filter clause set</returns>
+        public ODataQueryParametersBuilder SetFilter(List<FilterDescriptor> filterDescriptors)
+        {
+            _filter = ODataUtils.Translate(filterDescriptors);
 
             return this;
         }
@@ -85,15 +98,16 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
             return this;
         }
 
-
         /// <summary>
-        /// Sets the $filter clause.
+        /// Sets the $orderby clause.
         /// </summary>
-        /// <param name="filterDescriptors">Filter Descriptors to filter for</param>
-        /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $filter clause set</returns>
-        public ODataQueryParametersBuilder Filter(List<FilterDescriptor> filterDescriptors)
+        /// <param name="columns">List of Columns to sort by</param>
+        /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $orderby clause set</returns>
+        public ODataQueryParametersBuilder AddOrderBy(SortColumn column)
         {
-            _filter = ODataUtils.Translate(filterDescriptors);
+            var orderByClause = GetOrderByColumns(new []{ column });
+
+            _orderby.Add(orderByClause);
 
             return this;
         }
@@ -103,9 +117,11 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// </summary>
         /// <param name="columns">List of Columns to sort by</param>
         /// <returns>The <see cref="ODataQueryParametersBuilder"/> with the $orderby clause set</returns>
-        public ODataQueryParametersBuilder OrderBy(List<SortColumn> columns)
+        public ODataQueryParametersBuilder AddOrderBy(List<SortColumn> columns)
         {
-            _orderby = GetOrderByColumns(columns);
+            var orderbyClause = GetOrderByColumns(columns);
+
+            _orderby.Add(orderbyClause);
 
             return this;
         }
@@ -115,7 +131,7 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// </summary>
         /// <param name="columns">Columns to convert into the OData $orderby string</param>
         /// <returns>The $orderby clause from the given columns</returns>
-        private string GetOrderByColumns(List<SortColumn> columns)
+        private string GetOrderByColumns(ICollection<SortColumn> columns)
         {
             var sortColumns = columns
                 // We need a Tag with the OData Path:
@@ -142,9 +158,9 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
             {
                 Skip = _skip,
                 Top = _top,
-                OrderBy = _orderby,
                 Filter = _filter,
-                Expand = _expand.Any() ? _expand.ToArray() : null
+                Expand = _expand.Any() ? _expand.ToArray() : null,
+                OrderBy = _orderby.Any() ? _orderby.ToArray() : null,
             };
         }
     }
