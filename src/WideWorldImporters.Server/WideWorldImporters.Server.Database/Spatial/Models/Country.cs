@@ -2,7 +2,6 @@
 
 
 using Microsoft.Spatial;
-using System.ComponentModel.DataAnnotations.Schema;
 using WideWorldImporters.Server.Database.Spatial;
 
 namespace WideWorldImporters.Server.Database.Models

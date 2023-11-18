@@ -4,11 +4,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WideWorldImporters Client</title>
+    <title>FluentUI.Demo.Client</title>
     <base href="/" />
-    <link href="_content/Microsoft.Fast.Components.FluentUI/css/reboot.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
+    <link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css" rel="stylesheet" />
     <link href="WideWorldImporters.Client.Blazor.styles.css" rel="stylesheet" />
+    <style>
+        :root {
+            --neutral-fill-layer-rest: #ffffff;
+            color: #000000;
+        }
+
+        .loading-progress-text {
+            color: #000000;
+        }
+
+        @media(prefers-color-scheme: dark) {
+            :root {
+                --neutral-fill-layer-rest: #464646;
+                color: #ffffff;
+            }
+
+            .loading-progress-text {
+                color: #ffffff;
+            }
+        }
+
+        body,
+        #container {
+            font: 14px "Segoe UI Variable", "Segoe UI", sans-serif;
+            background-color: var(--neutral-fill-layer-rest);
+        }
+    </style>
 
 </head>
 
@@ -27,6 +54,7 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="js/theme.js" type="module"></script>
 
 </body>
 

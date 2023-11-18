@@ -1,81 +1,79 @@
 ﻿@using Microsoft.AspNetCore.Components
 @using System.Runtime.InteropServices
+@namespace WideWorldImporters.Client.Blazor.Shared
 
-@inherits LayoutComponentBase
+<PageTitle>Wide World Importers Demo</PageTitle>
 
-<PageTitle>Fluent UI Blazor components demo page</PageTitle>
+<div @ref="container">
+    <FluentLayout>
+        <FluentHeader Class="siteheader">
+            <a href="/">
+                Wide World Importers
+            </a>
+            <FluentSpacer />
 
-<div id="container" @ref="container">
-    
-    <header>
-        <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
-        </div>
-        <div class="colorgroup">
-            <label for="color">Color</label>
-            <FluentSelect Id="color" 
-                          Items=@(Enum.GetValues<OfficeColor>()) 
-                          OptionValue="@(c => c.ToAttributeValue())"
-                          OptionSelected="@(c => c == _selectedColorOption)"
-                          TOption="OfficeColor"
-                          Position="SelectPosition.Below"
-                          @bind-SelectedOption="@_selectedColorOption"
-                          @onchange="@(x => HandleColorChange(x))" 
-                          aria-label="Accent color selector"/>
-        </div>
-        <div class="switches">
-            <FluentSwitch @bind-Value="@_inDarkMode" AfterBindValue="UpdateTheme" title="Switch theme">
-                <span class="label">Theme</span>
-                <span slot="unchecked-message">light</span>
-                <span slot="checked-message">dark</span>
-            </FluentSwitch>
-            <FluentSwitch @bind-Value="@_ltr" AfterBindValue="UpdateDirection" title="Switch direction">
-                <span>Direction</span>
-                <span slot="unchecked-message">LTR</span>
-                <span slot="checked-message">RTL</span>
-            </FluentSwitch>
-        </div>
-    </header>
+            <div class="notifications">
+                <NotificationCenter />
+            </div>
+            <div class="settings">
+                <SiteSettings />
+            </div>
+        </FluentHeader>
 
-    <main>
-        <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
-        <label for="menu-toggle" class="menu-icon">
-            <FluentIcon Icon="Icons.Regular.Size24.Navigation" />
-        </label>
-        <nav>
-            @if(_menuType == "list")
-            {
-                <NavMenuList />
-            }
-            else
-            {
-                <NavMenuTree />
-            }
-        </nav>
-        <div class="content">
-            <article id="article">
-                <ErrorBoundary @ref="errorBoundary">
-                    <ChildContent>
-                        @Body
-                    </ChildContent>
-                    <ErrorContent Context="ex">
-                        <div class="blazor-error-boundary">@ex.Message</div>
-                    </ErrorContent>
-                </ErrorBoundary>
-            </article>
-        </div>
-        <FluentToastContainer MaxToastCount="10"  />
-        <FluentDialogContainer />
-    </main>
-    <footer>
-        <div class="version">
-            <small>
-                Version: @_version
-                &nbsp;-&nbsp;
-                <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
-            </small>
-        </div>
-        <div class="copy">
-            <small>Microsoft © 2023. All rights reserved.</small>
-        </div>
-    </footer>
+        <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
+            <div class="menutoggle">
+                <label for="menu-toggle" class="menu-icon">
+                    <FluentIcon Value="@(new Icons.Regular.Size20.Navigation())" Color="Color.Neutral" />
+                </label>
+                <input type="checkbox" id="menu-toggle" checked=@menuchecked @onclick=HandleChecked />
+
+
+                <nav class="sitenav"
+                     onclick="document.getElementById('menu-toggle').click()">
+                    <NavMenu />
+                </nav>
+            </div>
+            <FluentBodyContent id="body-content" Style="height: calc(100dvh - 90px);">
+                <div class="content">
+                    <article id="article">
+                        
+                        <FluentMessageBarProvider Section="@App.MESSAGES_TOP" />
+
+                        <ErrorBoundary @ref="errorBoundary">
+                            <ChildContent>
+                                    @Body
+                            </ChildContent>
+                            <ErrorContent Context="ex">
+                                <div class="blazor-error-boundary">@ex.Message</div>
+                            </ErrorContent>
+                        </ErrorBoundary>
+                    </article>
+                    <aside>
+                        <!-- Side Information -->
+                    </aside>
+
+                    <FluentToastProvider MaxToastCount="10" />
+                    <FluentDialogProvider />
+                    <FluentTooltipProvider />
+
+                </div>
+            </FluentBodyContent>
+        </FluentStack>
+
+        <FluentFooter Style="@("height: 40px; color: white;")">
+            <div class="version">
+                <small>
+                    Version: @_version
+                    &nbsp;-&nbsp;
+                    <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
+                </small>
+            </div>
+            <FluentSpacer />
+
+            <div class="copy">
+                <small>© 2023. All rights reserved.</small>
+            </div>
+        </FluentFooter>
+
+    </FluentLayout>
 </div>

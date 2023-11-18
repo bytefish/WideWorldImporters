@@ -1,13 +1,13 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.Fast.Components.FluentUI;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
 using WideWorldImporters.Client.Blazor.Shared.OData;
 using WideWorldImporters.Client.Blazor.Infrastructure;
 using WideWorldImporters.Client.Blazor.Components;
 using WideWorldImporters.Client.Blazor.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace WideWorldImporters.Client.Blazor.Pages
 {

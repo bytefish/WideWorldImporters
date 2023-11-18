@@ -1,9 +1,9 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using WideWorldImporters.Client.Blazor.Shared.Models;
-using Microsoft.Fast.Components.FluentUI;
+using Microsoft.FluentUI.AspNetCore.Components;
 using SortDirectionEnum = WideWorldImporters.Client.Blazor.Shared.Models.SortDirectionEnum;
-using FluentUiSortDirection = Microsoft.Fast.Components.FluentUI.SortDirection;
+using FluentUiSortDirection = Microsoft.FluentUI.AspNetCore.Components.SortDirection;
 
 namespace WideWorldImporters.Client.Blazor.Infrastructure
 {

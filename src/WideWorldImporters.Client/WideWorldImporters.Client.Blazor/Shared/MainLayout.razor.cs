@@ -1,24 +1,32 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Reflection;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
+using Microsoft.JSInterop;
+
 namespace WideWorldImporters.Client.Blazor.Shared
 {
-    using System.Reflection;
-    using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Components.Routing;
-    using Microsoft.AspNetCore.Components.Web;
-    using Microsoft.Fast.Components.FluentUI;
-    using Microsoft.Fast.Components.FluentUI.DesignTokens;
-    using Microsoft.JSInterop;
-
     public partial class MainLayout : IAsyncDisposable
     {
+        [Parameter]
+        public RenderFragment? Body { get; set; }
+
         private OfficeColor _selectedColorOption;
         private string? _version;
-        private readonly string _menuType = "tree";
-        private bool _inDarkMode;
-        private bool _ltr;
+
         private bool _mobile;
         private string? _prevUri;
+        ElementReference container;
+
+        private IJSObjectReference? _jsModule;
+        bool menuchecked = true;
+
+        ErrorBoundary? errorBoundary;
+
 
         [Inject]
         private GlobalState GlobalState { get; set; } = default!;
@@ -38,28 +46,17 @@ namespace WideWorldImporters.Client.Blazor.Shared
         [Inject]
         private Direction Direction { get; set; } = default!;
 
-
-        ElementReference container;
-
-        private IJSObjectReference? _jsModule;
-        bool menuchecked = true;
-
-        ErrorBoundary? errorBoundary;
-
-        LocalizationDirection dir;
-        StandardLuminance baseLayerLuminance = StandardLuminance.LightMode;
-
         protected override void OnInitialized()
         {
             _version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion;
 
-
-            OfficeColor[] colors = Enum.GetValues<OfficeColor>().ToArray();
+            OfficeColor[] colors = Enum.GetValues<OfficeColor>();
             _selectedColorOption = colors[new Random().Next(colors.Length)];
+
+            GlobalState.SetColor(_selectedColorOption.ToAttributeValue());
 
             _prevUri = NavigationManager.Uri;
             NavigationManager.LocationChanged += LocationChanged;
-            base.OnInitialized();
         }
 
         protected override void OnParametersSet()
@@ -71,66 +68,23 @@ namespace WideWorldImporters.Client.Blazor.Shared
         {
             if (firstRender)
             {
-                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/MainLayout.razor.js");
+                GlobalState.SetContainer(container);
 
-                _inDarkMode = await _jsModule!.InvokeAsync<bool>("isDarkMode");
-                if (_inDarkMode)
-                    UpdateTheme();
+                _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/MainLayout.razor.js");
 
                 _mobile = await _jsModule!.InvokeAsync<bool>("isDevice");
 
+                bool _dark = await _jsModule!.InvokeAsync<bool>("isDarkMode");
+                GlobalState.SetLuminance(_dark ? StandardLuminance.DarkMode : StandardLuminance.LightMode);
+
                 if (_selectedColorOption != OfficeColor.Default)
-                    await AccentBaseColor.SetValueFor(container, _selectedColorOption.ToAttributeValue()!.ToSwatch());
-
-                StateHasChanged();
+                    await AccentBaseColor.WithDefault(_selectedColorOption.ToAttributeValue()!.ToSwatch());
             }
-        }
-
-        public async Task UpdateDirection()
-        {
-            dir = (dir == LocalizationDirection.rtl) ? LocalizationDirection.ltr : LocalizationDirection.rtl;
-
-            GlobalState.SetDirection(dir);
-
-            await _jsModule!.InvokeVoidAsync("switchDirection", dir.ToString());
-            await Direction.SetValueFor(container, dir.ToAttributeValue());
-        }
-
-        public async void UpdateTheme()
-        {
-            if (_inDarkMode)
-                baseLayerLuminance = StandardLuminance.DarkMode;
-            else
-                baseLayerLuminance = StandardLuminance.LightMode;
-
-            await BaseLayerLuminance.SetValueFor(container, baseLayerLuminance.GetLuminanceValue());
-
-            GlobalState.SetLuminance(baseLayerLuminance);
-
-            await _jsModule!.InvokeVoidAsync("switchHighlightStyle", baseLayerLuminance == StandardLuminance.DarkMode);
         }
 
         private void HandleChecked()
         {
             menuchecked = !menuchecked;
-        }
-
-        private async void HandleColorChange(ChangeEventArgs args)
-        {
-            string? value = args.Value?.ToString();
-            if (!string.IsNullOrEmpty(value))
-            {
-                if (value != "default")
-                {
-                    //_selectValue = value;
-                    await AccentBaseColor.SetValueFor(container, value.ToSwatch());
-                }
-                else
-                {
-                    //_selectValue = "default";
-                    await AccentBaseColor.DeleteValueFor(container);
-                }
-            }
         }
 
         private void LocationChanged(object? sender, LocationChangedEventArgs e)
@@ -163,3 +117,4 @@ namespace WideWorldImporters.Client.Blazor.Shared
         }
     }
 }
+ 

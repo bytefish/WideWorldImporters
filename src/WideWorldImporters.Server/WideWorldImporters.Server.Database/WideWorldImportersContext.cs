@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WideWorldImporters.Server.Database.Models;
-using WideWorldImporters.Server.Database.Models;
 
 namespace WideWorldImporters.Server.Database
 {
@@ -138,8 +137,8 @@ namespace WideWorldImporters.Server.Database
 
                 entity.ToTable("ColdRoomTemperatures", "Warehouse");
 
-                entity.IsMemoryOptimized()
-                    .ToTable(tb => tb.IsTemporal(ttb =>
+                entity
+                    .ToTable(tb => tb.IsMemoryOptimized().IsTemporal(ttb =>
     {
         ttb.UseHistoryTable("ColdRoomTemperatures_Archive", "Warehouse");
         ttb
@@ -1754,9 +1753,8 @@ namespace WideWorldImporters.Server.Database
                     .HasName("PK_Warehouse_VehicleTemperatures")
                     .IsClustered(false);
 
-                entity.ToTable("VehicleTemperatures", "Warehouse");
+                entity.ToTable("VehicleTemperatures", "Warehouse", tb => tb.IsMemoryOptimized());
 
-                entity.IsMemoryOptimized();
 
                 entity.Property(e => e.VehicleTemperatureId).HasColumnName("VehicleTemperatureID");
 
