@@ -2,10 +2,11 @@
 
 using WideWorldImporters.Client.Blazor.Shared.Models;
 using Microsoft.AspNetCore.Components;
+using WideWorldImporters.Client.Blazor.Components;
 
 namespace WideWorldImporters.Client.Blazor.Components
 {
-    public partial class DateFilter
+    public partial class DateTimeFilter
     {
         /// <summary>
         /// The Property Name.
@@ -73,9 +74,9 @@ namespace WideWorldImporters.Client.Blazor.Components
                 return;
             }
 
-            var dateFilterDescriptor = filterDescriptor as DateFilterDescriptor;
+            var dateTimeFilterDescriptor = filterDescriptor as DateTimeFilterDescriptor;
 
-            if (dateFilterDescriptor == null)
+            if (dateTimeFilterDescriptor == null)
             {
                 _filterOperator = FilterOperatorEnum.None;
                 _startDateTime = null;
@@ -84,19 +85,19 @@ namespace WideWorldImporters.Client.Blazor.Components
                 return;
             }
 
-            _filterOperator = dateFilterDescriptor.FilterOperator;
-            _startDateTime = dateFilterDescriptor.StartDate?.DateTime;
-            _endDateTime = dateFilterDescriptor.EndDate?.DateTime;
+            _filterOperator = dateTimeFilterDescriptor.FilterOperator;
+            _startDateTime = dateTimeFilterDescriptor.StartDateTime?.DateTime;
+            _endDateTime = dateTimeFilterDescriptor.EndDateTime?.DateTime;
         }
 
         protected virtual Task ApplyFilterAsync()
         {
-            var numericFilter = new DateFilterDescriptor
+            var numericFilter = new DateTimeFilterDescriptor
             {
                 PropertyName = PropertyName,
                 FilterOperator = _filterOperator,
-                StartDate = _startDateTime,
-                EndDate = _endDateTime,
+                StartDateTime = _startDateTime,
+                EndDateTime = _endDateTime,
             };
 
             return FilterState.AddFilterAsync(numericFilter);

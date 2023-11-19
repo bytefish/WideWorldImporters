@@ -1,5 +1,7 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components;
-@using WideWorldImporters.Client.Blazor.Shared.Models;
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using WideWorldImporters.Client.Blazor.Shared.Models
+
+@namespace WideWorldImporters.Client.Blazor.Components
 
 @inherits FluentComponentBase
 
@@ -8,6 +10,10 @@
         <FluentGridItem xs="12">
             <FluentLabel Typo="Typography.Body">Filter Operator:</FluentLabel>
             <FilterOperatorSelector FilterOperators="filterOperatorOptions" @bind-FilterOperator="_filterOperator"></FilterOperatorSelector>
+        </FluentGridItem>
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">Value:</FluentLabel>
+            <FluentTextField @bind-Value="_value" Disabled="IsValueDisabled()" Class="w-100"></FluentTextField>
         </FluentGridItem>
         <FluentGridItem xs="6">
             <FluentButton Class="w-100" Appearance="Appearance.Neutral" OnClick="@(async () => await RemoveFilterAsync())">Reset</FluentButton>

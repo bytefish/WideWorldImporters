@@ -1,0 +1,37 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+@using WideWorldImporters.Client.Blazor.Shared.Models
+
+@namespace WideWorldImporters.Client.Blazor.Components
+
+@inherits FluentComponentBase
+
+<div class="filter-container">
+    <FluentGrid Justify="JustifyContent.Center">
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">Filter Operator:</FluentLabel>
+            <FilterOperatorSelector FilterOperators="filterOperatorOptions" @bind-FilterOperator="_filterOperator"></FilterOperatorSelector>
+        </FluentGridItem>
+        <FluentGridItem xs="8">
+            <FluentLabel Typo="Typography.Body">Start Date:</FluentLabel>
+            <FluentDatePicker @bind-Value="_startDateTime" Disabled="IsStartDateTimeDisabled()" Class="w-100"></FluentDatePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="4">
+            <FluentLabel Typo="Typography.Body">Start Time:</FluentLabel>
+            <FluentTimePicker @bind-Value="_startDateTime" Disabled="IsStartDateTimeDisabled()" Class="w-100"></FluentTimePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="8">
+            <FluentLabel Typo="Typography.Body">End Date:</FluentLabel>
+            <FluentDatePicker @bind-Value="_endDateTime" Disabled="IsEndDateTimeDisabled()" Class="w-100"></FluentDatePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="4">
+            <FluentLabel Typo="Typography.Body">End Time:</FluentLabel>
+            <FluentTimePicker @bind-Value="_endDateTime" Disabled="IsEndDateTimeDisabled()" Class="w-100"></FluentTimePicker>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Neutral" OnClick="@(async () => await RemoveFilterAsync())">Reset</FluentButton>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Accent" OnClick="@(async () => await ApplyFilterAsync())">Apply</FluentButton>
+        </FluentGridItem>
+    </FluentGrid>
+</div>
