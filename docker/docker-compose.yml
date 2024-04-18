@@ -13,7 +13,7 @@ services:
     networks:
       - wwi
     ports:
-      - "1433:1433"
+      - "1533:1433"
     healthcheck:
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -Q "SELECT 1" || exit 1
       interval: 10s
@@ -22,4 +22,5 @@ services:
       start_period: 10s
     environment:
       ACCEPT_EULA: "Y"
+      SA_PASSWORD: "StrongPassword@"
       MSSQL_SA_PASSWORD: "StrongPassword@"
