@@ -1,0 +1,25 @@
+version: '3.8'
+
+networks:
+  wwi:
+    driver: bridge
+
+services:
+  db:
+    container_name: wwi-sqlserver2022
+    build:
+      context: ./db/
+      dockerfile: Dockerfile
+    networks:
+      - wwi
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "StrongPassword@"
