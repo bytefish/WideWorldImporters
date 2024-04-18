@@ -8,4 +8,3 @@ RESTORE DATABASE WideWorldImporters
         "/var/opt/mssql/data/WideWorldImporters_InMemory_Data_1"
 
 GO
-EXIT
