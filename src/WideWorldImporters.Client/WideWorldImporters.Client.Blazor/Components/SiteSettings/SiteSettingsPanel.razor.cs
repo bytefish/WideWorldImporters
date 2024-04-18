@@ -38,7 +38,7 @@ namespace WideWorldImporters.Client.Blazor.Components
 
         protected override void OnInitialized()
         {
-            _rtl = Content.Dir == LocalizationDirection.rtl;
+            _rtl = Content.Dir == LocalizationDirection.RightToLeft;
             _container = Content.Container;
 
             OfficeColor[] colors = Enum.GetValues<OfficeColor>();
@@ -64,7 +64,7 @@ namespace WideWorldImporters.Client.Blazor.Components
 
         public async Task UpdateDirectionAsync()
         {
-            _dir = (_rtl ? LocalizationDirection.rtl : LocalizationDirection.ltr);
+            _dir = _rtl ? LocalizationDirection.RightToLeft : LocalizationDirection.LeftToRight;
 
             Content.Dir = _dir;
 
@@ -138,6 +138,7 @@ namespace WideWorldImporters.Client.Blazor.Components
 
             return StandardLuminance.LightMode;
         }
+
         async ValueTask IAsyncDisposable.DisposeAsync()
         {
             try
