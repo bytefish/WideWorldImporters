@@ -166,7 +166,6 @@ namespace WideWorldImporters.Client.Blazor.Shared.OData
         /// <returns><see cref="ODataQueryParameters"/> with the OData clauses applied</returns>
         public ODataQueryParameters Build()
         {
-
             return new ODataQueryParameters
             {
                 Skip = _skip,
