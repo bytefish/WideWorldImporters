@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of StateProvince entities.</summary>
-    public enum GeometryLineString_type {
+    /// <summary>Provides operations to manage the collection of Country entities.</summary>
+    public enum GeometryLineString_type
+    {
         [EnumMember(Value = "LineString")]
+        #pragma warning disable CS1591
         LineString,
+        #pragma warning restore CS1591
     }
 }

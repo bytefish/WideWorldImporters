@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of StateProvince entities.</summary>
-    public enum GeometryMultiPoint_type {
+    /// <summary>Provides operations to manage the collection of InvoiceLine entities.</summary>
+    public enum GeometryMultiPoint_type
+    {
         [EnumMember(Value = "MultiPoint")]
+        #pragma warning disable CS1591
         MultiPoint,
+        #pragma warning restore CS1591
     }
 }

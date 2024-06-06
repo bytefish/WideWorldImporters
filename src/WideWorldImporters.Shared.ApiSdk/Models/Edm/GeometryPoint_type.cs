@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of Customer entities.</summary>
-    public enum GeometryPoint_type {
+    /// <summary>Provides operations to manage the collection of CustomerTransaction entities.</summary>
+    public enum GeometryPoint_type
+    {
         [EnumMember(Value = "Point")]
+        #pragma warning disable CS1591
         Point,
+        #pragma warning restore CS1591
     }
 }

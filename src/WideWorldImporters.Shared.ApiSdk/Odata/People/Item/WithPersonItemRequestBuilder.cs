@@ -55,224 +55,276 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.People.Item {
     /// <summary>
     /// Provides operations to manage the collection of Person entities.
     /// </summary>
-    public class WithPersonItemRequestBuilder : BaseRequestBuilder {
+    public class WithPersonItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Provides operations to manage the buyingGroups property of the WideWorldImportersService.Person entity.</summary>
-        public BuyingGroupsRequestBuilder BuyingGroups { get =>
-            new BuyingGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public BuyingGroupsRequestBuilder BuyingGroups
+        {
+            get => new BuyingGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the cities property of the WideWorldImportersService.Person entity.</summary>
-        public CitiesRequestBuilder Cities { get =>
-            new CitiesRequestBuilder(PathParameters, RequestAdapter);
+        public CitiesRequestBuilder Cities
+        {
+            get => new CitiesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the colors property of the WideWorldImportersService.Person entity.</summary>
-        public ColorsRequestBuilder Colors { get =>
-            new ColorsRequestBuilder(PathParameters, RequestAdapter);
+        public ColorsRequestBuilder Colors
+        {
+            get => new ColorsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the countries property of the WideWorldImportersService.Person entity.</summary>
-        public CountriesRequestBuilder Countries { get =>
-            new CountriesRequestBuilder(PathParameters, RequestAdapter);
+        public CountriesRequestBuilder Countries
+        {
+            get => new CountriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerAlternateContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public CustomerAlternateContactPeopleRequestBuilder CustomerAlternateContactPeople { get =>
-            new CustomerAlternateContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerAlternateContactPeopleRequestBuilder CustomerAlternateContactPeople
+        {
+            get => new CustomerAlternateContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerCategories property of the WideWorldImportersService.Person entity.</summary>
-        public CustomerCategoriesRequestBuilder CustomerCategories { get =>
-            new CustomerCategoriesRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerCategoriesRequestBuilder CustomerCategories
+        {
+            get => new CustomerCategoriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerLastEditedByNavigations property of the WideWorldImportersService.Person entity.</summary>
-        public CustomerLastEditedByNavigationsRequestBuilder CustomerLastEditedByNavigations { get =>
-            new CustomerLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerLastEditedByNavigationsRequestBuilder CustomerLastEditedByNavigations
+        {
+            get => new CustomerLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerPrimaryContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public CustomerPrimaryContactPeopleRequestBuilder CustomerPrimaryContactPeople { get =>
-            new CustomerPrimaryContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerPrimaryContactPeopleRequestBuilder CustomerPrimaryContactPeople
+        {
+            get => new CustomerPrimaryContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerTransactions property of the WideWorldImportersService.Person entity.</summary>
-        public CustomerTransactionsRequestBuilder CustomerTransactions { get =>
-            new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerTransactionsRequestBuilder CustomerTransactions
+        {
+            get => new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the deliveryMethods property of the WideWorldImportersService.Person entity.</summary>
-        public DeliveryMethodsRequestBuilder DeliveryMethods { get =>
-            new DeliveryMethodsRequestBuilder(PathParameters, RequestAdapter);
+        public DeliveryMethodsRequestBuilder DeliveryMethods
+        {
+            get => new DeliveryMethodsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the inverseLastEditedByNavigation property of the WideWorldImportersService.Person entity.</summary>
-        public InverseLastEditedByNavigationRequestBuilder InverseLastEditedByNavigation { get =>
-            new InverseLastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
+        public InverseLastEditedByNavigationRequestBuilder InverseLastEditedByNavigation
+        {
+            get => new InverseLastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceAccountsPeople property of the WideWorldImportersService.Person entity.</summary>
-        public InvoiceAccountsPeopleRequestBuilder InvoiceAccountsPeople { get =>
-            new InvoiceAccountsPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceAccountsPeopleRequestBuilder InvoiceAccountsPeople
+        {
+            get => new InvoiceAccountsPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public InvoiceContactPeopleRequestBuilder InvoiceContactPeople { get =>
-            new InvoiceContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceContactPeopleRequestBuilder InvoiceContactPeople
+        {
+            get => new InvoiceContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceLastEditedByNavigations property of the WideWorldImportersService.Person entity.</summary>
-        public InvoiceLastEditedByNavigationsRequestBuilder InvoiceLastEditedByNavigations { get =>
-            new InvoiceLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceLastEditedByNavigationsRequestBuilder InvoiceLastEditedByNavigations
+        {
+            get => new InvoiceLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceLines property of the WideWorldImportersService.Person entity.</summary>
-        public InvoiceLinesRequestBuilder InvoiceLines { get =>
-            new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceLinesRequestBuilder InvoiceLines
+        {
+            get => new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoicePackedByPeople property of the WideWorldImportersService.Person entity.</summary>
-        public InvoicePackedByPeopleRequestBuilder InvoicePackedByPeople { get =>
-            new InvoicePackedByPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public InvoicePackedByPeopleRequestBuilder InvoicePackedByPeople
+        {
+            get => new InvoicePackedByPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceSalespersonPeople property of the WideWorldImportersService.Person entity.</summary>
-        public InvoiceSalespersonPeopleRequestBuilder InvoiceSalespersonPeople { get =>
-            new InvoiceSalespersonPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceSalespersonPeopleRequestBuilder InvoiceSalespersonPeople
+        {
+            get => new InvoiceSalespersonPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the lastEditedByNavigation property of the WideWorldImportersService.Person entity.</summary>
-        public LastEditedByNavigationRequestBuilder LastEditedByNavigation { get =>
-            new LastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
+        public LastEditedByNavigationRequestBuilder LastEditedByNavigation
+        {
+            get => new LastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the orderContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public OrderContactPeopleRequestBuilder OrderContactPeople { get =>
-            new OrderContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public OrderContactPeopleRequestBuilder OrderContactPeople
+        {
+            get => new OrderContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the orderLastEditedByNavigations property of the WideWorldImportersService.Person entity.</summary>
-        public OrderLastEditedByNavigationsRequestBuilder OrderLastEditedByNavigations { get =>
-            new OrderLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
+        public OrderLastEditedByNavigationsRequestBuilder OrderLastEditedByNavigations
+        {
+            get => new OrderLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the orderLines property of the WideWorldImportersService.Person entity.</summary>
-        public OrderLinesRequestBuilder OrderLines { get =>
-            new OrderLinesRequestBuilder(PathParameters, RequestAdapter);
+        public OrderLinesRequestBuilder OrderLines
+        {
+            get => new OrderLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the orderPickedByPeople property of the WideWorldImportersService.Person entity.</summary>
-        public OrderPickedByPeopleRequestBuilder OrderPickedByPeople { get =>
-            new OrderPickedByPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public OrderPickedByPeopleRequestBuilder OrderPickedByPeople
+        {
+            get => new OrderPickedByPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the orderSalespersonPeople property of the WideWorldImportersService.Person entity.</summary>
-        public OrderSalespersonPeopleRequestBuilder OrderSalespersonPeople { get =>
-            new OrderSalespersonPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public OrderSalespersonPeopleRequestBuilder OrderSalespersonPeople
+        {
+            get => new OrderSalespersonPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the packageTypes property of the WideWorldImportersService.Person entity.</summary>
-        public PackageTypesRequestBuilder PackageTypes { get =>
-            new PackageTypesRequestBuilder(PathParameters, RequestAdapter);
+        public PackageTypesRequestBuilder PackageTypes
+        {
+            get => new PackageTypesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the paymentMethods property of the WideWorldImportersService.Person entity.</summary>
-        public PaymentMethodsRequestBuilder PaymentMethods { get =>
-            new PaymentMethodsRequestBuilder(PathParameters, RequestAdapter);
+        public PaymentMethodsRequestBuilder PaymentMethods
+        {
+            get => new PaymentMethodsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the purchaseOrderContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public PurchaseOrderContactPeopleRequestBuilder PurchaseOrderContactPeople { get =>
-            new PurchaseOrderContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public PurchaseOrderContactPeopleRequestBuilder PurchaseOrderContactPeople
+        {
+            get => new PurchaseOrderContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the purchaseOrderLastEditedByNavigations property of the WideWorldImportersService.Person entity.</summary>
-        public PurchaseOrderLastEditedByNavigationsRequestBuilder PurchaseOrderLastEditedByNavigations { get =>
-            new PurchaseOrderLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
+        public PurchaseOrderLastEditedByNavigationsRequestBuilder PurchaseOrderLastEditedByNavigations
+        {
+            get => new PurchaseOrderLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the purchaseOrderLines property of the WideWorldImportersService.Person entity.</summary>
-        public PurchaseOrderLinesRequestBuilder PurchaseOrderLines { get =>
-            new PurchaseOrderLinesRequestBuilder(PathParameters, RequestAdapter);
+        public PurchaseOrderLinesRequestBuilder PurchaseOrderLines
+        {
+            get => new PurchaseOrderLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the specialDeals property of the WideWorldImportersService.Person entity.</summary>
-        public SpecialDealsRequestBuilder SpecialDeals { get =>
-            new SpecialDealsRequestBuilder(PathParameters, RequestAdapter);
+        public SpecialDealsRequestBuilder SpecialDeals
+        {
+            get => new SpecialDealsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stateProvinces property of the WideWorldImportersService.Person entity.</summary>
-        public StateProvincesRequestBuilder StateProvinces { get =>
-            new StateProvincesRequestBuilder(PathParameters, RequestAdapter);
+        public StateProvincesRequestBuilder StateProvinces
+        {
+            get => new StateProvincesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockGroups property of the WideWorldImportersService.Person entity.</summary>
-        public StockGroupsRequestBuilder StockGroups { get =>
-            new StockGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public StockGroupsRequestBuilder StockGroups
+        {
+            get => new StockGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockItemHoldings property of the WideWorldImportersService.Person entity.</summary>
-        public StockItemHoldingsRequestBuilder StockItemHoldings { get =>
-            new StockItemHoldingsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemHoldingsRequestBuilder StockItemHoldings
+        {
+            get => new StockItemHoldingsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockItems property of the WideWorldImportersService.Person entity.</summary>
-        public StockItemsRequestBuilder StockItems { get =>
-            new StockItemsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemsRequestBuilder StockItems
+        {
+            get => new StockItemsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockItemStockGroups property of the WideWorldImportersService.Person entity.</summary>
-        public StockItemStockGroupsRequestBuilder StockItemStockGroups { get =>
-            new StockItemStockGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemStockGroupsRequestBuilder StockItemStockGroups
+        {
+            get => new StockItemStockGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockItemTransactions property of the WideWorldImportersService.Person entity.</summary>
-        public StockItemTransactionsRequestBuilder StockItemTransactions { get =>
-            new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemTransactionsRequestBuilder StockItemTransactions
+        {
+            get => new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the supplierAlternateContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public SupplierAlternateContactPeopleRequestBuilder SupplierAlternateContactPeople { get =>
-            new SupplierAlternateContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierAlternateContactPeopleRequestBuilder SupplierAlternateContactPeople
+        {
+            get => new SupplierAlternateContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the supplierCategories property of the WideWorldImportersService.Person entity.</summary>
-        public SupplierCategoriesRequestBuilder SupplierCategories { get =>
-            new SupplierCategoriesRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierCategoriesRequestBuilder SupplierCategories
+        {
+            get => new SupplierCategoriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the supplierLastEditedByNavigations property of the WideWorldImportersService.Person entity.</summary>
-        public SupplierLastEditedByNavigationsRequestBuilder SupplierLastEditedByNavigations { get =>
-            new SupplierLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierLastEditedByNavigationsRequestBuilder SupplierLastEditedByNavigations
+        {
+            get => new SupplierLastEditedByNavigationsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the supplierPrimaryContactPeople property of the WideWorldImportersService.Person entity.</summary>
-        public SupplierPrimaryContactPeopleRequestBuilder SupplierPrimaryContactPeople { get =>
-            new SupplierPrimaryContactPeopleRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierPrimaryContactPeopleRequestBuilder SupplierPrimaryContactPeople
+        {
+            get => new SupplierPrimaryContactPeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the supplierTransactions property of the WideWorldImportersService.Person entity.</summary>
-        public SupplierTransactionsRequestBuilder SupplierTransactions { get =>
-            new SupplierTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierTransactionsRequestBuilder SupplierTransactions
+        {
+            get => new SupplierTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the systemParameters property of the WideWorldImportersService.Person entity.</summary>
-        public SystemParametersRequestBuilder SystemParameters { get =>
-            new SystemParametersRequestBuilder(PathParameters, RequestAdapter);
+        public SystemParametersRequestBuilder SystemParameters
+        {
+            get => new SystemParametersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the transactionTypes property of the WideWorldImportersService.Person entity.</summary>
-        public TransactionTypesRequestBuilder TransactionTypes { get =>
-            new TransactionTypesRequestBuilder(PathParameters, RequestAdapter);
+        public TransactionTypesRequestBuilder TransactionTypes
+        {
+            get => new TransactionTypesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new WithPersonItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithPersonItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithPersonItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/People/{personId}{?%24select,%24expand}", pathParameters) {
+        public WithPersonItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/People/{personId}{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new WithPersonItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithPersonItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithPersonItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/People/{personId}{?%24select,%24expand}", rawUrl) {
+        public WithPersonItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/People/{personId}{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Delete entity from People
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task DeleteAsync(Action<WithPersonItemRequestBuilderDeleteRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task DeleteAsync(Action<WithPersonItemRequestBuilderDeleteRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get entity from People by key
         /// </summary>
+        /// <returns>A <see cref="Person"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<Person?> GetAsync(Action<WithPersonItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Person?> GetAsync(Action<RequestConfiguration<WithPersonItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<Person> GetAsync(Action<WithPersonItemRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<Person> GetAsync(Action<RequestConfiguration<WithPersonItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<Person>(requestInfo, Person.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -282,96 +334,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.People.Item {
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task PatchAsync(Person body, Action<WithPersonItemRequestBuilderPatchRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(Person body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task PatchAsync(Person body, Action<WithPersonItemRequestBuilderPatchRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(Person body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Delete entity from People
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToDeleteRequestInformation(Action<WithPersonItemRequestBuilderDeleteRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToDeleteRequestInformation(Action<WithPersonItemRequestBuilderDeleteRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.DELETE,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithPersonItemRequestBuilderDeleteRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Get entity from People by key
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<WithPersonItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithPersonItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<WithPersonItemRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithPersonItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithPersonItemRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Update entity in People
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(Person body, Action<WithPersonItemRequestBuilderPatchRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(Person body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(Person body, Action<WithPersonItemRequestBuilderPatchRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(Person body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.PATCH,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithPersonItemRequestBuilderPatchRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
@@ -379,30 +415,24 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.People.Item {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="WithPersonItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithPersonItemRequestBuilder WithUrl(string rawUrl) {
+        public WithPersonItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithPersonItemRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithPersonItemRequestBuilderDeleteRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>
-            /// Instantiates a new WithPersonItemRequestBuilderDeleteRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithPersonItemRequestBuilderDeleteRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithPersonItemRequestBuilderDeleteRequestConfiguration : RequestConfiguration<DefaultQueryParameters> 
+        {
         }
         /// <summary>
         /// Get entity from People by key
         /// </summary>
-        public class WithPersonItemRequestBuilderGetQueryParameters {
+        public class WithPersonItemRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -427,36 +457,16 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.People.Item {
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithPersonItemRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public WithPersonItemRequestBuilderGetQueryParameters QueryParameters { get; set; } = new WithPersonItemRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new WithPersonItemRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithPersonItemRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithPersonItemRequestBuilderGetRequestConfiguration : RequestConfiguration<WithPersonItemRequestBuilderGetQueryParameters> 
+        {
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithPersonItemRequestBuilderPatchRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>
-            /// Instantiates a new WithPersonItemRequestBuilderPatchRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithPersonItemRequestBuilderPatchRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithPersonItemRequestBuilderPatchRequestConfiguration : RequestConfiguration<DefaultQueryParameters> 
+        {
         }
     }
 }

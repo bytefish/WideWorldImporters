@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "F65A40FFB392C95B122D6C85491520010FE189F65AEDF9EC85DB8F8452F6493FF439780C36FD1357BD41550415E8586A74521261808C77F0E998C296B842830B",
+  "descriptionHash": "BC76FCFA73854BFC5BBBF60375482B65860B4B504C82A9BE72B1004C2AA4A5699F884B2AD99DC6EBA2B430C2FD783F85288C8AE07A418E33ABAD1281DA1EDB2E",
   "descriptionLocation": "https://localhost:5000/odata/openapi.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.8.1",
+  "kiotaVersion": "1.14.0",
   "clientClassName": "ApiClient",
   "clientNamespaceName": "WideWorldImporters.Shared.ApiSdk",
   "language": "CSharp",
@@ -21,10 +21,10 @@
     "Microsoft.Kiota.Serialization.Form.FormParseNodeFactory"
   ],
   "structuredMimeTypes": [
-    "application/json;q=1",
-    "text/plain;q=0",
-    "application/x-www-form-urlencoded;q=0",
-    "multipart/form-data;q=0"
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
   ],
   "includePatterns": [],
   "excludePatterns": [],

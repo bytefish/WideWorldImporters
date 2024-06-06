@@ -13,77 +13,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Customers.Item.BillToCustomer {
     /// <summary>
     /// Provides operations to manage the billToCustomer property of the WideWorldImportersService.Customer entity.
     /// </summary>
-    public class BillToCustomerRequestBuilder : BaseRequestBuilder {
+    public class BillToCustomerRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
-        /// Instantiates a new BillToCustomerRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="BillToCustomerRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public BillToCustomerRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Customers/{customerId}/billToCustomer{?%24select,%24expand}", pathParameters) {
+        public BillToCustomerRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Customers/{customerId}/billToCustomer{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new BillToCustomerRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="BillToCustomerRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public BillToCustomerRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Customers/{customerId}/billToCustomer{?%24select,%24expand}", rawUrl) {
+        public BillToCustomerRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Customers/{customerId}/billToCustomer{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Get billToCustomer from Customers
         /// </summary>
+        /// <returns>A <see cref="WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer?> GetAsync(Action<BillToCustomerRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer?> GetAsync(Action<RequestConfiguration<BillToCustomerRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer> GetAsync(Action<BillToCustomerRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer> GetAsync(Action<RequestConfiguration<BillToCustomerRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer>(requestInfo, WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Customer.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get billToCustomer from Customers
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<BillToCustomerRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<BillToCustomerRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<BillToCustomerRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<BillToCustomerRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new BillToCustomerRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="BillToCustomerRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public BillToCustomerRequestBuilder WithUrl(string rawUrl) {
+        public BillToCustomerRequestBuilder WithUrl(string rawUrl)
+        {
             return new BillToCustomerRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Get billToCustomer from Customers
         /// </summary>
-        public class BillToCustomerRequestBuilderGetQueryParameters {
+        public class BillToCustomerRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -108,20 +111,9 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Customers.Item.BillToCustomer {
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class BillToCustomerRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public BillToCustomerRequestBuilderGetQueryParameters QueryParameters { get; set; } = new BillToCustomerRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new billToCustomerRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public BillToCustomerRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class BillToCustomerRequestBuilderGetRequestConfiguration : RequestConfiguration<BillToCustomerRequestBuilderGetQueryParameters> 
+        {
         }
     }
 }

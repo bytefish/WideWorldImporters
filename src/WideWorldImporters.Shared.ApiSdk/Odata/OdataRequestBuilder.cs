@@ -40,144 +40,178 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata {
     /// <summary>
     /// Builds and executes requests for operations under \odata
     /// </summary>
-    public class OdataRequestBuilder : BaseRequestBuilder {
+    public class OdataRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Provides operations to manage the collection of BuyingGroup entities.</summary>
-        public BuyingGroupsRequestBuilder BuyingGroups { get =>
-            new BuyingGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public BuyingGroupsRequestBuilder BuyingGroups
+        {
+            get => new BuyingGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of City entities.</summary>
-        public CitiesRequestBuilder Cities { get =>
-            new CitiesRequestBuilder(PathParameters, RequestAdapter);
+        public CitiesRequestBuilder Cities
+        {
+            get => new CitiesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of ColdRoomTemperature entities.</summary>
-        public ColdRoomTemperaturesRequestBuilder ColdRoomTemperatures { get =>
-            new ColdRoomTemperaturesRequestBuilder(PathParameters, RequestAdapter);
+        public ColdRoomTemperaturesRequestBuilder ColdRoomTemperatures
+        {
+            get => new ColdRoomTemperaturesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Color entities.</summary>
-        public ColorsRequestBuilder Colors { get =>
-            new ColorsRequestBuilder(PathParameters, RequestAdapter);
+        public ColorsRequestBuilder Colors
+        {
+            get => new ColorsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Country entities.</summary>
-        public CountriesRequestBuilder Countries { get =>
-            new CountriesRequestBuilder(PathParameters, RequestAdapter);
+        public CountriesRequestBuilder Countries
+        {
+            get => new CountriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of CustomerCategory entities.</summary>
-        public CustomerCategoriesRequestBuilder CustomerCategories { get =>
-            new CustomerCategoriesRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerCategoriesRequestBuilder CustomerCategories
+        {
+            get => new CustomerCategoriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Customer entities.</summary>
-        public CustomersRequestBuilder Customers { get =>
-            new CustomersRequestBuilder(PathParameters, RequestAdapter);
+        public CustomersRequestBuilder Customers
+        {
+            get => new CustomersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of CustomerTransaction entities.</summary>
-        public CustomerTransactionsRequestBuilder CustomerTransactions { get =>
-            new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerTransactionsRequestBuilder CustomerTransactions
+        {
+            get => new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of DeliveryMethod entities.</summary>
-        public DeliveryMethodsRequestBuilder DeliveryMethods { get =>
-            new DeliveryMethodsRequestBuilder(PathParameters, RequestAdapter);
+        public DeliveryMethodsRequestBuilder DeliveryMethods
+        {
+            get => new DeliveryMethodsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of InvoiceLine entities.</summary>
-        public InvoiceLinesRequestBuilder InvoiceLines { get =>
-            new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceLinesRequestBuilder InvoiceLines
+        {
+            get => new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Invoice entities.</summary>
-        public InvoicesRequestBuilder Invoices { get =>
-            new InvoicesRequestBuilder(PathParameters, RequestAdapter);
+        public InvoicesRequestBuilder Invoices
+        {
+            get => new InvoicesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of OrderLine entities.</summary>
-        public OrderLinesRequestBuilder OrderLines { get =>
-            new OrderLinesRequestBuilder(PathParameters, RequestAdapter);
+        public OrderLinesRequestBuilder OrderLines
+        {
+            get => new OrderLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Order entities.</summary>
-        public OrdersRequestBuilder Orders { get =>
-            new OrdersRequestBuilder(PathParameters, RequestAdapter);
+        public OrdersRequestBuilder Orders
+        {
+            get => new OrdersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of PackageType entities.</summary>
-        public PackageTypesRequestBuilder PackageTypes { get =>
-            new PackageTypesRequestBuilder(PathParameters, RequestAdapter);
+        public PackageTypesRequestBuilder PackageTypes
+        {
+            get => new PackageTypesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of PaymentMethod entities.</summary>
-        public PaymentMethodsRequestBuilder PaymentMethods { get =>
-            new PaymentMethodsRequestBuilder(PathParameters, RequestAdapter);
+        public PaymentMethodsRequestBuilder PaymentMethods
+        {
+            get => new PaymentMethodsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Person entities.</summary>
-        public PeopleRequestBuilder People { get =>
-            new PeopleRequestBuilder(PathParameters, RequestAdapter);
+        public PeopleRequestBuilder People
+        {
+            get => new PeopleRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of PurchaseOrderLine entities.</summary>
-        public PurchaseOrderLinesRequestBuilder PurchaseOrderLines { get =>
-            new PurchaseOrderLinesRequestBuilder(PathParameters, RequestAdapter);
+        public PurchaseOrderLinesRequestBuilder PurchaseOrderLines
+        {
+            get => new PurchaseOrderLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of PurchaseOrder entities.</summary>
-        public PurchaseOrdersRequestBuilder PurchaseOrders { get =>
-            new PurchaseOrdersRequestBuilder(PathParameters, RequestAdapter);
+        public PurchaseOrdersRequestBuilder PurchaseOrders
+        {
+            get => new PurchaseOrdersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of SpecialDeal entities.</summary>
-        public SpecialDealsRequestBuilder SpecialDeals { get =>
-            new SpecialDealsRequestBuilder(PathParameters, RequestAdapter);
+        public SpecialDealsRequestBuilder SpecialDeals
+        {
+            get => new SpecialDealsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StateProvince entities.</summary>
-        public StateProvincesRequestBuilder StateProvinces { get =>
-            new StateProvincesRequestBuilder(PathParameters, RequestAdapter);
+        public StateProvincesRequestBuilder StateProvinces
+        {
+            get => new StateProvincesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StockGroup entities.</summary>
-        public StockGroupsRequestBuilder StockGroups { get =>
-            new StockGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public StockGroupsRequestBuilder StockGroups
+        {
+            get => new StockGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StockItemHolding entities.</summary>
-        public StockItemHoldingsRequestBuilder StockItemHoldings { get =>
-            new StockItemHoldingsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemHoldingsRequestBuilder StockItemHoldings
+        {
+            get => new StockItemHoldingsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StockItem entities.</summary>
-        public StockItemsRequestBuilder StockItems { get =>
-            new StockItemsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemsRequestBuilder StockItems
+        {
+            get => new StockItemsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StockItemStockGroup entities.</summary>
-        public StockItemStockGroupsRequestBuilder StockItemStockGroups { get =>
-            new StockItemStockGroupsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemStockGroupsRequestBuilder StockItemStockGroups
+        {
+            get => new StockItemStockGroupsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of StockItemTransaction entities.</summary>
-        public StockItemTransactionsRequestBuilder StockItemTransactions { get =>
-            new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemTransactionsRequestBuilder StockItemTransactions
+        {
+            get => new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of SupplierCategory entities.</summary>
-        public SupplierCategoriesRequestBuilder SupplierCategories { get =>
-            new SupplierCategoriesRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierCategoriesRequestBuilder SupplierCategories
+        {
+            get => new SupplierCategoriesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of Supplier entities.</summary>
-        public SuppliersRequestBuilder Suppliers { get =>
-            new SuppliersRequestBuilder(PathParameters, RequestAdapter);
+        public SuppliersRequestBuilder Suppliers
+        {
+            get => new SuppliersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of SupplierTransaction entities.</summary>
-        public SupplierTransactionsRequestBuilder SupplierTransactions { get =>
-            new SupplierTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public SupplierTransactionsRequestBuilder SupplierTransactions
+        {
+            get => new SupplierTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of SystemParameter entities.</summary>
-        public SystemParametersRequestBuilder SystemParameters { get =>
-            new SystemParametersRequestBuilder(PathParameters, RequestAdapter);
+        public SystemParametersRequestBuilder SystemParameters
+        {
+            get => new SystemParametersRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of TransactionType entities.</summary>
-        public TransactionTypesRequestBuilder TransactionTypes { get =>
-            new TransactionTypesRequestBuilder(PathParameters, RequestAdapter);
+        public TransactionTypesRequestBuilder TransactionTypes
+        {
+            get => new TransactionTypesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the collection of VehicleTemperature entities.</summary>
-        public VehicleTemperaturesRequestBuilder VehicleTemperatures { get =>
-            new VehicleTemperaturesRequestBuilder(PathParameters, RequestAdapter);
+        public VehicleTemperaturesRequestBuilder VehicleTemperatures
+        {
+            get => new VehicleTemperaturesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new OdataRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="OdataRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OdataRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata", pathParameters) {
+        public OdataRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new OdataRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="OdataRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public OdataRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata", rawUrl) {
+        public OdataRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata", rawUrl)
+        {
         }
     }
 }

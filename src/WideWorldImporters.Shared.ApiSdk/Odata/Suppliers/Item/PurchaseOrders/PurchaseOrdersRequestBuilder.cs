@@ -15,96 +15,110 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Suppliers.Item.PurchaseOrders {
     /// <summary>
     /// Provides operations to manage the purchaseOrders property of the WideWorldImportersService.Supplier entity.
     /// </summary>
-    public class PurchaseOrdersRequestBuilder : BaseRequestBuilder {
+    public class PurchaseOrdersRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Provides operations to count the resources in the collection.</summary>
-        public CountRequestBuilder Count { get =>
-            new CountRequestBuilder(PathParameters, RequestAdapter);
+        public CountRequestBuilder Count
+        {
+            get => new CountRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the purchaseOrders property of the WideWorldImportersService.Supplier entity.</summary>
         /// <param name="position">The unique identifier of PurchaseOrder</param>
-        public WithPurchaseOrderItemRequestBuilder this[int position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            urlTplParams.Add("purchaseOrderId", position);
-            return new WithPurchaseOrderItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        /// <returns>A <see cref="WithPurchaseOrderItemRequestBuilder"/></returns>
+        public WithPurchaseOrderItemRequestBuilder this[int position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                urlTplParams.Add("purchaseOrderId", position);
+                return new WithPurchaseOrderItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>Provides operations to manage the purchaseOrders property of the WideWorldImportersService.Supplier entity.</summary>
         /// <param name="position">The unique identifier of PurchaseOrder</param>
+        /// <returns>A <see cref="WithPurchaseOrderItemRequestBuilder"/></returns>
         [Obsolete("This indexer is deprecated and will be removed in the next major version. Use the one with the typed parameter instead.")]
-        public WithPurchaseOrderItemRequestBuilder this[string position] { get {
-            var urlTplParams = new Dictionary<string, object>(PathParameters);
-            if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("purchaseOrderId", position);
-            return new WithPurchaseOrderItemRequestBuilder(urlTplParams, RequestAdapter);
-        } }
+        public WithPurchaseOrderItemRequestBuilder this[string position]
+        {
+            get
+            {
+                var urlTplParams = new Dictionary<string, object>(PathParameters);
+                if (!string.IsNullOrWhiteSpace(position)) urlTplParams.Add("purchaseOrderId", position);
+                return new WithPurchaseOrderItemRequestBuilder(urlTplParams, RequestAdapter);
+            }
+        }
         /// <summary>
-        /// Instantiates a new PurchaseOrdersRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PurchaseOrdersRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PurchaseOrdersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Suppliers/{supplierId}/purchaseOrders{?%24top,%24skip,%24search,%24filter,%24count,%24orderby,%24select,%24expand}", pathParameters) {
+        public PurchaseOrdersRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Suppliers/{supplierId}/purchaseOrders{?%24count,%24expand,%24filter,%24orderby,%24search,%24select,%24skip,%24top}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new PurchaseOrdersRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="PurchaseOrdersRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public PurchaseOrdersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Suppliers/{supplierId}/purchaseOrders{?%24top,%24skip,%24search,%24filter,%24count,%24orderby,%24select,%24expand}", rawUrl) {
+        public PurchaseOrdersRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Suppliers/{supplierId}/purchaseOrders{?%24count,%24expand,%24filter,%24orderby,%24search,%24select,%24skip,%24top}", rawUrl)
+        {
         }
         /// <summary>
         /// Get purchaseOrders from Suppliers
         /// </summary>
+        /// <returns>A <see cref="PurchaseOrderCollectionResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<PurchaseOrderCollectionResponse?> GetAsync(Action<PurchaseOrdersRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<PurchaseOrderCollectionResponse?> GetAsync(Action<RequestConfiguration<PurchaseOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<PurchaseOrderCollectionResponse> GetAsync(Action<PurchaseOrdersRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<PurchaseOrderCollectionResponse> GetAsync(Action<RequestConfiguration<PurchaseOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<PurchaseOrderCollectionResponse>(requestInfo, PurchaseOrderCollectionResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get purchaseOrders from Suppliers
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<PurchaseOrdersRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PurchaseOrdersRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<PurchaseOrdersRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<PurchaseOrdersRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new PurchaseOrdersRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="PurchaseOrdersRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public PurchaseOrdersRequestBuilder WithUrl(string rawUrl) {
+        public PurchaseOrdersRequestBuilder WithUrl(string rawUrl)
+        {
             return new PurchaseOrdersRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Get purchaseOrders from Suppliers
         /// </summary>
-        public class PurchaseOrdersRequestBuilderGetQueryParameters {
+        public class PurchaseOrdersRequestBuilderGetQueryParameters 
+        {
             /// <summary>Include count of items</summary>
             [QueryParameter("%24count")]
             public bool? Count { get; set; }
@@ -168,20 +182,9 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Suppliers.Item.PurchaseOrders {
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class PurchaseOrdersRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public PurchaseOrdersRequestBuilderGetQueryParameters QueryParameters { get; set; } = new PurchaseOrdersRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new purchaseOrdersRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public PurchaseOrdersRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class PurchaseOrdersRequestBuilderGetRequestConfiguration : RequestConfiguration<PurchaseOrdersRequestBuilderGetQueryParameters> 
+        {
         }
     }
 }

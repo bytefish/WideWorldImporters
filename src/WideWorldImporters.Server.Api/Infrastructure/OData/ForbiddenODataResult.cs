@@ -31,7 +31,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.OData
             Error = new ODataError
             {
                 Message = message,
-                ErrorCode = StatusCodes.Status403Forbidden.ToString()
+                Code = StatusCodes.Status403Forbidden.ToString()
             };
         }
 

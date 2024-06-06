@@ -13,77 +13,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Countries.Item.StateProvinces.I
     /// <summary>
     /// Provides operations to manage the stateProvinces property of the WideWorldImportersService.Country entity.
     /// </summary>
-    public class WithStateProvinceItemRequestBuilder : BaseRequestBuilder {
+    public class WithStateProvinceItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
-        /// Instantiates a new WithStateProvinceItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithStateProvinceItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithStateProvinceItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Countries/{countryId}/stateProvinces/{stateProvinceId}{?%24select,%24expand}", pathParameters) {
+        public WithStateProvinceItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Countries/{countryId}/stateProvinces/{stateProvinceId}{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new WithStateProvinceItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithStateProvinceItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithStateProvinceItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Countries/{countryId}/stateProvinces/{stateProvinceId}{?%24select,%24expand}", rawUrl) {
+        public WithStateProvinceItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Countries/{countryId}/stateProvinces/{stateProvinceId}{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Get stateProvinces from Countries
         /// </summary>
+        /// <returns>A <see cref="WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince?> GetAsync(Action<WithStateProvinceItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince?> GetAsync(Action<RequestConfiguration<WithStateProvinceItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince> GetAsync(Action<WithStateProvinceItemRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince> GetAsync(Action<RequestConfiguration<WithStateProvinceItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince>(requestInfo, WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StateProvince.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get stateProvinces from Countries
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<WithStateProvinceItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithStateProvinceItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<WithStateProvinceItemRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithStateProvinceItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithStateProvinceItemRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="WithStateProvinceItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithStateProvinceItemRequestBuilder WithUrl(string rawUrl) {
+        public WithStateProvinceItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithStateProvinceItemRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Get stateProvinces from Countries
         /// </summary>
-        public class WithStateProvinceItemRequestBuilderGetQueryParameters {
+        public class WithStateProvinceItemRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -108,20 +111,9 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Countries.Item.StateProvinces.I
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithStateProvinceItemRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public WithStateProvinceItemRequestBuilderGetQueryParameters QueryParameters { get; set; } = new WithStateProvinceItemRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new WithStateProvinceItemRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithStateProvinceItemRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithStateProvinceItemRequestBuilderGetRequestConfiguration : RequestConfiguration<WithStateProvinceItemRequestBuilderGetQueryParameters> 
+        {
         }
     }
 }

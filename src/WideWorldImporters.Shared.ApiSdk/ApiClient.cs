@@ -15,16 +15,19 @@ namespace WideWorldImporters.Shared.ApiSdk {
     /// <summary>
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
-    public class ApiClient : BaseRequestBuilder {
+    public class ApiClient : BaseRequestBuilder 
+    {
         /// <summary>The odata property</summary>
-        public OdataRequestBuilder Odata { get =>
-            new OdataRequestBuilder(PathParameters, RequestAdapter);
+        public OdataRequestBuilder Odata
+        {
+            get => new OdataRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new ApiClient and sets the default values.
+        /// Instantiates a new <see cref="ApiClient"/> and sets the default values.
         /// </summary>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public ApiClient(IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}", new Dictionary<string, object>()) {
+        public ApiClient(IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}", new Dictionary<string, object>())
+        {
             ApiClientBuilder.RegisterDefaultSerializer<JsonSerializationWriterFactory>();
             ApiClientBuilder.RegisterDefaultSerializer<TextSerializationWriterFactory>();
             ApiClientBuilder.RegisterDefaultSerializer<FormSerializationWriterFactory>();
@@ -32,7 +35,8 @@ namespace WideWorldImporters.Shared.ApiSdk {
             ApiClientBuilder.RegisterDefaultDeserializer<JsonParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<TextParseNodeFactory>();
             ApiClientBuilder.RegisterDefaultDeserializer<FormParseNodeFactory>();
-            if (string.IsNullOrEmpty(RequestAdapter.BaseUrl)) {
+            if (string.IsNullOrEmpty(RequestAdapter.BaseUrl))
+            {
                 RequestAdapter.BaseUrl = "https://localhost:5000";
             }
             PathParameters.TryAdd("baseurl", RequestAdapter.BaseUrl);

@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of Country entities.</summary>
-    public enum GeometryPolygon_type {
+    /// <summary>Provides operations to manage the collection of InvoiceLine entities.</summary>
+    public enum GeometryPolygon_type
+    {
         [EnumMember(Value = "Polygon")]
+        #pragma warning disable CS1591
         Polygon,
+        #pragma warning restore CS1591
     }
 }

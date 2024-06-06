@@ -155,7 +155,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
-            options.SwaggerEndpoint("https://localhost:5000/odata/openapi.json", "TaskManagement Service");
+            options.SwaggerEndpoint("https://localhost:5000/odata/openapi.json", "WideWorldImporters Service");
         });
     }
 

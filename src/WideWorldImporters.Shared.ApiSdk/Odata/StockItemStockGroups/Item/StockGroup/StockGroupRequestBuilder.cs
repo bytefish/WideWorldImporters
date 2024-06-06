@@ -13,77 +13,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.StockItemStockGroups.Item.Stock
     /// <summary>
     /// Provides operations to manage the stockGroup property of the WideWorldImportersService.StockItemStockGroup entity.
     /// </summary>
-    public class StockGroupRequestBuilder : BaseRequestBuilder {
+    public class StockGroupRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
-        /// Instantiates a new StockGroupRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="StockGroupRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StockGroupRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/StockItemStockGroups/{stockItemStockGroupId}/stockGroup{?%24select,%24expand}", pathParameters) {
+        public StockGroupRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/StockItemStockGroups/{stockItemStockGroupId}/stockGroup{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new StockGroupRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="StockGroupRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public StockGroupRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/StockItemStockGroups/{stockItemStockGroupId}/stockGroup{?%24select,%24expand}", rawUrl) {
+        public StockGroupRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/StockItemStockGroups/{stockItemStockGroupId}/stockGroup{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Get stockGroup from StockItemStockGroups
         /// </summary>
+        /// <returns>A <see cref="WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup?> GetAsync(Action<StockGroupRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup?> GetAsync(Action<RequestConfiguration<StockGroupRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup> GetAsync(Action<StockGroupRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup> GetAsync(Action<RequestConfiguration<StockGroupRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup>(requestInfo, WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.StockGroup.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get stockGroup from StockItemStockGroups
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<StockGroupRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<StockGroupRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<StockGroupRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<StockGroupRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new StockGroupRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="StockGroupRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public StockGroupRequestBuilder WithUrl(string rawUrl) {
+        public StockGroupRequestBuilder WithUrl(string rawUrl)
+        {
             return new StockGroupRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Get stockGroup from StockItemStockGroups
         /// </summary>
-        public class StockGroupRequestBuilderGetQueryParameters {
+        public class StockGroupRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -108,20 +111,9 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.StockItemStockGroups.Item.Stock
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class StockGroupRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public StockGroupRequestBuilderGetQueryParameters QueryParameters { get; set; } = new StockGroupRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new stockGroupRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public StockGroupRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class StockGroupRequestBuilderGetRequestConfiguration : RequestConfiguration<StockGroupRequestBuilderGetQueryParameters> 
+        {
         }
     }
 }

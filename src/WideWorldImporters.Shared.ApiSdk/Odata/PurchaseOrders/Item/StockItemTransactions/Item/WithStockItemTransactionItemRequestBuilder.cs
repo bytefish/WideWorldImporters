@@ -13,77 +13,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.PurchaseOrders.Item.StockItemTr
     /// <summary>
     /// Provides operations to manage the stockItemTransactions property of the WideWorldImportersService.PurchaseOrder entity.
     /// </summary>
-    public class WithStockItemTransactionItemRequestBuilder : BaseRequestBuilder {
+    public class WithStockItemTransactionItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>
-        /// Instantiates a new WithStockItemTransactionItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithStockItemTransactionItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithStockItemTransactionItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/PurchaseOrders/{purchaseOrderId}/stockItemTransactions/{stockItemTransactionId}{?%24select,%24expand}", pathParameters) {
+        public WithStockItemTransactionItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/PurchaseOrders/{purchaseOrderId}/stockItemTransactions/{stockItemTransactionId}{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new WithStockItemTransactionItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithStockItemTransactionItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithStockItemTransactionItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/PurchaseOrders/{purchaseOrderId}/stockItemTransactions/{stockItemTransactionId}{?%24select,%24expand}", rawUrl) {
+        public WithStockItemTransactionItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/PurchaseOrders/{purchaseOrderId}/stockItemTransactions/{stockItemTransactionId}{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Get stockItemTransactions from PurchaseOrders
         /// </summary>
+        /// <returns>A <see cref="StockItemTransaction"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<StockItemTransaction?> GetAsync(Action<WithStockItemTransactionItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<StockItemTransaction?> GetAsync(Action<RequestConfiguration<WithStockItemTransactionItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<StockItemTransaction> GetAsync(Action<WithStockItemTransactionItemRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<StockItemTransaction> GetAsync(Action<RequestConfiguration<WithStockItemTransactionItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<StockItemTransaction>(requestInfo, StockItemTransaction.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get stockItemTransactions from PurchaseOrders
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<WithStockItemTransactionItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithStockItemTransactionItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<WithStockItemTransactionItemRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithStockItemTransactionItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithStockItemTransactionItemRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="WithStockItemTransactionItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithStockItemTransactionItemRequestBuilder WithUrl(string rawUrl) {
+        public WithStockItemTransactionItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithStockItemTransactionItemRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Get stockItemTransactions from PurchaseOrders
         /// </summary>
-        public class WithStockItemTransactionItemRequestBuilderGetQueryParameters {
+        public class WithStockItemTransactionItemRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -108,20 +111,9 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.PurchaseOrders.Item.StockItemTr
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithStockItemTransactionItemRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public WithStockItemTransactionItemRequestBuilderGetQueryParameters QueryParameters { get; set; } = new WithStockItemTransactionItemRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new WithStockItemTransactionItemRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithStockItemTransactionItemRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithStockItemTransactionItemRequestBuilderGetRequestConfiguration : RequestConfiguration<WithStockItemTransactionItemRequestBuilderGetQueryParameters> 
+        {
         }
     }
 }

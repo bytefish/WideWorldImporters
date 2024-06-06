@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of StateProvince entities.</summary>
-    public enum GeometryMultiPolygon_type {
+    /// <summary>Provides operations to manage the collection of Country entities.</summary>
+    public enum GeometryMultiPolygon_type
+    {
         [EnumMember(Value = "MultiPolygon")]
+        #pragma warning disable CS1591
         MultiPolygon,
+        #pragma warning restore CS1591
     }
 }

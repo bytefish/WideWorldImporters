@@ -2,9 +2,12 @@
 using System.Runtime.Serialization;
 using System;
 namespace WideWorldImporters.Shared.ApiSdk.Models.Edm {
-    /// <summary>Provides operations to manage the collection of StateProvince entities.</summary>
-    public enum GeometryMultiLineString_type {
+    /// <summary>Provides operations to manage the collection of InvoiceLine entities.</summary>
+    public enum GeometryMultiLineString_type
+    {
         [EnumMember(Value = "MultiLineString")]
+        #pragma warning disable CS1591
         MultiLineString,
+        #pragma warning restore CS1591
     }
 }

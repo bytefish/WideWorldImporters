@@ -34,7 +34,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             ODataError error = new ODataError()
             {
-                ErrorCode = ErrorCodes.BadRequest,
+                Code = ErrorCodes.BadRequest,
                 Message = "One or more validation errors occured",
                 Details = GetODataErrorDetails(modelStateDictionary),
             };
@@ -95,7 +95,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
                     var odataErrorDetail = new ODataErrorDetail
                     {
-                        ErrorCode = errorCode,
+                        Code = errorCode,
                         Message = modelError.ErrorMessage,
                         Target = modelStateEntry.Key,
                     };
@@ -129,7 +129,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             var error = new ODataError
             {
-                ErrorCode = ErrorCodes.AuthenticationFailed,
+                Code = ErrorCodes.AuthenticationFailed,
                 Message = e.ErrorMessage,
             };
 
@@ -144,7 +144,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             var error = new ODataError
             {
-                ErrorCode = e.ErrorCode,
+                Code = e.ErrorCode,
                 Message = e.ErrorMessage,
             };
 
@@ -159,7 +159,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             var error = new ODataError
             {
-                ErrorCode = e.ErrorCode,
+                Code = e.ErrorCode,
                 Message = e.ErrorMessage,
             };
 
@@ -174,7 +174,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             var error = new ODataError
             {
-                ErrorCode = e.ErrorCode,
+                Code = e.ErrorCode,
                 Message = e.ErrorMessage,
             };
 
@@ -189,7 +189,7 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             var error = new ODataError
             {
-                ErrorCode = ErrorCodes.InternalServerError,
+                Code = ErrorCodes.InternalServerError,
                 Message = "An Internal Server Error occured"
             };
 
@@ -211,9 +211,9 @@ namespace WideWorldImporters.Server.Api.Infrastructure.Errors
 
             if (e != null && _options.IncludeExceptionDetails)
             {
-                error.InnerError.Message = e.Message;
-                error.InnerError.StackTrace = e.StackTrace;
-                error.InnerError.TypeName = e.GetType().Name;
+                error.InnerError.Properties["message"] = new ODataPrimitiveValue(e.Message);
+                error.InnerError.Properties["type"] = new ODataPrimitiveValue(e.GetType().Name);
+                error.InnerError.Properties["stacktrace"] = new ODataPrimitiveValue(e.StackTrace);
             }
         }
     }

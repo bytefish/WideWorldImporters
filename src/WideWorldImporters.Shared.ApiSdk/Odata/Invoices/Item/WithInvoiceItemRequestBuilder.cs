@@ -25,104 +25,126 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Invoices.Item {
     /// <summary>
     /// Provides operations to manage the collection of Invoice entities.
     /// </summary>
-    public class WithInvoiceItemRequestBuilder : BaseRequestBuilder {
+    public class WithInvoiceItemRequestBuilder : BaseRequestBuilder 
+    {
         /// <summary>Provides operations to manage the accountsPerson property of the WideWorldImportersService.Invoice entity.</summary>
-        public AccountsPersonRequestBuilder AccountsPerson { get =>
-            new AccountsPersonRequestBuilder(PathParameters, RequestAdapter);
+        public AccountsPersonRequestBuilder AccountsPerson
+        {
+            get => new AccountsPersonRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the billToCustomer property of the WideWorldImportersService.Invoice entity.</summary>
-        public BillToCustomerRequestBuilder BillToCustomer { get =>
-            new BillToCustomerRequestBuilder(PathParameters, RequestAdapter);
+        public BillToCustomerRequestBuilder BillToCustomer
+        {
+            get => new BillToCustomerRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the contactPerson property of the WideWorldImportersService.Invoice entity.</summary>
-        public ContactPersonRequestBuilder ContactPerson { get =>
-            new ContactPersonRequestBuilder(PathParameters, RequestAdapter);
+        public ContactPersonRequestBuilder ContactPerson
+        {
+            get => new ContactPersonRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customer property of the WideWorldImportersService.Invoice entity.</summary>
-        public CustomerRequestBuilder Customer { get =>
-            new CustomerRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerRequestBuilder Customer
+        {
+            get => new CustomerRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the customerTransactions property of the WideWorldImportersService.Invoice entity.</summary>
-        public CustomerTransactionsRequestBuilder CustomerTransactions { get =>
-            new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public CustomerTransactionsRequestBuilder CustomerTransactions
+        {
+            get => new CustomerTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the deliveryMethod property of the WideWorldImportersService.Invoice entity.</summary>
-        public DeliveryMethodRequestBuilder DeliveryMethod { get =>
-            new DeliveryMethodRequestBuilder(PathParameters, RequestAdapter);
+        public DeliveryMethodRequestBuilder DeliveryMethod
+        {
+            get => new DeliveryMethodRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the invoiceLines property of the WideWorldImportersService.Invoice entity.</summary>
-        public InvoiceLinesRequestBuilder InvoiceLines { get =>
-            new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
+        public InvoiceLinesRequestBuilder InvoiceLines
+        {
+            get => new InvoiceLinesRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the lastEditedByNavigation property of the WideWorldImportersService.Invoice entity.</summary>
-        public LastEditedByNavigationRequestBuilder LastEditedByNavigation { get =>
-            new LastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
+        public LastEditedByNavigationRequestBuilder LastEditedByNavigation
+        {
+            get => new LastEditedByNavigationRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the order property of the WideWorldImportersService.Invoice entity.</summary>
-        public OrderRequestBuilder Order { get =>
-            new OrderRequestBuilder(PathParameters, RequestAdapter);
+        public OrderRequestBuilder Order
+        {
+            get => new OrderRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the packedByPerson property of the WideWorldImportersService.Invoice entity.</summary>
-        public PackedByPersonRequestBuilder PackedByPerson { get =>
-            new PackedByPersonRequestBuilder(PathParameters, RequestAdapter);
+        public PackedByPersonRequestBuilder PackedByPerson
+        {
+            get => new PackedByPersonRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the salespersonPerson property of the WideWorldImportersService.Invoice entity.</summary>
-        public SalespersonPersonRequestBuilder SalespersonPerson { get =>
-            new SalespersonPersonRequestBuilder(PathParameters, RequestAdapter);
+        public SalespersonPersonRequestBuilder SalespersonPerson
+        {
+            get => new SalespersonPersonRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>Provides operations to manage the stockItemTransactions property of the WideWorldImportersService.Invoice entity.</summary>
-        public StockItemTransactionsRequestBuilder StockItemTransactions { get =>
-            new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
+        public StockItemTransactionsRequestBuilder StockItemTransactions
+        {
+            get => new StockItemTransactionsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>
-        /// Instantiates a new WithInvoiceItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithInvoiceItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="pathParameters">Path parameters for the request</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithInvoiceItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Invoices/{invoiceId}{?%24select,%24expand}", pathParameters) {
+        public WithInvoiceItemRequestBuilder(Dictionary<string, object> pathParameters, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Invoices/{invoiceId}{?%24expand,%24select}", pathParameters)
+        {
         }
         /// <summary>
-        /// Instantiates a new WithInvoiceItemRequestBuilder and sets the default values.
+        /// Instantiates a new <see cref="WithInvoiceItemRequestBuilder"/> and sets the default values.
         /// </summary>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
         /// <param name="requestAdapter">The request adapter to use to execute the requests.</param>
-        public WithInvoiceItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Invoices/{invoiceId}{?%24select,%24expand}", rawUrl) {
+        public WithInvoiceItemRequestBuilder(string rawUrl, IRequestAdapter requestAdapter) : base(requestAdapter, "{+baseurl}/odata/Invoices/{invoiceId}{?%24expand,%24select}", rawUrl)
+        {
         }
         /// <summary>
         /// Delete entity from Invoices
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task DeleteAsync(Action<WithInvoiceItemRequestBuilderDeleteRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task DeleteAsync(Action<WithInvoiceItemRequestBuilderDeleteRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Get entity from Invoices by key
         /// </summary>
+        /// <returns>A <see cref="WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice?> GetAsync(Action<WithInvoiceItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice?> GetAsync(Action<RequestConfiguration<WithInvoiceItemRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice> GetAsync(Action<WithInvoiceItemRequestBuilderGetRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice> GetAsync(Action<RequestConfiguration<WithInvoiceItemRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             return await RequestAdapter.SendAsync<WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice>(requestInfo, WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
@@ -132,96 +154,80 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Invoices.Item {
         /// <param name="body">The request body</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="ODataError">When receiving a 4XX or 5XX status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task PatchAsync(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<WithInvoiceItemRequestBuilderPatchRequestConfiguration>? requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #nullable restore
 #else
-        public async Task PatchAsync(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<WithInvoiceItemRequestBuilderPatchRequestConfiguration> requestConfiguration = default, CancellationToken cancellationToken = default) {
+        public async Task PatchAsync(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>> {
-                {"4XX", ODataError.CreateFromDiscriminatorValue},
-                {"5XX", ODataError.CreateFromDiscriminatorValue},
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                {"XXX", ODataError.CreateFromDiscriminatorValue},
             };
             await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// Delete entity from Invoices
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToDeleteRequestInformation(Action<WithInvoiceItemRequestBuilderDeleteRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToDeleteRequestInformation(Action<WithInvoiceItemRequestBuilderDeleteRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToDeleteRequestInformation(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.DELETE,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithInvoiceItemRequestBuilderDeleteRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Get entity from Invoices by key
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToGetRequestInformation(Action<WithInvoiceItemRequestBuilderGetRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithInvoiceItemRequestBuilderGetQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToGetRequestInformation(Action<WithInvoiceItemRequestBuilderGetRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToGetRequestInformation(Action<RequestConfiguration<WithInvoiceItemRequestBuilderGetQueryParameters>> requestConfiguration = default)
+        {
 #endif
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.GET,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithInvoiceItemRequestBuilderGetRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddQueryParameters(requestConfig.QueryParameters);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
-            requestInfo.Headers.TryAdd("Accept", "application/json;q=1");
+            var requestInfo = new RequestInformation(Method.GET, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
         /// Update entity in Invoices
         /// </summary>
+        /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<WithInvoiceItemRequestBuilderPatchRequestConfiguration>? requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<WithInvoiceItemRequestBuilderPatchRequestConfiguration> requestConfiguration = default) {
+        public RequestInformation ToPatchRequestInformation(WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService.Invoice body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        {
 #endif
             _ = body ?? throw new ArgumentNullException(nameof(body));
-            var requestInfo = new RequestInformation {
-                HttpMethod = Method.PATCH,
-                UrlTemplate = UrlTemplate,
-                PathParameters = PathParameters,
-            };
-            if (requestConfiguration != null) {
-                var requestConfig = new WithInvoiceItemRequestBuilderPatchRequestConfiguration();
-                requestConfiguration.Invoke(requestConfig);
-                requestInfo.AddRequestOptions(requestConfig.Options);
-                requestInfo.AddHeaders(requestConfig.Headers);
-            }
+            var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
+            requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
@@ -229,30 +235,24 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Invoices.Item {
         /// <summary>
         /// Returns a request builder with the provided arbitrary URL. Using this method means any other path or query parameters are ignored.
         /// </summary>
+        /// <returns>A <see cref="WithInvoiceItemRequestBuilder"/></returns>
         /// <param name="rawUrl">The raw URL to use for the request builder.</param>
-        public WithInvoiceItemRequestBuilder WithUrl(string rawUrl) {
+        public WithInvoiceItemRequestBuilder WithUrl(string rawUrl)
+        {
             return new WithInvoiceItemRequestBuilder(rawUrl, RequestAdapter);
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithInvoiceItemRequestBuilderDeleteRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>
-            /// Instantiates a new WithInvoiceItemRequestBuilderDeleteRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithInvoiceItemRequestBuilderDeleteRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithInvoiceItemRequestBuilderDeleteRequestConfiguration : RequestConfiguration<DefaultQueryParameters> 
+        {
         }
         /// <summary>
         /// Get entity from Invoices by key
         /// </summary>
-        public class WithInvoiceItemRequestBuilderGetQueryParameters {
+        public class WithInvoiceItemRequestBuilderGetQueryParameters 
+        {
             /// <summary>Expand related entities</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -277,36 +277,16 @@ namespace WideWorldImporters.Shared.ApiSdk.Odata.Invoices.Item {
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithInvoiceItemRequestBuilderGetRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>Request query parameters</summary>
-            public WithInvoiceItemRequestBuilderGetQueryParameters QueryParameters { get; set; } = new WithInvoiceItemRequestBuilderGetQueryParameters();
-            /// <summary>
-            /// Instantiates a new WithInvoiceItemRequestBuilderGetRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithInvoiceItemRequestBuilderGetRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithInvoiceItemRequestBuilderGetRequestConfiguration : RequestConfiguration<WithInvoiceItemRequestBuilderGetQueryParameters> 
+        {
         }
         /// <summary>
         /// Configuration for the request such as headers, query parameters, and middleware options.
         /// </summary>
-        public class WithInvoiceItemRequestBuilderPatchRequestConfiguration {
-            /// <summary>Request headers</summary>
-            public RequestHeaders Headers { get; set; }
-            /// <summary>Request options</summary>
-            public IList<IRequestOption> Options { get; set; }
-            /// <summary>
-            /// Instantiates a new WithInvoiceItemRequestBuilderPatchRequestConfiguration and sets the default values.
-            /// </summary>
-            public WithInvoiceItemRequestBuilderPatchRequestConfiguration() {
-                Options = new List<IRequestOption>();
-                Headers = new RequestHeaders();
-            }
+        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
+        public class WithInvoiceItemRequestBuilderPatchRequestConfiguration : RequestConfiguration<DefaultQueryParameters> 
+        {
         }
     }
 }
