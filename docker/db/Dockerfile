@@ -10,6 +10,7 @@ RUN apt-get update \
     && wget -q  https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-Full.bak
     
 COPY restore.sql .
+COPY security.sql .
 COPY users.sql .
 COPY create-db.sh .
 COPY entrypoint.sh .

@@ -1,0 +1,166 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "WideWorldImportersContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": ".",
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "WideWorldImporters.Server.Database",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[Application].[Cities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[Countries]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[DeliveryMethods]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[PaymentMethods]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[People]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[StateProvinces]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[SystemParameters]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Application].[TransactionTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Purchasing].[PurchaseOrderLines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Purchasing].[PurchaseOrders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Purchasing].[SupplierCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Purchasing].[Suppliers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Purchasing].[SupplierTransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[BuyingGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[CustomerCategories]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[Customers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[CustomerTransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[InvoiceLines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[Invoices]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[OrderLines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[Orders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Sales].[SpecialDeals]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[ColdRoomTemperatures]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[Colors]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[PackageTypes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[StockGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[StockItemHoldings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[StockItems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[StockItemStockGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[StockItemTransactions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Warehouse].[VehicleTemperatures]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "b691dfacc34a.WideWorldImporters.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": true,
+   "UseT4": false
+}
