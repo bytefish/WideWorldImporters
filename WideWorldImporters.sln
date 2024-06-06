@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Shared.ApiSdk", "src\WideWorldImporters.Shared\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj", "{AB0D8D21-E10A-445D-A15D-C06337A01CF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Shared.ApiSdk", "src\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj", "{AB0D8D21-E10A-445D-A15D-C06337A01CF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Api", "src\WideWorldImporters.Server\WideWorldImporters.Server.Api\WideWorldImporters.Server.Api.csproj", "{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Api", "src\WideWorldImporters.Server.Api\WideWorldImporters.Server.Api.csproj", "{FED84CEE-5531-4F7C-8F6B-AEF74C758E99}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Server", "WideWorldImporters.Server", "{9251D805-59B9-4E4A-82CD-E9750C2E8578}"
 EndProject
@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Shared",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WideWorldImporters.Client", "WideWorldImporters.Client", "{A9A6CB6F-CAD3-4A95-82B0-FAFB20EE2A73}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Database", "src\WideWorldImporters.Server\WideWorldImporters.Server.Database\WideWorldImporters.Server.Database.csproj", "{7C1915DA-0930-4348-B965-61D202941535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Server.Database", "src\WideWorldImporters.Server.Database\WideWorldImporters.Server.Database.csproj", "{7C1915DA-0930-4348-B965-61D202941535}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Client.Blazor", "src\WideWorldImporters.Client\WideWorldImporters.Client.Blazor\WideWorldImporters.Client.Blazor.csproj", "{173D7254-0445-4C71-8257-9F23AB603537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Client.Blazor", "src\WideWorldImporters.Client.Blazor\WideWorldImporters.Client.Blazor.csproj", "{173D7254-0445-4C71-8257-9F23AB603537}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Client.Blazor.Shared", "src\WideWorldImporters.Client\WideWorldImporters.Client.Blazor.Shared\WideWorldImporters.Client.Blazor.Shared.csproj", "{832DCB82-5E7A-4610-B4D6-B842C94C690F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WideWorldImporters.Client.Blazor.Shared", "src\WideWorldImporters.Client.Blazor.Shared\WideWorldImporters.Client.Blazor.Shared.csproj", "{832DCB82-5E7A-4610-B4D6-B842C94C690F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
