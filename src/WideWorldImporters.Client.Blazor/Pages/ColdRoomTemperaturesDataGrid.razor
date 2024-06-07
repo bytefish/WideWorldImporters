@@ -17,7 +17,7 @@
 else
 {
     <FluentDataGrid @ref="DataGrid" ItemsProvider="@ColdRoomTemperatureProvider" Pagination="@Pagination" TGridItem=ColdRoomTemperature>
-        <PropertyColumn Title="Customer ID" Property="@(c => c!.ColdRoomTemperatureId)" Sortable="true" Align=Align.Start>
+        <PropertyColumn Title="ColdRoomTemperature ID" Property="@(c => c!.ColdRoomTemperatureId)" Sortable="true" Align=Align.Start>
             <ColumnOptions>
                 <NumericFilter TItem="int" PropertyName="ColdRoomTemperatureId" FilterState="FilterState"></NumericFilter>
             </ColumnOptions>

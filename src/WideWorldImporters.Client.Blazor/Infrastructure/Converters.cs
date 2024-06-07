@@ -31,7 +31,7 @@ namespace WideWorldImporters.Client.Blazor.Infrastructure
 
             return new SortColumn
             {
-                PropertyName = source.PropertyName,
+                PropertyName = source.PropertyName.Replace('.', '/'),
                 SortDirection = sortDirection
             };
         }
