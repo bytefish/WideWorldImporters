@@ -3,7 +3,7 @@
 using Microsoft.Kiota.Abstractions.Serialization;
 using System.Diagnostics.CodeAnalysis;
 
-namespace WideWorldImporters.Client.Blazor.Extensions
+namespace WideWorldImporters.Shared.ApiSdk.Extensions
 {
     public static class ApiClientExtensions
     {

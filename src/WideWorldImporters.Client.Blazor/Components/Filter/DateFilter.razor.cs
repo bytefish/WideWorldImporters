@@ -1,8 +1,8 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using WideWorldImporters.Client.Blazor.Shared.Models;
 using Microsoft.AspNetCore.Components;
 using WideWorldImporters.Client.Blazor.Components;
+using WideWorldImporters.Client.Shared.Models;
 
 namespace WideWorldImporters.Client.Blazor.Components
 {

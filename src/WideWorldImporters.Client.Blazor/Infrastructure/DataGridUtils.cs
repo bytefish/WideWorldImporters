@@ -1,7 +1,7 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.FluentUI.AspNetCore.Components;
-using WideWorldImporters.Client.Blazor.Shared.Models;
+using WideWorldImporters.Client.Shared.Models;
 
 namespace WideWorldImporters.Client.Blazor.Infrastructure
 {

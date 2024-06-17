@@ -1,10 +1,9 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using WideWorldImporters.Client.Blazor.Shared.Models;
 using System.Collections.Concurrent;
-using WideWorldImporters.Client.Blazor.Infrastructure;
+using WideWorldImporters.Client.Shared.Infrastructure;
 
-namespace WideWorldImporters.Client.Blazor.Components
+namespace WideWorldImporters.Client.Shared.Models
 {
     /// <summary>
     /// Holds state to represent filters in a <see cref="FluentDataGrid{TGridItem}"/>.

@@ -47,7 +47,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj" />
-        <ProjectReference Include="..\WideWorldImporters.Client.Blazor.Shared\WideWorldImporters.Client.Blazor.Shared.csproj" />
+        <ProjectReference Include="..\WideWorldImporters.Client.Blazor.Shared\WideWorldImporters.Client.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

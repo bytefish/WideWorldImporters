@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace WideWorldImporters.Client.Blazor.Infrastructure
+namespace WideWorldImporters.Client.Shared.Infrastructure
 {
     public sealed class EventCallbackSubscriber<T> : IDisposable
     {

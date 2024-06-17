@@ -1,6 +1,6 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace WideWorldImporters.Client.Blazor.Shared.Models
+namespace WideWorldImporters.Client.Shared.Models
 {
     /// <summary>
     /// Sort Direction.

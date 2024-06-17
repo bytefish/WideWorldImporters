@@ -1,9 +1,9 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Globalization;
-using WideWorldImporters.Client.Blazor.Shared.Models;
+using WideWorldImporters.Client.Shared.Models;
 
-namespace WideWorldImporters.Client.Blazor.Shared.OData
+namespace WideWorldImporters.Client.Shared.OData
 {
     public static class ODataUtils
     {

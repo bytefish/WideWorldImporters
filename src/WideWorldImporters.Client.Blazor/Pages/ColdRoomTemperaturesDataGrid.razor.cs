@@ -3,11 +3,13 @@
 using Microsoft.AspNetCore.Components;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
-using WideWorldImporters.Client.Blazor.Shared.OData;
 using WideWorldImporters.Client.Blazor.Infrastructure;
-using WideWorldImporters.Client.Blazor.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components;
 using WideWorldImporters.Client.Blazor.Components;
+using WideWorldImporters.Client.Shared.OData;
+using WideWorldImporters.Client.Shared.Models;
+using WideWorldImporters.Client.Shared.Infrastructure;
+using WideWorldImporters.Shared.ApiSdk.Extensions;
 
 namespace WideWorldImporters.Client.Blazor.Pages
 {
