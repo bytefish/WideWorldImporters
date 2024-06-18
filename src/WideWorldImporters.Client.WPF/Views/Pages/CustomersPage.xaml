@@ -1,4 +1,4 @@
-<Page
+﻿<Page
     x:Class="WideWorldImporters.Client.WPF.Views.Pages.CustomersPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -93,6 +93,22 @@
                             </Trigger>
                         </Style.Triggers>
                     </Style>
+                    <DataTemplate x:Key="HeaderTemplate">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ContentControl Content="{Binding}" VerticalAlignment="Center"/>
+                            <ToggleButton Name="FilterButton" Grid.Column="1" Content="▼" Margin="2, 1, 1, 1" Padding="1, 0"/>
+                            <Popup IsOpen="{Binding ElementName=FilterButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=FilterButton}" StaysOpen="False">
+                                <Border Background="White" Padding="3">
+                                    <TextBlock>Some Filters Here</TextBlock>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </DataTemplate>
                 </DataGrid.Resources>
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="DataGridRowHeader">
@@ -117,6 +133,7 @@
                     <DataGridTextColumn 
                         DisplayIndex="0"
                         Header="CustomerId"
+                         HeaderTemplate="{StaticResource HeaderTemplate}"
                         Binding="{Binding CustomerId, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}"
                         IsReadOnly="True" />
 

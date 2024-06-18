@@ -203,7 +203,7 @@ namespace WideWorldImporters.Client.WPF.ViewModels
 
                 // Adjust the Page number and Page count with the Query results:
                 PageNumber = pageNumber;
-                PageCount = response.GetODataCount() / pageSize;
+                PageCount = (response.GetODataCount() + pageSize -1) / pageSize;
 
                 // Notify all Event Handlers:
                 FirstPageCommand.NotifyCanExecuteChanged();
