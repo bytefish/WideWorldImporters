@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
 # COPY Project Files
-COPY ../src/WideWorldImporters.Server.Api/*.csproj ./SqliteFulltextSearch.Api/
+COPY ../src/WideWorldImporters.Server.Api/*.csproj ./WideWorldImporters.Server.Api/
 COPY ../src/WideWorldImporters.Server.Database/*.csproj ./WideWorldImporters.Server.Database/
 
 # Restore NuGet Packages

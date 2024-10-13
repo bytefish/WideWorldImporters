@@ -32,11 +32,22 @@ The Microsoft documentation describes the fictionous "Wide World Importers" as .
 > not have to handle chilled items. Now, to meet food handling requirements, they must monitor the temperature in their 
 > chiller room and any of their trucks that have chiller sections.
 
-I think it's a perfect non-trivial database to work with!
+## Getting Started ##
 
-We are building a Backend, that scaffolds the WWI database and exposes the data with Microsoft ASP.NET Core OData 8. We will 
-learn how to extend Microsoft ASP.NET Core OData 8 for spatial types, see how to generate the OData endpoints using T4 Text 
-Templates and provide OpenAPI 3.0 documents for Frontend code generation goodies.
+Create a set of Development Certificates:
+
+```
+dotnet dev-certs https --clean
+dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p SuperStrongPassword --trust
+```
+
+Getting started is as simple as cloning this repository and running the following command:
+
+```
+docker compose --profile dev up
+```
+
+You can then navigate to https://localhost:5001 and enjoy the Blazor application.
 
 ## Related Articles ##
 

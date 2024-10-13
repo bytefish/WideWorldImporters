@@ -23,7 +23,7 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "StrongPassword@"
   wwi-api:
-    container_name: search-api
+    container_name: wwi-api
     build:
       context: .
       dockerfile: ./docker/wwi-api/Dockerfile
