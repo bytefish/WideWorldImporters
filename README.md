@@ -7,10 +7,26 @@ to be this way.
 In this repository I will show you how to use ASP.NET Core OData and EF Core to quickly build Backends 
 and how to use Angular, Blazor and WPF to display, filter and paginate datasets. 
 
-## About the Project ##
+## Getting Started ##
 
-We will build a Backend and Frontends for the "Wide World Importers" database, which is a Microsoft SQL Server 
-sample database for a fictional company:
+Create a set of Development Certificates:
+
+```
+dotnet dev-certs https --clean
+dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p SuperStrongPassword --trust
+```
+
+Getting started is as simple as cloning this repository and running the following command:
+
+```
+docker compose --profile dev up
+```
+
+You can then navigate to https://localhost:5001 and enjoy the Blazor application.
+
+## About the Database ##
+
+The "Wide World Importers" database is a Microsoft SQL Server sample database for a fictional company:
 
 * https://docs.microsoft.com/en-us/sql/samples/wide-world-importers-what-is?view=sql-server-ver15
 
@@ -31,23 +47,6 @@ The Microsoft documentation describes the fictionous "Wide World Importers" as .
 > Recently WWI started to sell a variety of edible novelties such as chilli chocolates. The company previously did 
 > not have to handle chilled items. Now, to meet food handling requirements, they must monitor the temperature in their 
 > chiller room and any of their trucks that have chiller sections.
-
-## Getting Started ##
-
-Create a set of Development Certificates:
-
-```
-dotnet dev-certs https --clean
-dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p SuperStrongPassword --trust
-```
-
-Getting started is as simple as cloning this repository and running the following command:
-
-```
-docker compose --profile dev up
-```
-
-You can then navigate to https://localhost:5001 and enjoy the Blazor application.
 
 ## Related Articles ##
 
