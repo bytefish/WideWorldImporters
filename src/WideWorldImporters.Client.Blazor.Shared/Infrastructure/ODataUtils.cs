@@ -3,7 +3,7 @@
 using System.Globalization;
 using WideWorldImporters.Client.Shared.Models;
 
-namespace WideWorldImporters.Client.Shared.OData
+namespace WideWorldImporters.Client.Shared.Infrastructure
 {
     public static class ODataUtils
     {

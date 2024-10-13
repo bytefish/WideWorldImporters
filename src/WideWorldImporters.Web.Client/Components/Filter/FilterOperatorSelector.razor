@@ -1,0 +1,19 @@
+﻿@using WideWorldImporters.Web.Client.Extensions
+@using WideWorldImporters.Web.Client.Models
+@using WideWorldImporters.Web.Client.Infrastructure
+
+@namespace WideWorldImporters.Web.Client.Components
+
+@inherits FluentComponentBase
+<FluentSelect @attributes="AdditionalAttributes" class="@Class" style="@Style"
+              Id="@Id"
+              AriaLabel="@Title"
+              Disabled="@Disabled"
+              Items="@FilterOperators"
+              OptionText="@(i => Loc.TranslateEnum(i))"
+              OptionValue="@(i => i.ToString())"
+              TOption=FilterOperatorEnum
+              Value=@_value
+              SelectedOption=@_filterOperator
+              SelectedOptionChanged="OnSelectedValueChanged">
+</FluentSelect>

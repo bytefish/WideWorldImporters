@@ -3,13 +3,12 @@
 using Microsoft.AspNetCore.Components;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
-using WideWorldImporters.Client.Blazor.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components;
-using WideWorldImporters.Client.Shared.Infrastructure;
-using WideWorldImporters.Client.Shared.Models;
 using WideWorldImporters.Shared.ApiSdk.Extensions;
+using WideWorldImporters.Web.Client.Models;
+using WideWorldImporters.Web.Client.Infrastructure;
 
-namespace WideWorldImporters.Client.Blazor.Pages
+namespace WideWorldImporters.Web.Client.Pages
 {
     public partial class VehicleTemperaturesDataGrid
     {

@@ -1,0 +1,20 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components
+
+@namespace WideWorldImporters.Web.Client.Components
+
+@inherits FluentComponentBase
+
+<div class="filter-container">
+    <FluentGrid Justify="JustifyContent.Center">
+        <FluentGridItem xs="12">
+            <FluentLabel Typo="Typography.Body">Filter Operator:</FluentLabel>
+            <FilterOperatorSelector FilterOperators="filterOperatorOptions" @bind-FilterOperator="_filterOperator"></FilterOperatorSelector>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Neutral" OnClick="@(async () => await RemoveFilterAsync())">Reset</FluentButton>
+        </FluentGridItem>
+        <FluentGridItem xs="6">
+            <FluentButton Class="w-100" Appearance="Appearance.Accent" OnClick="@(async () => await ApplyFilterAsync())">Apply</FluentButton>
+        </FluentGridItem>
+    </FluentGrid>
+</div>

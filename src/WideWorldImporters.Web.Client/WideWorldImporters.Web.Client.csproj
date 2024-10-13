@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Pages\Index.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Pages\Index.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="Components\NotificationCenter\NotificationCenter.razor" />
+        <None Include="Components\NotificationCenter\NotificationCenterPanel.razor" />
+        <None Include="Components\SiteSettings\SiteSettings.razor" />
+        <None Include="Components\SiteSettings\SiteSettingsPanel.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.7" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.1" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0" />
+        <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Update="wwwroot\appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Localization\SharedResource.resx">
+            <Generator></Generator>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\images\240\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj" />
+    </ItemGroup>
+
+
+</Project>

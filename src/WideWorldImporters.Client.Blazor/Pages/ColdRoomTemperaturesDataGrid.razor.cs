@@ -6,7 +6,6 @@ using WideWorldImporters.Shared.ApiSdk;
 using WideWorldImporters.Client.Blazor.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components;
 using WideWorldImporters.Client.Blazor.Components;
-using WideWorldImporters.Client.Shared.OData;
 using WideWorldImporters.Client.Shared.Models;
 using WideWorldImporters.Client.Shared.Infrastructure;
 using WideWorldImporters.Shared.ApiSdk.Extensions;

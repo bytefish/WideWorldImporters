@@ -3,25 +3,24 @@
 using Microsoft.AspNetCore.Components;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
-using WideWorldImporters.Client.Blazor.Infrastructure;
 using Microsoft.FluentUI.AspNetCore.Components;
-using WideWorldImporters.Client.Shared.Infrastructure;
-using WideWorldImporters.Client.Shared.Models;
 using WideWorldImporters.Shared.ApiSdk.Extensions;
+using WideWorldImporters.Web.Client.Models;
+using WideWorldImporters.Web.Client.Infrastructure;
 
-namespace WideWorldImporters.Client.Blazor.Pages
+namespace WideWorldImporters.Web.Client.Pages
 {
-    public partial class VehicleTemperaturesDataGrid
+    public partial class CustomersDataGrid
     {
         /// <summary>
         /// Provides the Data Items.
         /// </summary>
-        private GridItemsProvider<VehicleTemperature> VehicleTemperatureProvider = default!;
+        private GridItemsProvider<Customer> CustomerProvider = default!;
 
         /// <summary>
         /// DataGrid.
         /// </summary>
-        private FluentDataGrid<VehicleTemperature> DataGrid = default!;
+        private FluentDataGrid<Customer> DataGrid = default!;
 
         /// <summary>
         /// The current Pagination State.
@@ -38,27 +37,27 @@ namespace WideWorldImporters.Client.Blazor.Pages
         /// </summary>
         private readonly EventCallbackSubscriber<FilterState> CurrentFiltersChanged;
 
-        public VehicleTemperaturesDataGrid()
+        public CustomersDataGrid()
         {
             CurrentFiltersChanged = new(EventCallback.Factory.Create<FilterState>(this, RefreshData));
         }
 
         protected override Task OnInitializedAsync()
         {
-            VehicleTemperatureProvider = async request =>
+            CustomerProvider = async request =>
             {
-                var response = await GetVehicleTemperaturesAsync(request);
+                var response = await GetCustomers(request);
 
                 if (response == null)
                 {
-                    return GridItemsProviderResult.From(items: new List<VehicleTemperature>(), totalItemCount: 0);
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
                 }
 
                 var entities = response.Value;
 
                 if (entities == null)
                 {
-                    return GridItemsProviderResult.From(items: new List<VehicleTemperature>(), totalItemCount: 0);
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
                 }
 
                 int count = response.GetODataCount();
@@ -85,7 +84,7 @@ namespace WideWorldImporters.Client.Blazor.Pages
             return DataGrid.RefreshDataAsync();
         }
 
-        private async Task<VehicleTemperatureCollectionResponse?> GetVehicleTemperaturesAsync(GridItemsProviderRequest<VehicleTemperature> request)
+        private async Task<CustomerCollectionResponse?> GetCustomers(GridItemsProviderRequest<Customer> request)
         {
             // Extract all Sort Columns from the Blazor FluentUI DataGrid
             var sortColumns = DataGridUtils.GetSortColumns(request);
@@ -97,17 +96,19 @@ namespace WideWorldImporters.Client.Blazor.Pages
             var parameters = ODataQueryParameters.Builder
                 .SetPage(Pagination.CurrentPageIndex + 1, Pagination.ItemsPerPage)
                 .SetFilter(filters)
+                .AddExpand(nameof(Customer.LastEditedByNavigation))
                 .AddOrderBy(sortColumns)
                 .Build();
 
             // Get the Data using the ApiClient from the SDK
-            return await ApiClient.Odata.VehicleTemperatures.GetAsync(request =>
+            return await ApiClient.Odata.Customers.GetAsync(request =>
             {
                 request.QueryParameters.Count = true;
+                
                 request.QueryParameters.Top = parameters.Top;
                 request.QueryParameters.Skip = parameters.Skip;
 
-                if (parameters.Expand != null)
+                if(parameters.Expand != null)
                 {
                     request.QueryParameters.Expand = parameters.Expand;
                 }

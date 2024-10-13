@@ -1,0 +1,67 @@
+﻿@using SqliteFulltextSearch.Web.Client.Components
+@using SqliteFulltextSearch.Web.Client
+@using Microsoft.AspNetCore.Components
+@using System.Runtime.InteropServices
+@using WideWorldImporters.Web.Client.Localization
+
+@namespace WideWorldImporters.Web.Client.Shared
+
+@inject IStringLocalizer<SharedResource> Loc
+
+<PageTitle>SQLite Fulltext Search</PageTitle>
+        <div>
+            <FluentLayout>
+                <FluentHeader Class="siteheader">
+                    <a href="/">
+                SQLite Fulltext Search
+                    </a>
+                    <FluentSpacer />
+                    <div class="notifications">
+                        <NotificationCenter />
+                    </div>
+                    <div class="settings">
+                        <SiteSettings />
+                    </div>
+                </FluentHeader>
+                <FluentStack Class="body-stack" Orientation="Orientation.Horizontal" Width="100%" HorizontalGap="0">
+                    <NavMenu />
+                    <FluentBodyContent id="body-content">
+                        <div class="content">
+                            <article id="article">
+                                <FluentMessageBarProvider Section="@Routes.MESSAGES_TOP" />
+                                <ErrorBoundary @ref="_errorBoundary">
+                                    <ChildContent>
+                                        <div>@Body</div>
+                                    </ChildContent>
+                                    <ErrorContent Context="exception">
+                                        An unexpected Error occured.
+                                    </ErrorContent>
+                                </ErrorBoundary>
+                            </article>
+                            <aside>
+
+                            </aside>
+                            <FluentToastProvider MaxToastCount="10" />
+                            <FluentDialogProvider />
+                            <FluentTooltipProvider />
+                        </div>
+                    </FluentBodyContent>
+                </FluentStack>
+
+                <FluentFooter Style="@("height: 40px; color: white;")">
+                    <div class="version">
+                        <small>
+                            Version: @_version
+                            &nbsp;-&nbsp;
+                            <a href="https://dotnet.microsoft.com/en-us/learn/aspnet/what-is-aspnet-core">Powered by @RuntimeInformation.FrameworkDescription</a>
+                        </small>
+                    </div>
+                    <FluentSpacer />
+
+                    <div class="copy">
+                        <small>© 2023. All rights reserved.</small>
+                    </div>
+                </FluentFooter>
+
+            </FluentLayout>
+        </div>

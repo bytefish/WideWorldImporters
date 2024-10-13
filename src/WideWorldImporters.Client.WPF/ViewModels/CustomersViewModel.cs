@@ -1,8 +1,8 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Collections.ObjectModel;
+using WideWorldImporters.Client.Shared.Infrastructure;
 using WideWorldImporters.Client.Shared.Models;
-using WideWorldImporters.Client.Shared.OData;
 using WideWorldImporters.Shared.ApiSdk;
 using WideWorldImporters.Shared.ApiSdk.Extensions;
 using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
@@ -35,6 +35,9 @@ namespace WideWorldImporters.Client.WPF.ViewModels
             set => SetProperty(ref _selectedCustomer, value);
         }
 
+        /// <summary>
+        /// List of currently selected Filter descriptors.
+        /// </summary>
         private List<FilterDescriptor> _filterDescriptors;
 
         /// <summary>
