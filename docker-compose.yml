@@ -27,6 +27,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/wwi-api/Dockerfile
+    networks:
+      - wwi
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_HTTPS_PORTS=5000
@@ -45,6 +47,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/wwi-app/Dockerfile
+    networks:
+      - wwi
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_HTTPS_PORTS=5001

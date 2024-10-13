@@ -60,9 +60,11 @@ try
             .EnableSensitiveDataLogging();
     });
 
+    // Antiforgery
+    builder.Services.AddAntiforgery();
+
     // Logging
     builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
-
 
     // CORS
     builder.Services.AddCors(options =>
@@ -90,7 +92,6 @@ try
     });
 
     builder.Services.AddSingleton<ApplicationErrorHandler>();
-
 
     builder.Services
         .AddControllers()
