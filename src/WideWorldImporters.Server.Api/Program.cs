@@ -38,8 +38,14 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container
-    // Register DbContexts:
+    // Configuration
+    builder.Configuration
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+        .AddEnvironmentVariables()
+        .AddUserSecrets<Program>();
+
+    // Database
     builder.Services.AddDbContext<WideWorldImportersContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString("ApplicationDatabase");
@@ -57,21 +63,6 @@ try
     // Logging
     builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
 
-    // Database
-    builder.Services.AddDbContext<WideWorldImportersContext>(options =>
-    {
-        var connectionString = builder.Configuration.GetConnectionString("ApplicationDatabase");
-
-        if (connectionString == null)
-        {
-            throw new InvalidOperationException("No ConnectionString named 'ApplicationDatabase' was found");
-        }
-
-        options
-        .EnableSensitiveDataLogging()
-            .UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=WideWorldImporters;Trusted_Connection=True;", o => o.UseNetTopologySuite());
-
-    });
 
     // CORS
     builder.Services.AddCors(options =>
