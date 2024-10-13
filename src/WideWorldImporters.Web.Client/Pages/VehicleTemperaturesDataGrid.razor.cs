@@ -5,8 +5,10 @@ using WideWorldImporters.Shared.ApiSdk.Models.WideWorldImportersService;
 using WideWorldImporters.Shared.ApiSdk;
 using Microsoft.FluentUI.AspNetCore.Components;
 using WideWorldImporters.Shared.ApiSdk.Extensions;
-using WideWorldImporters.Web.Client.Models;
+using WideWorldImporters.Shared.Models;
 using WideWorldImporters.Web.Client.Infrastructure;
+using WideWorldImporters.Shared.Infrastructure;
+using WideWorldImporters.Web.Client.Shared.Infrastructure;
 
 namespace WideWorldImporters.Web.Client.Pages
 {

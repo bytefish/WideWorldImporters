@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
-using WideWorldImporters.Web.Client.Infrastructure;
+using WideWorldImporters.Web.Client.Shared.Infrastructure;
 
-namespace SqliteFulltextSearch.Web.Client.Components
+namespace WideWorldImporters.Web.Client.Components
 {
     /// <summary>
     /// A component that provides a user interface for <see cref="PaginationState"/>.

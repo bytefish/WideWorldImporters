@@ -49,6 +49,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj" />
+      <ProjectReference Include="..\WideWorldImporters.Shared\WideWorldImporters.Shared.csproj" />
     </ItemGroup>
 
 

@@ -1,7 +1,7 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using Microsoft.FluentUI.AspNetCore.Components;
-using WideWorldImporters.Web.Client.Models;
+using WideWorldImporters.Shared.Models;
 
 namespace WideWorldImporters.Web.Client.Infrastructure
 {

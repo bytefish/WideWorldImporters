@@ -1,6 +1,8 @@
-﻿using WideWorldImporters.Web.Client.Infrastructure;
+﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace SqliteFulltextSearch.Web.Client.Components
+using WideWorldImporters.Web.Client.Shared.Infrastructure;
+
+namespace WideWorldImporters.Web.Client.Components
 {
     /// <summary>
     /// Holds state to represent pagination in a <see cref="FluentDataGrid{TGridItem}"/>.

@@ -3,7 +3,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using WideWorldImporters.Web.Client.Localization;
-using WideWorldImporters.Web.Client.Models;
+using WideWorldImporters.Shared.Models;
 
 namespace WideWorldImporters.Web.Client.Components
 {

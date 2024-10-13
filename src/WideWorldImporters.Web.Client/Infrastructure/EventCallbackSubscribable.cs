@@ -2,7 +2,7 @@
 
 using Microsoft.AspNetCore.Components;
 
-namespace WideWorldImporters.Web.Client.Infrastructure
+namespace WideWorldImporters.Web.Client.Shared.Infrastructure
 {
     public sealed class EventCallbackSubscribable<T>
     {
