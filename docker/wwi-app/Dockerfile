@@ -3,19 +3,21 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
 # COPY Project Files
-COPY ../src/SqliteFulltextSearch.Web.Client/*.csproj ./SqliteFulltextSearch.Web.Client/
-COPY ../src/SqliteFulltextSearch.Web.Server/*.csproj ./SqliteFulltextSearch.Web.Server/
-COPY ../src/SqliteFulltextSearch.Shared/*.csproj ./SqliteFulltextSearch.Shared/
+COPY ../src/WideWorldImporters.Web.Client/*.csproj ./WideWorldImporters.Web.Client/
+COPY ../src/WideWorldImporters.Web.Server/*.csproj ./WideWorldImporters.Web.Server/
+COPY ../src/WideWorldImporters.Shared/*.csproj ./WideWorldImporters.Shared/
+COPY ../src/WideWorldImporters.Shared.ApiSdk/*.csproj ./WideWorldImporters.Shared.ApiSdk/
 
 # And restore the NuGet Packages:
-RUN dotnet restore "SqliteFulltextSearch.Web.Server/SqliteFulltextSearch.Web.Server.csproj"
+RUN dotnet restore "WideWorldImporters.Web.Server/WideWorldImporters.Web.Server.csproj"
 
 # COPY Projects
-COPY ../src/SqliteFulltextSearch.Web.Client/. ./src/SqliteFulltextSearch.Web.Client/
-COPY ../src/SqliteFulltextSearch.Web.Server/. ./src/SqliteFulltextSearch.Web.Server/
-COPY ../src/SqliteFulltextSearch.Shared/. ./src/SqliteFulltextSearch.Shared/
+COPY ../src/WideWorldImporters.Web.Client/. ./src/WideWorldImporters.Web.Client/
+COPY ../src/WideWorldImporters.Web.Server/. ./src/WideWorldImporters.Web.Server/
+COPY ../src/WideWorldImporters.Shared/. ./src/WideWorldImporters.Shared/
+COPY ../src/WideWorldImporters.Shared.ApiSdk/. ./src/WideWorldImporters.Shared.ApiSdk/
 
-RUN dotnet publish ./src/SqliteFulltextSearch.Web.Server/SqliteFulltextSearch.Web.Server.csproj -c Release -o /app
+RUN dotnet publish ./src/WideWorldImporters.Web.Server/WideWorldImporters.Web.Server.csproj -c Release -o /app
 
 # Build the final image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
@@ -25,4 +27,4 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # Start the Kestrel Server:
-ENTRYPOINT ["dotnet", "SqliteFulltextSearch.Web.Server.dll"]
+ENTRYPOINT ["dotnet", "WideWorldImporters.Web.Server.dll"]

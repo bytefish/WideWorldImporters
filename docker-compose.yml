@@ -1,13 +1,13 @@
 networks:
   wwi:
     driver: bridge
-
+    
 services:
-  db:
-    container_name: wwi-sqlserver2022
+  wwi-db:
+    container_name: wwi-db-sqlserver2022
     build:
-      context: ./db/
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/wwi-db/Dockerfile
     networks:
       - wwi
     ports:
@@ -18,6 +18,43 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
+    profiles:  ["db", "dev"]
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "StrongPassword@"
+  wwi-api:
+    container_name: search-api
+    build:
+      context: .
+      dockerfile: ./docker/wwi-api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTPS_PORTS=5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=SuperStrongPassword
+    profiles:  ["api", "dev"]
+    env_file:
+      - ./docker/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ~/.aspnet/https:/https:ro      
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  wwi-app:
+    container_name: wwi-app
+    build:
+      context: .
+      dockerfile: ./docker/wwi-app/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_HTTPS_PORTS=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=SuperStrongPassword
+    profiles:  ["app", "dev"]
+    env_file:
+      - ./docker/.env
+    ports:
+      - "5001:5001"
+    volumes:
+      - ~/.aspnet/https:/https:ro      
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
