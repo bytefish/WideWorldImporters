@@ -1,0 +1,78 @@
+<Window
+    x:Class="WideWorldImporters.Desktop.Client.MainWindow"
+    x:Name="MainWindowRoot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wpfdatagridfilter="clr-namespace:WpfDataGridFilter.Controls;assembly=WpfDataGridFilter"
+    Title="WPF OData Example"
+    Width="1100"
+    Height="650"
+    d:DesignHeight="800"
+    d:DesignWidth="1200"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d"
+    Loaded="Window_Loaded"
+    Unloaded="Window_Unloaded"
+    >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding ViewModel.Customers}" AutoGenerateColumns="False" CanUserSortColumns="False" MinColumnWidth="150">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding CustomerId}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <ItemContainerTemplate>
+                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="CustomerId" PropertyName="CustomerId" Height="40" MinWidth="150" FilterType="IntNumericFilter"></wpfdatagridfilter:FilterableColumnHeader>
+                        </ItemContainerTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding CustomerName}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <ItemContainerTemplate>
+                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="CustomerName" PropertyName="CustomerName" Height="40" MinWidth="150" FilterType="StringFilter"></wpfdatagridfilter:FilterableColumnHeader>
+                        </ItemContainerTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding LastEditedByNavigation.FullName}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <ItemContainerTemplate>
+                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="LastEditedBy" PropertyName="LastEditedByNavigation.FullName" Height="40" MinWidth="150" FilterType="StringFilter"></wpfdatagridfilter:FilterableColumnHeader>
+                        </ItemContainerTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <wpfdatagridfilter:PaginationControl 
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                SelectedPageSize="{Binding ViewModel.PageSize, Mode=TwoWay}"
+                PageSizes="{Binding ViewModel.PageSizes}"
+                CurrentPage="{Binding ViewModel.CurrentPage}"
+                FirstPage="{Binding ViewModel.FirstPageCommand}"
+                PreviousPage="{Binding ViewModel.PreviousPageCommand}"
+                NextPage="{Binding ViewModel.NextPageCommand}"
+                LastPage="{Binding ViewModel.LastPageCommand}" />
+
+            <TextBlock Width="150" Grid.Column="0"  HorizontalAlignment="Right">
+                <Run Text="Page" />
+                <Run Text="{Binding ViewModel.CurrentPage, Mode=OneWay}" d:Text="0" />
+                <Run Text="/" />
+                <Run Text="{Binding ViewModel.LastPage, Mode=OneWay}" d:Text="0" />
+                <LineBreak />
+                <Run Text="Number of Elements:"></Run>
+                <Run Text="{Binding ViewModel.TotalItemCount, Mode=OneWay}" d:Text="1020" />
+            </TextBlock>
+
+        </Grid>
+
+    </Grid>
+</Window>

@@ -75,6 +75,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/<#= entitySet.EntitySetName #>")]
+        [HttpGet("odata/<#= entitySet.EntitySetName #>/$count")]
         public IActionResult Get<#= entitySet.EntitySetName #>()
         {
             return Ok(_context.<#= entitySet.EntitySetName #>);

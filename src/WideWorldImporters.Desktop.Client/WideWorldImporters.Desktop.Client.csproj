@@ -15,6 +15,11 @@
     <ItemGroup>
         <None Remove="Assets\applicationIcon-1024.png" />
         <None Remove="Assets\applicationIcon-256.png" />
+        <None Remove="Connected Services\WideWorldImportersService\WideWorldImportersServiceCsdl.xml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Connected Services\WideWorldImportersService\WideWorldImportersServiceCsdl.xml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,13 +30,14 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
-    <PackageReference Include="WPF-UI" Version="3.0.5" />
-    <PackageReference Include="WPF-UI.Tray" Version="3.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WideWorldImporters.Shared.ApiSdk\WideWorldImporters.Shared.ApiSdk.csproj" />
-    <ProjectReference Include="..\WideWorldImporters.Shared\WideWorldImporters.Shared.csproj" />
+    <PackageReference Include="Microsoft.OData.Client" Version="8.2.3" />
+    <PackageReference Include="Microsoft.OData.Core" Version="8.2.3" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="8.2.3" />
+    <PackageReference Include="Microsoft.Spatial" Version="8.2.3" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.4" />
+    <PackageReference Include="WpfDataGridFilter" Version="0.2.1" />
+    <PackageReference Include="WpfDataGridFilter.DynamicLinq" Version="0.2.1" />
   </ItemGroup>
 
 </Project>

@@ -37,6 +37,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/BuyingGroups")]
+        [HttpGet("odata/BuyingGroups/$count")]
         public IActionResult GetBuyingGroups()
         {
             return Ok(_context.BuyingGroups);
@@ -167,6 +168,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Cities")]
+        [HttpGet("odata/Cities/$count")]
         public IActionResult GetCities()
         {
             return Ok(_context.Cities);
@@ -297,6 +299,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/ColdRoomTemperatures")]
+        [HttpGet("odata/ColdRoomTemperatures/$count")]
         public IActionResult GetColdRoomTemperatures()
         {
             return Ok(_context.ColdRoomTemperatures);
@@ -427,6 +430,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Colors")]
+        [HttpGet("odata/Colors/$count")]
         public IActionResult GetColors()
         {
             return Ok(_context.Colors);
@@ -557,6 +561,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Countries")]
+        [HttpGet("odata/Countries/$count")]
         public IActionResult GetCountries()
         {
             return Ok(_context.Countries);
@@ -687,6 +692,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Customers")]
+        [HttpGet("odata/Customers/$count")]
         public IActionResult GetCustomers()
         {
             return Ok(_context.Customers);
@@ -817,6 +823,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/CustomerCategories")]
+        [HttpGet("odata/CustomerCategories/$count")]
         public IActionResult GetCustomerCategories()
         {
             return Ok(_context.CustomerCategories);
@@ -947,6 +954,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/CustomerTransactions")]
+        [HttpGet("odata/CustomerTransactions/$count")]
         public IActionResult GetCustomerTransactions()
         {
             return Ok(_context.CustomerTransactions);
@@ -1077,6 +1085,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/DeliveryMethods")]
+        [HttpGet("odata/DeliveryMethods/$count")]
         public IActionResult GetDeliveryMethods()
         {
             return Ok(_context.DeliveryMethods);
@@ -1207,6 +1216,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Invoices")]
+        [HttpGet("odata/Invoices/$count")]
         public IActionResult GetInvoices()
         {
             return Ok(_context.Invoices);
@@ -1337,6 +1347,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/InvoiceLines")]
+        [HttpGet("odata/InvoiceLines/$count")]
         public IActionResult GetInvoiceLines()
         {
             return Ok(_context.InvoiceLines);
@@ -1467,6 +1478,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Orders")]
+        [HttpGet("odata/Orders/$count")]
         public IActionResult GetOrders()
         {
             return Ok(_context.Orders);
@@ -1597,6 +1609,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/OrderLines")]
+        [HttpGet("odata/OrderLines/$count")]
         public IActionResult GetOrderLines()
         {
             return Ok(_context.OrderLines);
@@ -1727,6 +1740,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/PackageTypes")]
+        [HttpGet("odata/PackageTypes/$count")]
         public IActionResult GetPackageTypes()
         {
             return Ok(_context.PackageTypes);
@@ -1857,6 +1871,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/PaymentMethods")]
+        [HttpGet("odata/PaymentMethods/$count")]
         public IActionResult GetPaymentMethods()
         {
             return Ok(_context.PaymentMethods);
@@ -1987,6 +2002,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/People")]
+        [HttpGet("odata/People/$count")]
         public IActionResult GetPeople()
         {
             return Ok(_context.People);
@@ -2117,6 +2133,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/PurchaseOrders")]
+        [HttpGet("odata/PurchaseOrders/$count")]
         public IActionResult GetPurchaseOrders()
         {
             return Ok(_context.PurchaseOrders);
@@ -2247,6 +2264,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/PurchaseOrderLines")]
+        [HttpGet("odata/PurchaseOrderLines/$count")]
         public IActionResult GetPurchaseOrderLines()
         {
             return Ok(_context.PurchaseOrderLines);
@@ -2377,6 +2395,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/SpecialDeals")]
+        [HttpGet("odata/SpecialDeals/$count")]
         public IActionResult GetSpecialDeals()
         {
             return Ok(_context.SpecialDeals);
@@ -2507,6 +2526,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/StateProvinces")]
+        [HttpGet("odata/StateProvinces/$count")]
         public IActionResult GetStateProvinces()
         {
             return Ok(_context.StateProvinces);
@@ -2637,6 +2657,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/StockGroups")]
+        [HttpGet("odata/StockGroups/$count")]
         public IActionResult GetStockGroups()
         {
             return Ok(_context.StockGroups);
@@ -2767,6 +2788,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/StockItems")]
+        [HttpGet("odata/StockItems/$count")]
         public IActionResult GetStockItems()
         {
             return Ok(_context.StockItems);
@@ -2897,6 +2919,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/StockItemStockGroups")]
+        [HttpGet("odata/StockItemStockGroups/$count")]
         public IActionResult GetStockItemStockGroups()
         {
             return Ok(_context.StockItemStockGroups);
@@ -3027,6 +3050,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/StockItemTransactions")]
+        [HttpGet("odata/StockItemTransactions/$count")]
         public IActionResult GetStockItemTransactions()
         {
             return Ok(_context.StockItemTransactions);
@@ -3157,6 +3181,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/Suppliers")]
+        [HttpGet("odata/Suppliers/$count")]
         public IActionResult GetSuppliers()
         {
             return Ok(_context.Suppliers);
@@ -3287,6 +3312,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/SupplierCategories")]
+        [HttpGet("odata/SupplierCategories/$count")]
         public IActionResult GetSupplierCategories()
         {
             return Ok(_context.SupplierCategories);
@@ -3417,6 +3443,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/SupplierTransactions")]
+        [HttpGet("odata/SupplierTransactions/$count")]
         public IActionResult GetSupplierTransactions()
         {
             return Ok(_context.SupplierTransactions);
@@ -3547,6 +3574,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/SystemParameters")]
+        [HttpGet("odata/SystemParameters/$count")]
         public IActionResult GetSystemParameters()
         {
             return Ok(_context.SystemParameters);
@@ -3677,6 +3705,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/TransactionTypes")]
+        [HttpGet("odata/TransactionTypes/$count")]
         public IActionResult GetTransactionTypes()
         {
             return Ok(_context.TransactionTypes);
@@ -3807,6 +3836,7 @@ namespace WideWorldImporters.Api.Controllers
 
         [EnableQuery]
         [HttpGet("odata/VehicleTemperatures")]
+        [HttpGet("odata/VehicleTemperatures/$count")]
         public IActionResult GetVehicleTemperatures()
         {
             return Ok(_context.VehicleTemperatures);
