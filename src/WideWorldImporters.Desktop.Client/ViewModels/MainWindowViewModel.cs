@@ -59,6 +59,8 @@ public partial class MainWindowViewModel : ObservableObject
 
     public IRelayCommand LastPageCommand { get; }
 
+    public IAsyncRelayCommand RefreshDataCommand { get; }
+
     public Container Container;
 
     public void OnLoaded()
@@ -73,12 +75,9 @@ public partial class MainWindowViewModel : ObservableObject
         DataGridState.DataGridStateChanged -= DataGridState_DataGridStateChanged;
     }
 
-    private async void DataGridState_DataGridStateChanged(object? sender, DataGridStateChangedEventArgs e)
+    private void DataGridState_DataGridStateChanged(object? sender, DataGridStateChangedEventArgs e)
     {
-        await Dispatcher.CurrentDispatcher.InvokeAsync(async () =>
-        {
-            await Refresh();
-        });
+        RefreshDataCommand.Execute(null);
     }
 
     public MainWindowViewModel(DataGridState dataGridState)
@@ -119,6 +118,10 @@ public partial class MainWindowViewModel : ObservableObject
             SetSkipTop();
         },
         () => CurrentPage != LastPage);
+
+        RefreshDataCommand = new AsyncRelayCommand(
+            execute: () => RefreshAsync(),
+            canExecute: () => true);
     }
 
     public void SetSkipTop()
@@ -126,51 +129,49 @@ public partial class MainWindowViewModel : ObservableObject
         DataGridState.SetSkipTop((CurrentPage - 1) * PageSize, PageSize);
     }
 
-    public async Task Refresh()
+    public async Task RefreshAsync()
     {
-        await Dispatcher.CurrentDispatcher.InvokeAsync(async () =>
+
+        // If there's no Page Size, we don't need to load anything.
+        if (PageSize == 0)
         {
-            // If there's no Page Size, we don't need to load anything.
-            if (PageSize == 0)
-            {
-                return;
-            }
+            return;
+        }
 
-            // Get the Total Count, so we can update the First and Last Page. This 
-            // is a blocking call and probably redundant. We need to check this
-            // in a later version.
-            TotalItemCount = Container.Customers
-                .Expand(x => x.LastEditedByNavigation)
-                .AsQueryable()
-                .GetTotalItemCount(DataGridState);
+        // Get the Total Count, so we can update the First and Last Page. This 
+        // is a blocking call and probably redundant. We need to check this
+        // in a later version.
+        TotalItemCount = Container.Customers
+            .Expand(x => x.LastEditedByNavigation)
+            .AsQueryable()
+            .GetTotalItemCount(DataGridState);
 
-            // If our current page is not beyond the last Page, we'll need to rerequest data. At
-            // the moment this is going to trigger yet another query for the Count. Obviously that's
-            // a big TODO for a better implementation.
-            if (CurrentPage > 0 && CurrentPage > LastPage)
-            {
-                // If the number of items has reduced such that the current page index is no longer valid, move
-                // automatically to the final valid page index and trigger a further data load.
-                CurrentPage = LastPage;
+        // If our current page is not beyond the last Page, we'll need to rerequest data. At
+        // the moment this is going to trigger yet another query for the Count. Obviously that's
+        // a big TODO for a better implementation.
+        if (CurrentPage > 0 && CurrentPage > LastPage)
+        {
+            // If the number of items has reduced such that the current page index is no longer valid, move
+            // automatically to the final valid page index and trigger a further data load.
+            CurrentPage = LastPage;
 
-                SetSkipTop();
+            SetSkipTop();
 
-                return;
-            }
+            return;
+        }
 
-            // Notify all Event Handlers, so we can enable or disable the 
-            FirstPageCommand.NotifyCanExecuteChanged();
-            PreviousPageCommand.NotifyCanExecuteChanged();
-            NextPageCommand.NotifyCanExecuteChanged();
-            LastPageCommand.NotifyCanExecuteChanged();
+        // Notify all Event Handlers, so we can enable or disable the 
+        FirstPageCommand.NotifyCanExecuteChanged();
+        PreviousPageCommand.NotifyCanExecuteChanged();
+        NextPageCommand.NotifyCanExecuteChanged();
+        LastPageCommand.NotifyCanExecuteChanged();
 
-            DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
-                .Expand(x => x.LastEditedByNavigation)
-                .ApplyDataGridState(DataGridState);
+        DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
+            .Expand(x => x.LastEditedByNavigation)
+            .ApplyDataGridState(DataGridState);
 
-            IEnumerable<Customer> filteredResult = await dataServiceQuery.ExecuteAsync();
+        IEnumerable<Customer> filteredResult = await dataServiceQuery.ExecuteAsync();
 
-            Customers = new ObservableCollection<Customer>(filteredResult);
-        });
+        Customers = new ObservableCollection<Customer>(filteredResult);
     }
 }
