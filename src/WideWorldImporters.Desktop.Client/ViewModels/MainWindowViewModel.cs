@@ -1,11 +1,11 @@
 using Microsoft.OData.Client;
 using System.Collections.ObjectModel;
-using System.Windows.Threading;
 using WideWorldImportersService;
 using WpfDataGridFilter;
 using WpfDataGridFilter.DynamicLinq;
 
 namespace WideWorldImporters.Desktop.Client.ViewModels;
+
 public partial class MainWindowViewModel : ObservableObject
 {
     [ObservableProperty]
@@ -138,17 +138,21 @@ public partial class MainWindowViewModel : ObservableObject
             return;
         }
 
-        // Get the Total Count, so we can update the First and Last Page. This 
-        // is a blocking call and probably redundant. We need to check this
-        // in a later version.
-        TotalItemCount = Container.Customers
+        DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
+            .IncludeCount()
             .Expand(x => x.LastEditedByNavigation)
-            .AsQueryable()
-            .GetTotalItemCount(DataGridState);
+            .ApplyDataGridState(DataGridState);
 
-        // If our current page is not beyond the last Page, we'll need to rerequest data. At
-        // the moment this is going to trigger yet another query for the Count. Obviously that's
-        // a big TODO for a better implementation.
+        // Gets the Response and Data, as can be seen in the Query, we are also including the Count, so we don't run 
+        // dozens of queries. We could also try to use the pagination functions of OData I guess, but I am not
+        // experienced with it.
+        QueryOperationResponse<Customer> response = (QueryOperationResponse<Customer>)await dataServiceQuery.ExecuteAsync();
+
+        // Get the Total Count, so we can update the First and Last Page.
+        TotalItemCount = (int) response.Count;
+
+        // If our current page is beyond the last Page, we'll need to rerequest data. It often means, that we didn't receive 
+        // any data yet, so it shouldn't be too expensive to re-request everything again.
         if (CurrentPage > 0 && CurrentPage > LastPage)
         {
             // If the number of items has reduced such that the current page index is no longer valid, move
@@ -166,9 +170,6 @@ public partial class MainWindowViewModel : ObservableObject
         NextPageCommand.NotifyCanExecuteChanged();
         LastPageCommand.NotifyCanExecuteChanged();
 
-        DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
-            .Expand(x => x.LastEditedByNavigation)
-            .ApplyDataGridState(DataGridState);
 
         IEnumerable<Customer> filteredResult = await dataServiceQuery.ExecuteAsync();
 
