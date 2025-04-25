@@ -144,8 +144,7 @@ public partial class MainWindowViewModel : ObservableObject
             .ApplyDataGridState(DataGridState);
 
         // Gets the Response and Data, as can be seen in the Query, we are also including the Count, so we don't run 
-        // dozens of queries. We could also try to use the pagination functions of OData I guess, but I am not
-        // experienced with it.
+        // dozens of queries. We could also try to use the pagination functions of OData I guess.
         QueryOperationResponse<Customer> response = (QueryOperationResponse<Customer>)await dataServiceQuery.ExecuteAsync();
 
         // Get the Total Count, so we can update the First and Last Page.
