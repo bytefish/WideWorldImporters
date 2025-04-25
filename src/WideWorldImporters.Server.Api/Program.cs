@@ -79,7 +79,7 @@ try
         }
 
         options.AddPolicy("CorsPolicy", builder => builder
-            .WithOrigins(allowedOrigins)
+            .SetIsOriginAllowed(origin => true) // TODO This needs to be fixed!
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());

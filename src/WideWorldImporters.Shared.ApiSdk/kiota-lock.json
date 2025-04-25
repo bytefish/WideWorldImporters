@@ -1,14 +1,16 @@
 {
-  "descriptionHash": "BC76FCFA73854BFC5BBBF60375482B65860B4B504C82A9BE72B1004C2AA4A5699F884B2AD99DC6EBA2B430C2FD783F85288C8AE07A418E33ABAD1281DA1EDB2E",
+  "descriptionHash": "7617E9F0D4D10793D7C9A4E1F1E78D19215F9425B2589A299635EFD2148EC3CCF9DB1B17D46E750CB1BC5CDE8F4DF65C86FF4BCEDBB230C12B60F95AE67A9E3B",
   "descriptionLocation": "https://localhost:5000/odata/openapi.json",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.14.0",
+  "kiotaVersion": "1.25.1",
   "clientClassName": "ApiClient",
+  "typeAccessModifier": "Public",
   "clientNamespaceName": "WideWorldImporters.Shared.ApiSdk",
   "language": "CSharp",
   "usesBackingStore": false,
   "excludeBackwardCompatible": false,
   "includeAdditionalData": true,
+  "disableSSLValidation": false,
   "serializers": [
     "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
     "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory",

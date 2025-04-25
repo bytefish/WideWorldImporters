@@ -34,6 +34,7 @@ namespace WideWorldImporters.Server.Api.Controllers
 
                 var openApiSettings = new OpenApiConvertSettings
                 {
+                    OpenApiSpecVersion = OpenApiSpecVersion.OpenApi3_0,
                     ServiceRoot = new("https://localhost:5000"),
                     PathPrefix = "odata",
                     EnableKeyAsSegment = true,

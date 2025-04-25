@@ -9,3 +9,4 @@ packages/
 *.DotSettings.user
 *.db
 *.log
+/*.user

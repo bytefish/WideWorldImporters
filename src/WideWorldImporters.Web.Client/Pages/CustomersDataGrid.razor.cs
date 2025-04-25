@@ -48,23 +48,30 @@ namespace WideWorldImporters.Web.Client.Pages
         {
             CustomerProvider = async request =>
             {
-                var response = await GetCustomers(request);
-
-                if (response == null)
+                try
                 {
-                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
-                }
+                    var response = await GetCustomers(request);
 
-                var entities = response.Value;
+                    if (response == null)
+                    {
+                        return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
+                    }
 
-                if (entities == null)
+                    var entities = response.Value;
+
+                    if (entities == null)
+                    {
+                        return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
+                    }
+
+                    int count = response.GetODataCount();
+
+                    return GridItemsProviderResult.From(items: entities, totalItemCount: count);
+                } 
+                catch(Exception e)
                 {
-                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
+                    throw;
                 }
-
-                int count = response.GetODataCount();
-
-                return GridItemsProviderResult.From(items: entities, totalItemCount: count);
             };
 
             return base.OnInitializedAsync();
