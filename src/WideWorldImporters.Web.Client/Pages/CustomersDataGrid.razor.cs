@@ -48,30 +48,23 @@ namespace WideWorldImporters.Web.Client.Pages
         {
             CustomerProvider = async request =>
             {
-                try
+                var response = await GetCustomers(request);
+
+                if (response == null)
                 {
-                    var response = await GetCustomers(request);
-
-                    if (response == null)
-                    {
-                        return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
-                    }
-
-                    var entities = response.Value;
-
-                    if (entities == null)
-                    {
-                        return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
-                    }
-
-                    int count = response.GetODataCount();
-
-                    return GridItemsProviderResult.From(items: entities, totalItemCount: count);
-                } 
-                catch(Exception e)
-                {
-                    throw;
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
                 }
+
+                var entities = response.Value;
+
+                if (entities == null)
+                {
+                    return GridItemsProviderResult.From(items: new List<Customer>(), totalItemCount: 0);
+                }
+
+                int count = response.GetODataCount();
+
+                return GridItemsProviderResult.From(items: entities, totalItemCount: count);
             };
 
             return base.OnInitializedAsync();
@@ -113,11 +106,11 @@ namespace WideWorldImporters.Web.Client.Pages
             return await ApiClient.Odata.Customers.GetAsync(request =>
             {
                 request.QueryParameters.Count = true;
-                
+
                 request.QueryParameters.Top = parameters.Top;
                 request.QueryParameters.Skip = parameters.Skip;
 
-                if(parameters.Expand != null)
+                if (parameters.Expand != null)
                 {
                     request.QueryParameters.Expand = parameters.Expand;
                 }
