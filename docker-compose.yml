@@ -18,7 +18,7 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
-    profiles:  ["db", "dev"]
+    profiles:  ["db", "backend" "dev"]
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "StrongPassword@"
@@ -34,7 +34,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=5000
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Password=SuperStrongPassword
-    profiles:  ["api", "dev"]
+    profiles:  ["api", "backend", "dev"]
     env_file:
       - ./docker/.env
     ports:
