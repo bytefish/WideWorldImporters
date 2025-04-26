@@ -18,7 +18,7 @@ services:
       timeout: 3s
       retries: 10
       start_period: 10s
-    profiles:  ["db", "backend" "dev"]
+    profiles:  ["db", "backend", "dev"]
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "StrongPassword@"
