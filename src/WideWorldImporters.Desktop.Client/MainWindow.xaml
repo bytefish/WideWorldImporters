@@ -25,23 +25,23 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding CustomerId}">
                     <DataGridTextColumn.HeaderTemplate>
-                        <ItemContainerTemplate>
+                        <DataTemplate>
                             <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="CustomerId" PropertyName="CustomerId" Height="40" MinWidth="150" FilterType="IntNumericFilter"></wpfdatagridfilter:FilterableColumnHeader>
-                        </ItemContainerTemplate>
+                        </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding CustomerName}">
                     <DataGridTextColumn.HeaderTemplate>
-                        <ItemContainerTemplate>
+                        <DataTemplate>
                             <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="CustomerName" PropertyName="CustomerName" Height="40" MinWidth="150" FilterType="StringFilter"></wpfdatagridfilter:FilterableColumnHeader>
-                        </ItemContainerTemplate>
+                        </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding LastEditedByNavigation.FullName}">
                     <DataGridTextColumn.HeaderTemplate>
-                        <ItemContainerTemplate>
+                        <DataTemplate>
                             <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="LastEditedBy" PropertyName="LastEditedByNavigation.FullName" Height="40" MinWidth="150" FilterType="StringFilter"></wpfdatagridfilter:FilterableColumnHeader>
-                        </ItemContainerTemplate>
+                        </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
             </DataGrid.Columns>
