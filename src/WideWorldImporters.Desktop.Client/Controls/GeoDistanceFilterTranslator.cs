@@ -23,7 +23,6 @@ namespace WideWorldImporters.Desktop.Client.Controls
         public GeoDistanceFilterTranslator()
         {
             _parsingConfig = GetParsingConfig();
-
         }
 
         public IQueryable<TEntity> Convert<TEntity>(IQueryable<TEntity> source, FilterDescriptor filterDescriptor)
