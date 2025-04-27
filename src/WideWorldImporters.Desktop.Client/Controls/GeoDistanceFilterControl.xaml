@@ -1,0 +1,59 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:WideWorldImporters.Desktop.Client.Controls">
+
+    <Style TargetType="{x:Type controls:GeoDistanceFilterControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:GeoDistanceFilterControl}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Filter Operator:</TextBlock>
+
+                        <ComboBox x:Name="PART_FilterOperators"
+                                  Grid.Row="0" Grid.Column="1"
+                                  Style="{DynamicResource FilterComboBoxStyle}" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Latitude:</TextBlock>
+
+                        <TextBox x:Name="PART_LatitudeTextBox"
+                                 Grid.Row="1" Grid.Column="1"
+                                 Style="{DynamicResource FilterTextBoxStyle}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Longitude:</TextBlock>
+
+                        <TextBox x:Name="PART_LongitudeTextBox"
+                            Grid.Row="2" Grid.Column="1"
+                            Style="{DynamicResource FilterTextBoxStyle}" />
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Distance:</TextBlock>
+
+                        <TextBox x:Name="PART_DistanceTextBox"
+                            Grid.Row="3" Grid.Column="1"
+                            Style="{DynamicResource FilterTextBoxStyle}" />
+
+                        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="PART_ResetButton" 
+                                    Style="{DynamicResource FilterButtonStyle}" />
+                            <Button x:Name="PART_ApplyButton" 
+                                    Style="{DynamicResource FilterButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

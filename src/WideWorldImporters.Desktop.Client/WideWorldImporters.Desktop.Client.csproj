@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <UserSecretsId>fff849d0-9150-40c8-8065-0ec8b1c481f9</UserSecretsId>
   </PropertyGroup>
 
     <ItemGroup>
@@ -36,8 +37,12 @@
     <PackageReference Include="Microsoft.Spatial" Version="8.2.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="9.0.4" />
-    <PackageReference Include="WpfDataGridFilter" Version="0.2.2" />
-    <PackageReference Include="WpfDataGridFilter.DynamicLinq" Version="0.2.2" />
+    <PackageReference Include="WpfDataGridFilter" Version="0.5.2" />
+    <PackageReference Include="WpfDataGridFilter.DynamicLinq" Version="0.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
   </ItemGroup>
 
 </Project>

@@ -2,14 +2,23 @@
 
 using Microsoft.OData.Client;
 using System.Collections.ObjectModel;
+using WideWorldImporters.Desktop.Client.Controls;
 using WideWorldImportersService;
 using WpfDataGridFilter;
 using WpfDataGridFilter.DynamicLinq;
+using WpfDataGridFilter.DynamicLinq.Infrastructure;
+using WpfDataGridFilter.Infrastructure;
 
 namespace WideWorldImporters.Desktop.Client.ViewModels;
 
 public partial class MainWindowViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private IFilterControlProvider _filterControlProvider;
+
+    [ObservableProperty]
+    private IFilterTranslatorProvider _filterTranslatorProvider;
+
     [ObservableProperty]
     private ObservableCollection<Customer> _customers;
 
@@ -86,7 +95,10 @@ public partial class MainWindowViewModel : ObservableObject
     {
         // Creates a new WideWorldImporters Container to query the Service
         Container = new Container(new Uri("https://localhost:5000/odata"));
-        
+
+        // Create a Custom Filter Provider, which is able to resolve 
+        (FilterControlProvider, FilterTranslatorProvider) = GetCustomProviders();
+
         // Holds the DataGridState for the Displayed DataGrid
         DataGridState = dataGridState;
         
@@ -140,15 +152,19 @@ public partial class MainWindowViewModel : ObservableObject
             return;
         }
 
+
+        // Create a Custom Filter Provider, which is able to resolve 
+        (FilterControlProvider, FilterTranslatorProvider) = GetCustomProviders();
+
         DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
             .IncludeCount()
             .Expand(x => x.LastEditedByNavigation)
-            .ApplyDataGridState(DataGridState);
+            .ApplyDataGridState(DataGridState, FilterTranslatorProvider);
 
         // Gets the Response and Data, as can be seen in the Query, we are also including the Count, so we don't run 
         // dozens of queries. We could also try to use the pagination functions of OData I guess.
         QueryOperationResponse<Customer> response = (QueryOperationResponse<Customer>)await dataServiceQuery.ExecuteAsync();
-
+        
         // Get the Total Count, so we can update the First and Last Page.
         TotalItemCount = (int) response.Count;
 
@@ -175,5 +191,21 @@ public partial class MainWindowViewModel : ObservableObject
         IEnumerable<Customer> filteredResult = await dataServiceQuery.ExecuteAsync();
 
         Customers = new ObservableCollection<Customer>(filteredResult);
+    }
+
+    public static (IFilterControlProvider, IFilterTranslatorProvider)  GetCustomProviders()
+    {
+        // Build default Providers
+        (FilterControlProvider filterControlProvider, FilterTranslatorProvider filterTranslatorProvider) = 
+            (new FilterControlProvider(), new FilterTranslatorProvider());
+
+        // Register custom hooks
+        filterControlProvider
+            .AddOrReplace(GeographyFilter.GeoDistanceFilterType, () => new GeoDistanceFilterControl());
+
+        filterTranslatorProvider
+            .AddOrReplace(new GeoDistanceFilterTranslator());
+
+        return (filterControlProvider, filterTranslatorProvider);
     }
 }

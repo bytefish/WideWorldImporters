@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:wpfdatagridfilter="clr-namespace:WpfDataGridFilter.Controls;assembly=WpfDataGridFilter"
+    xmlns:wpfdatagridfilter="clr-namespace:WpfDataGridFilter.Controls;assembly=WpfDataGridFilter" 
+    xmlns:converters="clr-namespace:WideWorldImporters.Desktop.Client.Converters"
     Title="WPF OData Example"
     Width="1100"
     Height="650"
@@ -14,8 +15,10 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
     Loaded="Window_Loaded"
-    Unloaded="Window_Unloaded"
-    >
+    Unloaded="Window_Unloaded">
+    <Window.Resources>
+        <converters:GeographyPointConverter x:Key="GeographyPointConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -34,6 +37,13 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}" HeaderText="CustomerName" PropertyName="CustomerName" Height="40" MinWidth="150" FilterType="StringFilter"></wpfdatagridfilter:FilterableColumnHeader>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Test" Binding="{Binding DeliveryLocation, Converter={StaticResource GeographyPointConverter}}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}"  FilterControlProvider="{Binding ViewModel.FilterControlProvider, ElementName=MainWindowRoot}" HeaderText="Delivery Location" PropertyName="DeliveryLocation" Height="40" MinWidth="150" FilterType="GeoDistanceFilter"></wpfdatagridfilter:FilterableColumnHeader>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>

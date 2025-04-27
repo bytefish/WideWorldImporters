@@ -9,6 +9,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/WpfDataGridFilter;component/WpfDataGridFilter.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/WpfDataGridFilter;component/Theme/Light.xaml" />
+                
+                <!-- Custom Components -->
+                <ResourceDictionary Source="/Controls/GeoDistanceFilterControl.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
