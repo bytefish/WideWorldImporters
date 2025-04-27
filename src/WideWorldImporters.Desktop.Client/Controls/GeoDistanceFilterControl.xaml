@@ -9,7 +9,7 @@
                 <ControlTemplate TargetType="{x:Type controls:GeoDistanceFilterControl}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
                             Grid.Row="2" Grid.Column="1"
                             Style="{DynamicResource FilterTextBoxStyle}" />
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Distance:</TextBlock>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource FilterLabelStyle}">Distance (in Meters):</TextBlock>
 
                         <TextBox x:Name="PART_DistanceTextBox"
                             Grid.Row="3" Grid.Column="1"

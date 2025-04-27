@@ -15,7 +15,7 @@ namespace WideWorldImporters.Desktop.Client.Converters
                 return "-";
             }
 
-            return $"({point.Latitude}, {point.Longitude})"; 
+            return $"({point.Latitude.ToString(CultureInfo.InvariantCulture)}, {point.Longitude.ToString(CultureInfo.InvariantCulture)})"; 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
