@@ -152,10 +152,6 @@ public partial class MainWindowViewModel : ObservableObject
             return;
         }
 
-
-        // Create a Custom Filter Provider, which is able to resolve 
-        (FilterControlProvider, FilterTranslatorProvider) = GetCustomProviders();
-
         DataServiceQuery<Customer> dataServiceQuery = (DataServiceQuery<Customer>)Container.Customers
             .IncludeCount()
             .Expand(x => x.LastEditedByNavigation)
@@ -186,7 +182,6 @@ public partial class MainWindowViewModel : ObservableObject
         PreviousPageCommand.NotifyCanExecuteChanged();
         NextPageCommand.NotifyCanExecuteChanged();
         LastPageCommand.NotifyCanExecuteChanged();
-
 
         IEnumerable<Customer> filteredResult = await dataServiceQuery.ExecuteAsync();
 

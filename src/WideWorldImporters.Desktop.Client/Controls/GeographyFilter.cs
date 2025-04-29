@@ -21,6 +21,7 @@ namespace WideWorldImporters.Desktop.Client.Controls
             public static FilterOperator DistanceGreaterEqualThan = new FilterOperator { Name = nameof(DistanceGreaterEqualThan) };
         }
 
+        // Translations
         public static class Translations
         {
             public static List<Translation<FilterOperator>> FilterOperatorTranslations =
@@ -48,7 +49,6 @@ namespace WideWorldImporters.Desktop.Client.Controls
             filterControlProvider.AddOrReplace(GeoDistanceFilterType, () => new GeoDistanceFilterControl());
 
             return filterControlProvider;
-
         }
     }
 }

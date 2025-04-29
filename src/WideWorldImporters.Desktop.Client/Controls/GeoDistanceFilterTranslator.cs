@@ -3,9 +3,6 @@
 using Microsoft.Spatial;
 using System.Linq.Dynamic.Core;
 using System.Linq.Dynamic.Core.CustomTypeProviders;
-using System.Reflection;
-using System.Xml.Linq;
-using WideWorldImportersService;
 using WpfDataGridFilter.DynamicLinq.Infrastructure;
 using WpfDataGridFilter.Models;
 
@@ -59,8 +56,5 @@ namespace WideWorldImporters.Desktop.Client.Controls
             return parsingConfigWithSpatial;
 
         }
-
     }
-
-
 }

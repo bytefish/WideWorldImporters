@@ -43,7 +43,7 @@
                 <DataGridTextColumn Header="Test" Binding="{Binding DeliveryLocation, Converter={StaticResource GeographyPointConverter}}">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}"  FilterControlProvider="{Binding ViewModel.FilterControlProvider, ElementName=MainWindowRoot}" HeaderText="Delivery Location" PropertyName="DeliveryLocation" Height="40" MinWidth="150" FilterType="GeoDistanceFilter"></wpfdatagridfilter:FilterableColumnHeader>
+                            <wpfdatagridfilter:FilterableColumnHeader DataGridState="{Binding ViewModel.DataGridState, ElementName=MainWindowRoot}"  FilterControlProvider="{Binding ViewModel.FilterControlProvider, ElementName=MainWindowRoot}" IsFilterable="False" HeaderText="Delivery Location" PropertyName="DeliveryLocation" Height="40" MinWidth="150" FilterType="GeoDistanceFilter"></wpfdatagridfilter:FilterableColumnHeader>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>

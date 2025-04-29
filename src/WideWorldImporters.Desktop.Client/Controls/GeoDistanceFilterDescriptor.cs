@@ -25,6 +25,5 @@ namespace WideWorldImporters.Desktop.Client.Controls
         /// Gets or sets the Distance.
         /// </summary>
         public double? Distance { get; set; }
-
     }
 }
