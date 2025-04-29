@@ -32,23 +32,5 @@ namespace WideWorldImporters.Desktop.Client.Controls
                 new Translation<FilterOperator>() { Value = FilterOperators.DistanceGreaterEqualThan, Text = "Distance Greater Equal Than"},
             ];
         }
-
-        public static IFilterTranslatorProvider GetFilterTranslatorProvider()
-        { 
-            FilterTranslatorProvider filterTranslatorProvider = new FilterTranslatorProvider();
-
-            filterTranslatorProvider.AddOrReplace(new GeoDistanceFilterTranslator());
-
-            return filterTranslatorProvider;
-        }
-
-        public static IFilterControlProvider GetFilterControlProvider()
-        {
-            FilterControlProvider filterControlProvider = new FilterControlProvider();
-
-            filterControlProvider.AddOrReplace(GeoDistanceFilterType, () => new GeoDistanceFilterControl());
-
-            return filterControlProvider;
-        }
     }
 }
