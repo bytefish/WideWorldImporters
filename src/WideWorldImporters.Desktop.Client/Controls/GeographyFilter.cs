@@ -1,7 +1,5 @@
 ﻿// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using WpfDataGridFilter.DynamicLinq.Infrastructure;
-using WpfDataGridFilter.Infrastructure;
 using WpfDataGridFilter.Models;
 using WpfDataGridFilter.Translations;
 
